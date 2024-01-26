@@ -37,7 +37,7 @@ function Header({ phoneNumber }) {
             </span> */}
 
             <FaWhatsapp
-              class="text-white text-2xl cursor-pointer hidden md:block"
+              class="text-white text-2xl cursor-pointer"
               onClick={redirectToWhatsApp}
             />
             <span class="" style={{ marginLeft: -8 }}>
