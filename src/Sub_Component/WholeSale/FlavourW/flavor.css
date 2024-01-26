@@ -1,0 +1,94 @@
+#p {
+    line-height: 25px;
+    margin: 0;
+    color: #000000;
+  }
+  #content {
+
+    overflow: hidden;
+  }
+  
+  .item {
+
+    float: left;
+    overflow: hidden;
+    position: relative;
+  }
+  .item img {
+
+    display: block;
+    transition: all 0.5s ease;
+  }
+  
+  /* effect 6 */
+  .text6 {
+    text-align: left;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 0;
+    opacity: 0;
+    color: black;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    border-radius: 0px 0px 24px 24px;
+
+  }
+  
+  .e6:hover .text6 {
+    position: absolute;
+    bottom: 0;
+    opacity: 1;
+    color: black;
+    background: rgb(255, 255, 255);
+
+  }
+
+
+  /* BACKGROUND MOVE */
+.button-background-move {
+  font-size: 16px;
+  font-weight: 200;
+  letter-spacing: 1px;
+/* margin-left: 10px; */
+  padding: 13px 20px 13px;
+  outline: 0;
+  /* border: 1px solid black; */
+  cursor: pointer;
+  position: relative;
+  /* background-color: rgba(0, 0, 0, 0); */
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  background-color: #59A0B8;
+}
+
+.button-background-move:after {
+  content: "";
+  /* background-color: #59A0B8; */
+  border: 1px solid black;
+ 
+  width: 100%;
+  z-index: -1;
+  position: absolute;
+  height: 100%;
+  top: 7px;
+  left: 7px;
+  transition: 0.2s;
+}
+.button-background-move:hover{
+  background-color: #0B428B;
+}
+
+.button-background-move:hover:after {
+  top: 0px;
+  left: 0px;
+
+}
+
+@media (min-width: 768px) {
+  .button-background-move {
+    padding: 13px 50px 13px;
+  }
+}
+  

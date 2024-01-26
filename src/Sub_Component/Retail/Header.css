@@ -1,0 +1,52 @@
+.main2 {
+  text-align: center;
+  height: 30px;
+}
+
+.marq {
+  height: 50px;
+}
+
+.geek1 {
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.geek2 {
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.navbar-toggler {
+  border: none;
+}
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+button.btn-close {
+  background-image: url("https://cdn-icons-png.flaticon.com/512/61/61155.png");
+  border: none;
+}
+button.btn-close:hover {
+  box-shadow: none;
+  scale: 1.2;
+}
+button.btn-close:focus {
+  box-shadow: none;
+}
+.offcanvas-backdrop.show {
+  width: 100%;
+  height: -webkit-fill-available;
+}
+.modal-backdrop.show {
+  width: 100%;
+  height: -webkit-fill-available;
+}
+
+

@@ -1,0 +1,84 @@
+.grid-container {
+  height: 400px;
+  width: 80%;
+  margin: 60px;
+  padding: 20px;
+  /* background-color: rgb(9, 242, 153); */
+  /* border: 2px solid darkblue; */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 0px;
+  row-gap: 0px;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.grid-items {
+  text-align: center;
+  /* padding: 20px; */
+  /* font-size: 20px; */
+  /* border: 2px solid darkblue; */
+  /* background-color: rgb(228, 228, 12); */
+}
+
+#grid1 {
+  grid-row: 1/4;
+}
+
+#grid2 {
+  grid-column: 2 / span 3;
+}
+
+
+
+
+/* CSS */
+.button-view {
+  appearance: button;
+  background-color:#59a0b8;
+  background-image: none;
+  border: 1px solid #59a0b8;
+  box-shadow: #fff 4px 4px 0 0,#000 4px 4px 0 1px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 0 5px 10px 0;
+  overflow: visible;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: none;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.button-view:focus {
+  text-decoration: none;
+}
+
+.button-view:hover {
+  text-decoration: none;
+}
+
+.button-view:active {
+  box-shadow: rgba(0, 0, 0, 0.125) 0 3px 5px inset;
+  outline: 0;
+}
+
+.button-view:not([disabled]):active {
+  box-shadow: #fff 2px 2px 0 0, #000000 2px 2px 0 1px;
+  transform: translate(4px, 4px);
+}
+
+@media (min-width: 768px) {
+  .button-view {
+    padding: 12px 50px;
+  }
+}
+

@@ -1,0 +1,54 @@
+/* #p {
+  line-height: 25px;
+  margin: 0;
+  color: #000000;
+} */
+#content {
+  overflow: hidden;
+  /* padding: 0; */
+  padding-top: 5px;
+  padding-bottom: 18px;
+}
+
+.item {
+  float: left;
+  overflow: hidden;
+  position: relative;
+}
+.item img {
+  display: block;
+  transition: all 0.5s ease;
+}
+
+/* effect 6 */
+.text6 {
+  text-align: left;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding: 0;
+  opacity: 0;
+  color: black;
+  transition: all 0.5s ease;
+  cursor: pointer;
+
+  border-radius: 0px 0px 22px 22px;
+}
+
+.e6:hover .text6 {
+  position: absolute;
+  bottom: 0;
+  opacity: 1;
+  color: black;
+  text-align: left;
+  background: rgb(255, 255, 255);
+}
+
+:where(.css-dev-only-do-not-override-1qhpsh8).ant-drawer .ant-drawer-body {
+  padding: 0;
+}
+
+.ant-drawer-body {
+  padding: 0 !important;
+}
+
