@@ -32,6 +32,7 @@ function AboutUs() {
                     <img
                       src="https://ik.imagekit.io/2nuimwatr/2310-VS-Website-Pages-Disposable-Alternatives%201.png?updatedAt=1706216934828"
                       alt=""
+                      class="hidden md:block"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -44,6 +45,7 @@ function AboutUs() {
                     <img
                       src="https://ik.imagekit.io/2nuimwatr/geek%20vape%20kits%201.png?updatedAt=1706216934581"
                       alt=""
+                      class="hidden md:block"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -56,6 +58,7 @@ function AboutUs() {
                     <img
                       src="https://ik.imagekit.io/2nuimwatr/Flavorless_New%201.png?updatedAt=1706216935409"
                       alt=""
+                      class="hidden md:block"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -69,11 +72,11 @@ function AboutUs() {
               <Col>
                 {" "}
                 <div class=" mt-5  ">
-                  <p class="fs-2 my-3  text-[#59A0B8] font-semibold line">
+                  <p class="fs-2 my-3  text-[#59A0B8] font-semibold line hidden md:block">
                     Welcome!
                   </p>
-                  <p class="fs-3 my-3  text-black font-semibold ">Mission</p>
-                  <p class=" my-2 pr-5 mr-5 text-[#575757] tracking-wider leading-10 fs-5 mb-4">
+                  <p class="fs-3 my-3  text-black font-semibold hidden md:block">Mission</p>
+                  <p class=" my-2 pr-5 mr-5 text-[#575757] tracking-wider hidden md:block leading-10 fs-5 mb-4">
                     At VapingCircle, our mission revolves around empowering
                     individuals to break free from smoking through the adoption
                     of vaping. We understand that transitioning from smoking to
@@ -81,14 +84,14 @@ function AboutUs() {
                     this shift accessible, informative, and successful for
                     everyone.
                   </p>
-                  <button class="bg-[#59A0B8] py-2 px-4 rounded-md font-semibold  text-white text-xl">
+                  <button class="bg-[#59A0B8] py-2 px-4 rounded-md font-semibold hidden md:block text-white text-xl">
                     Contact now
                   </button>
                 </div>
               </Col>
             </Row>
           </Container>
-          <div class="mx-5 md:mx-5 mt-5  md:px-5   block md:hidden">
+          <div class="mx-5 md:mx-5   md:px-5   block md:hidden">
             <p class="fs-2   text-[#59A0B8] font-semibold line">Welcome!</p>
             <p class="fs-3   text-black font-semibold ">Mission</p>
             <p class="    text-[#575757] tracking-wider leading-6 mb-3 fs-5 ">
@@ -172,6 +175,7 @@ function AboutUs() {
                     <img
                       src="https://ik.imagekit.io/2nuimwatr/Rectangle%201285.png?updatedAt=1706216935138"
                       alt=""
+                      class="hidden md:block"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -184,6 +188,7 @@ function AboutUs() {
                     <img
                       src="https://ik.imagekit.io/2nuimwatr/romain-b-PYOgYPnNYO0-unsplash%201.png?updatedAt=1706216933982"
                       alt=""
+                      class="hidden md:block"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -196,6 +201,7 @@ function AboutUs() {
                     <img
                       src="https://ik.imagekit.io/2nuimwatr/cdc-3_OGgbdPIdA-unsplash%201.png?updatedAt=1706216934569"
                       alt=""
+                      class="hidden md:block"
                       style={{
                         width: "100%",
                         height: "100%",
@@ -209,11 +215,11 @@ function AboutUs() {
               <Col>
                 {" "}
                 <div class=" mt-5  ">
-                  <p class="fs-4 my-2 mt-5 text-[#59A0B8] font-semibold line">
+                  <p class="fs-4 my-2 mt-5 text-[#59A0B8] font-semibold line hidden md:block">
                     Convenient Delivery Service
                   </p>
 
-                  <p class=" my-2 mt-5 pr-5 mr-5 text-[#575757] tracking-wider leading-10 fs-5 mb-4">
+                  <p class=" my-2 mt-5 pr-5 mr-5 text-[#575757] hidden md:block tracking-wider leading-10 fs-5 mb-4">
                     For those who prefer the convenience of online shopping,
                     VapingCircle offers a reliable delivery service. Choose from
                     our wide selection of products, place your order online, and
@@ -226,7 +232,7 @@ function AboutUs() {
               </Col>
             </Row>
           </Container>
-          <div class="mx-5 md:mx-5 mt-5  md:px-5 md:hidden block ">
+          <div class="mx-5 md:mx-5  md:px-5 md:hidden block ">
             <p class="fs-4  mt-5 text-[#59A0B8] font-semibold line">
               Convenient Delivery Service
             </p>
@@ -242,44 +248,44 @@ function AboutUs() {
             </p>
           </div>
           <div class="mx-5 md:mx-5 mt-5  md:px-5 md:hidden block ">
-          <div class="grid grid-rows-2  grid-flow-col gap-3">
-                  <div class="row-span-2 col-span-2 ...">
-                    <img
-                      src="https://ik.imagekit.io/2nuimwatr/Rectangle%201285.png?updatedAt=1706216935138"
-                      alt=""
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: "18px",
-                      }}
-                    />
-                  </div>
-                  <div class="col-span-2  ...">
-                    <img
-                      src="https://ik.imagekit.io/2nuimwatr/romain-b-PYOgYPnNYO0-unsplash%201.png?updatedAt=1706216933982"
-                      alt=""
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: "18px",
-                      }}
-                    />
-                  </div>
-                  <div class="col-span-2  ...">
-                    <img
-                      src="https://ik.imagekit.io/2nuimwatr/cdc-3_OGgbdPIdA-unsplash%201.png?updatedAt=1706216934569"
-                      alt=""
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        borderRadius: "18px",
-                      }}
-                    />
-                  </div>
-                </div>
+            <div class="grid grid-rows-2  grid-flow-col gap-3">
+              <div class="row-span-2 col-span-2 ...">
+                <img
+                  src="https://ik.imagekit.io/2nuimwatr/Rectangle%201285.png?updatedAt=1706216935138"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "18px",
+                  }}
+                />
+              </div>
+              <div class="col-span-2  ...">
+                <img
+                  src="https://ik.imagekit.io/2nuimwatr/romain-b-PYOgYPnNYO0-unsplash%201.png?updatedAt=1706216933982"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "18px",
+                  }}
+                />
+              </div>
+              <div class="col-span-2  ...">
+                <img
+                  src="https://ik.imagekit.io/2nuimwatr/cdc-3_OGgbdPIdA-unsplash%201.png?updatedAt=1706216934569"
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "18px",
+                  }}
+                />
+              </div>
+            </div>
           </div>
 
           <div class="mx-5 md:mx-5 mt-5  md:px-5 ">
