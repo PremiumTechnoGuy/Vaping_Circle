@@ -62,7 +62,7 @@ const Footer = () => {
               <span className="lg:ml-[10px]">
                 {" "}
                 <Link to="/age_varification" class="hover:text-black">
-                  Age Varification
+                Age Verification
                 </Link>
               </span>{" "}
               <br />

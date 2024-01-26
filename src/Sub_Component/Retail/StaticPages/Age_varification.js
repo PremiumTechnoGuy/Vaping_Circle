@@ -9,7 +9,7 @@ const Age_varification = () => {
       <div class="mt-[7rem] md:mt-[13rem] ">
         <Fixed_Component />{" "}
         <h1 class="fs-1 font-bold flex justify-center items-center text-white text-center gradident_bg h-[10rem] md:h-[15rem]">
-          Age Varification
+        Age Verification
         </h1>
         <div class="mx-5 md:mx-5 mt-5 md:pt-5 md:px-5 ">
           <p class="fs-4 text-black font-semibold line">
