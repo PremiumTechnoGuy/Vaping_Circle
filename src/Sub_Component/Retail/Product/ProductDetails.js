@@ -1,7 +1,7 @@
 import "./productpage.css";
 import { Container, Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -13,12 +13,16 @@ import ProductServices from "./ProductServices";
 import Fixed_Component from "../Fixed_Component";
 import { Drawer } from "antd";
 import { Select, Space } from "antd";
+import { apiUrl } from "../../../data/env";
 
-function ProductDetails() {
+function ProductDetails({ products }) {
+  const { currentProdId } = useParams();
+  const [filteredProd] = products?.filter((prod) => prod._id === currentProdId);
+
   const [openOpt, setOpenOpt] = useState(false);
   const [count, setCount] = useState(1);
 
-  const handleChange = (value: string) => {
+  const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
 
@@ -102,7 +106,8 @@ function ProductDetails() {
                     <Col md={8} className="hidden md:block">
                       <img
                         class="shadow-md h-full "
-                        src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4.webp?updatedAt=1704644605618"
+                        alt="imageprod"
+                        src={`${apiUrl}/images/${filteredProd.coverImage}`}
                       />
                     </Col>
                   </Row>
@@ -145,26 +150,27 @@ function ProductDetails() {
               {/* -----deatils------ */}
               <Col>
                 <p class="fs-2 px-2 py-3 font-semibold text-black">
-                  ELFA Pod Kit by Elf Bar{" "}
+                  {filteredProd.name}{" "}
                 </p>
-                <p class="text-[#707070] text-sm px-2">
+                {/* <p class="text-[#707070] text-sm px-2">
                   Brand :{" "}
                   <span class="text-[#59A0B8] font-bold text-[13px]">
                     Elf Bar
                   </span>
-                </p>
+                </p> */}
                 <p class="text-[#707070] text-[15px] px-2 pt-2">
-                  The ELFA Pro Pod Kit is the brand new pod vape kit by Elf Bar.
+                  {/* The ELFA Pro Pod Kit is the brand new pod vape kit by Elf Bar.
                   It has a built-in <br />
                   500mAh battery that lasts an entire day of vaping before
-                  needing to be recharged.
+                  needing to be recharged. */}
+                  {filteredProd?.description}
                 </p>
                 <p class="text-xl py-3 font-semibold px-2 text-[#59A0B8] mb-2">
-                  £7.95
+                  £{filteredProd.basePrice}
                 </p>
                 <Container className="border-y py-3 mx-auto text-center p-0 m-0">
                   <Row className="flex  flex-wrap">
-                    <Col
+                    {/* <Col
                       className="flex py-2"
                       xs={12}
                       sm={12}
@@ -180,22 +186,26 @@ function ProductDetails() {
                           Choose Flavor
                         </span>
                       </Button>
-                    </Col>
-                    <Col
-                      className="flex py-2 "
-                      xs={12}
-                      sm={12}
-                      md={6}
-                      lg={6}
-                      xl={6}
-                    >
-                      <Button
-                        className="cursor-pointer border-[#59A0B8] font-semibold bg-[#59A0B8] text-white grow hover:border-[#59A0B8] hover:bg-[#59A0B8] py-3 px-4 rounded-none text-md"
-                        onClick={showDrawer}
-                      >
-                        Choose Strenght
-                      </Button>
-                    </Col>
+                    </Col> */}
+                    {filteredProd.variants.map((variant) => {
+                      return (
+                        <Col
+                          className="flex py-2 "
+                          xs={12}
+                          sm={12}
+                          md={6}
+                          lg={6}
+                          xl={6}
+                        >
+                          <Button
+                            className="cursor-pointer border-[#59A0B8] font-semibold bg-[#59A0B8] text-white grow hover:border-[#59A0B8] hover:bg-[#59A0B8] py-3 px-4 rounded-none text-md"
+                            // onClick={showDrawer}
+                          >
+                            {variant.variantType}
+                          </Button>
+                        </Col>
+                      );
+                    })}
 
                     {/* <Col
                       className="flex py-1 "

@@ -5,7 +5,7 @@ import "./productpage.css";
 import { MdArrowForward } from "react-icons/md";
 import { MdArrowBack } from "react-icons/md";
 import Footer from "../Footer";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useParams } from "react-router-dom";
 import Slider from "react-slick";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
@@ -15,8 +15,25 @@ import Pagination from "react-bootstrap/Pagination";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { FaRegSquare } from "react-icons/fa";
 import Fixed_Component from "../Fixed_Component.js";
+import { apiUrl } from "../../../data/env.js";
 
-function ProductPage() {
+function ProductPage({
+  products,
+  currentCategory,
+  categories,
+  setCurrentProductId,
+}) {
+  const { categoryId, currentCategoryName } = useParams();
+  console.log("hellllll", categoryId);
+
+  const filteredProducts = products?.filter(
+    (prod) => prod.category === categoryId
+  );
+
+  // const filteredCategory = categories?.filter(cat => cat._id === currentCategory);
+
+  // console.log("allllllll", products);
+
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
@@ -122,7 +139,9 @@ function ProductPage() {
   return (
     <div class="mt-36 md:mt-52">
       <Fixed_Component />
-      <h2 class="fs-1 py-5 font-bold text-center text-[#59A0B8]">E-Liquids</h2>
+      <h2 class="fs-1 py-5 font-bold text-center text-[#59A0B8]">
+        {currentCategoryName}
+      </h2>
 
       <Container fluid>
         <Row>
@@ -1108,9 +1127,9 @@ function ProductPage() {
 
       <Container fluid class="flex justify-center items-baseline">
         <Row xs={2} md={4}>
-          {data.map((item) => (
+          {filteredProducts?.map((item) => (
             <Col
-              key={item.id}
+              key={item._id}
               class="flex justify-center items-center"
               style={{
                 display: "flex",
@@ -1119,15 +1138,16 @@ function ProductPage() {
               }}
             >
               <div id="content" class="mx-3 my-4 relative product-card">
-                <Link to="/productDetails">
+                <Link to={`/productDetails/${item._id}`}>
                   {" "}
                   <img
-                    src={item.image}
+                    src={`${apiUrl}/images/${item.coverImage}`}
                     alt={item.name}
                     class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150 bg-[#0000000D] rounded-lg shadow-md product-image"
                   />{" "}
                 </Link>
-                <Link to="/cartView">
+                {/* <Link to="/cartView"> */}
+                <Link to={`/productDetails/${item._id}`}>
                   <button class="bg-white text-black px-4 py-2 font-semibold rounded-full add-to-cart-btn md:block hidden absolute top-[65%] left-[50%]">
                     Add to Cart
                   </button>
@@ -1150,7 +1170,7 @@ function ProductPage() {
                   Multi Buy
                 </p>
                 <div>
-                  <Link to="/productDetails">
+                  <Link to={`/productDetails/${item._id}`}>
                     {" "}
                     <p
                       class="text-black font-semibold  py-2"
@@ -1164,7 +1184,7 @@ function ProductPage() {
                   class="text-[#59A0B8] font-semibold "
                   style={{ fontSize: 15 }}
                 >
-                  {item.price}
+                  {item.basePrice}
                 </p>
               </div>
             </Col>

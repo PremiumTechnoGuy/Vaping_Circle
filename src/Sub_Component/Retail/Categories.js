@@ -6,7 +6,7 @@ import { Row, Col, Card, Container } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 import { IoIosArrowRoundForward } from "react-icons/io";
 
-function Categories() {
+function Categories({ categories, setCurrentCategory }) {
   return (
     <div>
       <h1 class="text-3xl font-bold mb-5  mt-5 text-center">Categories</h1>
@@ -23,9 +23,14 @@ function Categories() {
                 src="https://ik.imagekit.io/p2slevyg1/eliwuid@2x.png?updatedAt=1704225541370"
               />
               <div class="absolute md:bottom-[4rem] lg:bottom-[6rem] xl:bottom-[7rem] md:left-[4rem] lg:left-[8rem] xl:left-[11rem] 2xl:left-[12rem]">
-                <Link to="/productPage">
-                  <button class="px-5 py-3   z-5 fs-6   bg-white font-bold shadow-md  rounded-md text-[#59A0B8]">
-                    E-LIQUIDS
+                <Link
+                  to={`/productPage/${categories[0]?._id}/${categories[0]?.name}`}
+                >
+                  <button
+                    class="px-5 py-3   z-5 fs-6   bg-white font-bold shadow-md  rounded-md text-[#59A0B8]"
+                    onClick={() => setCurrentCategory(categories[0]?._id)}
+                  >
+                    {categories[0]?.name || "E-Liquids"}
                   </button>
                 </Link>
               </div>
@@ -40,9 +45,16 @@ function Categories() {
                     src="https://ik.imagekit.io/p2slevyg1/banner%20(1).png?updatedAt=1704225484839"
                   />
                   <div class="absolute md:bottom-[7rem] lg:bottom-[8rem] xl:bottom-[9rem] md:left-[7rem] lg:left-[13rem] xl:left-[17rem] 2xl:left-[17rem]">
-                    <button class="px-5 py-3 z-5 absolute bg-white font-bold shadow-md fs-6 rounded-md text-[#59A0B8]">
-                      DISPOSABLE
-                    </button>
+                    <Link
+                      to={`/productPage/${categories[1]?._id}/${categories[1]?.name}`}
+                    >
+                      <button
+                        class="px-5 py-3 z-5 absolute bg-white font-bold shadow-md fs-6 rounded-md text-[#59A0B8]"
+                        onClick={() => setCurrentCategory(categories[1]?._id)}
+                      >
+                        {categories[1]?.name || "Vape"}
+                      </button>
+                    </Link>
                   </div>
                 </Col>
                 <Col md={6} style={{ position: "relative" }}>
@@ -54,9 +66,16 @@ function Categories() {
                     src="https://ik.imagekit.io/p2slevyg1/refill.png?updatedAt=1704225483845"
                   />{" "}
                   <div class="absolute md:bottom-[7rem] lg:bottom-[8rem] xl:bottom-[8rem] md:left-[3rem] lg:left-[3rem] xl:left-[6rem] 2xl:left-[6rem]">
-                    <button class="px-4 py-3 md:w-[7rem] lg:w-[11rem]  z-5 absolute bg-white font-bold shadow-md lg:text-lg md:text-sm rounded-md text-[#59A0B8]">
-                      REFILL & PODS
-                    </button>
+                    <Link
+                      to={`/productPage/${categories[2]?._id}/${categories[2]?._id}`}
+                    >
+                      <button
+                        class="px-4 py-3 md:w-[7rem] lg:w-[11rem]  z-5 absolute bg-white font-bold shadow-md lg:text-lg md:text-sm rounded-md text-[#59A0B8]"
+                        onClick={() => setCurrentCategory(categories[2]?._id)}
+                      >
+                        {categories[2]?.name || "Kits"}
+                      </button>
+                    </Link>
                   </div>
                 </Col>
                 <Col md={6} style={{ position: "relative" }}>
@@ -68,9 +87,16 @@ function Categories() {
                   />
                   <div class="absolute md:bottom-[6rem] lg:bottom-[8rem] xl:bottom-[8rem] md:left-[2rem] lg:left-[5rem] xl:left-[7rem] 2xl:left-[7rem]">
                     {" "}
-                    <button class="px-5 py-3  z-5 absolute bg-white font-bold shadow-md fs-6 rounded-md text-[#59A0B8]">
-                      MODS
-                    </button>
+                    <Link
+                      to={`/productPage/${categories[3]?._id}/${categories[3]?._id}`}
+                    >
+                      <button
+                        class="px-5 py-3  z-5 absolute bg-white font-bold shadow-md fs-6 rounded-md text-[#59A0B8]"
+                        onClick={() => setCurrentCategory(categories[3]?._id)}
+                      >
+                        {categories[3]?.name || "Mods"}
+                      </button>
+                    </Link>
                   </div>
                 </Col>
               </Row>

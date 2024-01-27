@@ -14,15 +14,20 @@ import JustArrived from "../Sub_Component/Retail/JustArrived";
 import { data } from "./../data/data.js";
 import Term_Conditions from "../Sub_Component/Retail/StaticPages/Term_Conditions.js";
 import Fixed_Component from "../Sub_Component/Retail/Fixed_Component.js";
+import axios from "axios";
+import { apiUrl } from "../data/env.js";
 
-function Home() {
+function Home({ setCurrentCategory, categories, setCategories }) {
   return (
     <div class="absolute">
       <div>
         {/* <Term_Conditions/> */}
         <Fixed_Component />
         <LandingSection />
-        <Categories />
+        <Categories
+          categories={categories}
+          setCurrentCategory={setCurrentCategory}
+        />
         <Servcies_V />
         <Super />
         <Flavor data={data} />

@@ -23,15 +23,44 @@ import Return_Policy from "./Sub_Component/Retail/StaticPages/Return_Policy";
 import Age_varification from "./Sub_Component/Retail/StaticPages/Age_varification";
 import Privacy_Policy from "./Sub_Component/Retail/StaticPages/Privacy_Policy";
 import Compliance from "./Sub_Component/Retail/StaticPages/Compliance";
+import axios from "axios";
+import { apiUrl } from "./data/env";
 
 const App = () => {
+  const [products, setProducts] = React.useState([]);
+  const [categories, setCategories] = React.useState([]);
+  const [currentCategory, setCurrentCategory] = React.useState("");
+
+  const [currentProductId, setCurrentProductId] = React.useState("");
+
+  React.useEffect(() => {
+    axios
+      .get(`https://api2.foodeliciousbristol.co.uk/api/v1/product`)
+      .then((res) => setProducts(res.data.data))
+      .catch((err) => console.log(err));
+
+    axios
+      .get(`${apiUrl}/api/v1/category`)
+      .then((res) => setCategories(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <>
       <BrowserRouter>
         {/* <Fixed_Component /> */}
         <ScrollToTop>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={
+                <Home
+                  setCurrentCategory={setCurrentCategory}
+                  categories={categories}
+                  setCategories={setCategories}
+                />
+              }
+            />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profilePage" element={<ProfilePage />} />
@@ -39,9 +68,35 @@ const App = () => {
             <Route path="/myOrder" element={<MyOrder />} />
             <Route path="/vapedeals" element={<VapesDeal />} />
             <Route path="/flavour_page" element={<FlavourPage />} />
-            <Route path="/category_page" element={<CategoryPage />} />
-            <Route path="/productPage" element={<ProductPage />} />
-            <Route path="/productDetails" element={<ProductDetails />} />
+            <Route
+              path="/category_page"
+              element={
+                <CategoryPage
+                  setCurrentCategory={setCurrentCategory}
+                  categories={categories}
+                />
+              }
+            />
+            <Route
+              path="/productPage/:categoryId/:currentCategoryName"
+              element={
+                <ProductPage
+                  products={products}
+                  currentCategory={currentCategory}
+                  categories={categories}
+                  setCurrentProductId={setCurrentProductId}
+                />
+              }
+            />
+            <Route
+              path="/productDetails/:currentProdId"
+              element={
+                <ProductDetails
+                  currentProductId={currentProductId}
+                  products={products}
+                />
+              }
+            />
             <Route path="/cartView" element={<CartPage />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/aboutus" element={<AboutUs />} />
