@@ -203,7 +203,7 @@ function ProductDetails({ products }) {
                         >
                           <Button
                             className="cursor-pointer border-[#59A0B8] font-semibold bg-[#59A0B8] text-white grow hover:border-[#59A0B8] hover:bg-[#59A0B8] py-3 px-4 rounded-none text-md"
-                            // onClick={showDrawer}
+                            onClick={showDrawer}
                           >
                             {variant.variantType}
                           </Button>
@@ -278,15 +278,7 @@ function ProductDetails({ products }) {
                 </div>{" "}
                 {open ? (
                   <p className="text-[#383838] text-[15px] px-2  pt-3 py-3  flex ">
-                    The Lorem ipsum text is derived from sections 1.10.32 and
-                    1.10.33 of Cicero's De finibus bonorum et malorum.The
-                    physical source may have been the 1914 Loeb Classical
-                    Library edition of De finibus, where the Latin text,
-                    presented on the left-hand (even) pages, breaks off on page
-                    34 with "Neque porro quisquam est qui do-" and continues on
-                    page 36 with "lorem ipsum ...", suggesting that the galley
-                    type of that page was mixed up to make the dummy text seen
-                    today.
+                    {filteredProd.description}
                   </p>
                 ) : null}
                 <div
@@ -304,12 +296,7 @@ function ProductDetails({ products }) {
                     The Lorem ipsum text is derived from sections 1.10.32 and
                     1.10.33 of Cicero's De finibus bonorum et malorum.The
                     physical source may have been the 1914 Loeb Classical
-                    Library edition of De finibus, where the Latin text,
-                    presented on the left-hand (even) pages, breaks off on page
-                    34 with "Neque porro quisquam est qui do-" and continues on
-                    page 36 with "lorem ipsum ...", suggesting that the galley
-                    type of that page was mixed up to make the dummy text seen
-                    today.
+                    Library.
                   </p>
                 ) : null}
                 <div
@@ -324,15 +311,9 @@ function ProductDetails({ products }) {
                 </div>{" "}
                 {open3 ? (
                   <p className="text-[#383838] text-[15px] px-2  pt-3 py-3  flex ">
-                    The Lorem ipsum text is derived from sections 1.10.32 and
-                    1.10.33 of Cicero's De finibus bonorum et malorum.The
-                    physical source may have been the 1914 Loeb Classical
-                    Library edition of De finibus, where the Latin text,
-                    presented on the left-hand (even) pages, breaks off on page
-                    34 with "Neque porro quisquam est qui do-" and continues on
-                    page 36 with "lorem ipsum ...", suggesting that the galley
-                    type of that page was mixed up to make the dummy text seen
-                    today.
+                    Neque porro quisquam est qui do- and continues on page 36
+                    with "lorem ipsum ...", suggesting that the galley type of
+                    that page was mixed up to make the dummy text seen today.
                   </p>
                 ) : null}
               </div>
@@ -441,7 +422,22 @@ function ProductDetails({ products }) {
             open={openOpt}
             style={{ padding: "0" }}
           >
-            <div class="px-2 py-3">
+            {filteredProd.variants.map((variant) => {
+              return (
+                <div class="px-2 py-3">
+                  {" "}
+                  <Select
+                    defaultValue={variant.variantType}
+                    style={{ width: "100%" }}
+                    onChange={handleChange}
+                    options={variant.options.map((opt) => {
+                      return { value: opt.optionValue, label: opt.optionValue };
+                    })}
+                  />
+                </div>
+              );
+            })}
+            {/* <div class="px-2 py-3">
               {" "}
               <Select
                 defaultValue="Choose your flavor & Stenght"
@@ -454,9 +450,9 @@ function ProductDetails({ products }) {
                   { value: "Navy Blue", label: "Navy Blue" },
                 ]}
               />
-            </div>
+            </div> */}
 
-            <div class="px-2 py-3">
+            {/* <div class="px-2 py-3">
               <Select
                 defaultValue="Strength"
                 style={{ width: "100%" }}
@@ -467,7 +463,7 @@ function ProductDetails({ products }) {
                   { value: "9mg", label: "9mg" },
                 ]}
               />
-            </div>
+            </div> */}
 
             <button class="absolute bottom-0 right-0 bg-[#59a0b8] py-1 px-3 rounded-md text-[18px] m-2 font-semibold text-white">
               Save
