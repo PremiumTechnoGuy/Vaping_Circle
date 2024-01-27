@@ -84,22 +84,26 @@ function ProductDetails({ products }) {
                       <div class="d-flex flex-col gap-3 p-2 px-5 ">
                         <img
                           class="w-36 h-28 shadow-md"
-                          src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit1.webp?updatedAt=1704644757475"
+                          alt="Product Image1"
+                          // src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit1.webp?updatedAt=1704644757475"
                         />
 
                         <img
                           class="w-36 h-28 shadow-md"
-                          src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4_1.webp?updatedAt=1704644829533"
+                          alt="Product Image2"
+                          // src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4_1.webp?updatedAt=1704644829533"
                         />
 
                         <img
                           class="w-36 h-28 shadow-md"
-                          src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit3.webp?updatedAt=1704644899350"
+                          alt="Product Image3"
+                          // src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit3.webp?updatedAt=1704644899350"
                         />
 
                         <img
                           class="w-36 h-24 shadow-md"
-                          src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4.webp?updatedAt=1704644605618"
+                          alt="Product Image4"
+                          // src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4.webp?updatedAt=1704644605618"
                         />
                       </div>
                     </Col>
