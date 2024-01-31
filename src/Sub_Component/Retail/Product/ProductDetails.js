@@ -111,7 +111,7 @@ function ProductDetails({ products }) {
                       <img
                         class="shadow-md h-full "
                         alt="imageprod"
-                        src={`${apiUrl}/images/${filteredProd.coverImage}`}
+                        src={filteredProd.coverImage}
                       />
                     </Col>
                   </Row>
