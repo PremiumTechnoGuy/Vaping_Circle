@@ -35,7 +35,7 @@ const App = () => {
 
   React.useEffect(() => {
     axios
-      .get(`https://api2.foodeliciousbristol.co.uk/api/v1/product`)
+      .get(`${apiUrl}/api/v1/product`)
       .then((res) => setProducts(res.data.data))
       .catch((err) => console.log(err));
 

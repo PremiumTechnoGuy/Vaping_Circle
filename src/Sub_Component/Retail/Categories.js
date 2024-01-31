@@ -67,7 +67,7 @@ function Categories({ categories, setCurrentCategory }) {
                   />{" "}
                   <div class="absolute md:bottom-[7rem] lg:bottom-[8rem] xl:bottom-[8rem] md:left-[3rem] lg:left-[3rem] xl:left-[6rem] 2xl:left-[6rem]">
                     <Link
-                      to={`/productPage/${categories[2]?._id}/${categories[2]?._id}`}
+                      to={`/productPage/${categories[2]?._id}/${categories[2]?.name}`}
                     >
                       <button
                         class="px-4 py-3 md:w-[7rem] lg:w-[11rem]  z-5 absolute bg-white font-bold shadow-md lg:text-lg md:text-sm rounded-md text-[#59A0B8]"
@@ -88,7 +88,7 @@ function Categories({ categories, setCurrentCategory }) {
                   <div class="absolute md:bottom-[6rem] lg:bottom-[8rem] xl:bottom-[8rem] md:left-[2rem] lg:left-[5rem] xl:left-[7rem] 2xl:left-[7rem]">
                     {" "}
                     <Link
-                      to={`/productPage/${categories[3]?._id}/${categories[3]?._id}`}
+                      to={`/productPage/${categories[3]?._id}/${categories[3]?.name}`}
                     >
                       <button
                         class="px-5 py-3  z-5 absolute bg-white font-bold shadow-md fs-6 rounded-md text-[#59A0B8]"
