@@ -29,19 +29,25 @@ import { apiUrl } from "./data/env";
 const App = () => {
   const [products, setProducts] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
+  const [filters, setFilters] = React.useState([]);
   const [currentCategory, setCurrentCategory] = React.useState("");
 
   const [currentProductId, setCurrentProductId] = React.useState("");
 
   React.useEffect(() => {
     axios
-      .get(`${apiUrl}/api/v1/product`)
-      .then((res) => setProducts(res.data.data))
+      .get(`${apiUrl}/api/v1/category?sort=priority`)
+      .then((res) => setCategories(res.data.data))
       .catch((err) => console.log(err));
 
     axios
-      .get(`${apiUrl}/api/v1/category`)
-      .then((res) => setCategories(res.data.data))
+      .get(`${apiUrl}/api/v1/filter?sort=priority`)
+      .then((res) => setFilters(res.data.data))
+      .catch((err) => console.error(err));
+
+    axios
+      .get(`${apiUrl}/api/v1/product`)
+      .then((res) => setProducts(res.data.data))
       .catch((err) => console.log(err));
   }, []);
 
@@ -58,6 +64,7 @@ const App = () => {
                   setCurrentCategory={setCurrentCategory}
                   categories={categories}
                   setCategories={setCategories}
+                  filters={filters}
                 />
               }
             />

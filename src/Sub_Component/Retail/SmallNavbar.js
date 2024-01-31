@@ -203,23 +203,20 @@ function CategoryComponent({ allFilters, category }) {
   );
 }
 
-function SmallNavbar() {
-  const [categories, setCategories] = React.useState([]);
-  const [filters, setFilters] = React.useState([]);
+function SmallNavbar({ filters, categories }) {
+  // React.useEffect(() => {
+  //   axios
+  //     .get(`${apiUrl}/api/v1/category?sort=priority`)
+  //     .then((res) => setCategories(res.data.data))
+  //     .catch((err) => console.error(err));
 
-  React.useEffect(() => {
-    axios
-      .get(`${apiUrl}/api/v1/category?sort=priority`)
-      .then((res) => setCategories(res.data.data))
-      .catch((err) => console.error(err));
+  //   axios
+  //     .get(`${apiUrl}/api/v1/filter?sort=priority`)
+  //     .then((res) => setFilters(res.data.data))
+  //     .catch((err) => console.error(err));
 
-    axios
-      .get(`${apiUrl}/api/v1/filter?sort=priority`)
-      .then((res) => setFilters(res.data.data))
-      .catch((err) => console.error(err));
-
-    console.log("cats", categories, "filters", filters);
-  }, []);
+  //   console.log("cats", categories, "filters", filters);
+  // }, []);
 
   return (
     <div

@@ -17,12 +17,12 @@ import Fixed_Component from "../Sub_Component/Retail/Fixed_Component.js";
 import axios from "axios";
 import { apiUrl } from "../data/env.js";
 
-function Home({ setCurrentCategory, categories, setCategories }) {
+function Home({ setCurrentCategory, categories, setCategories, filters }) {
   return (
     <div class="absolute">
       <div>
         {/* <Term_Conditions/> */}
-        <Fixed_Component />
+        <Fixed_Component categories={categories} filters={filters} />
         <LandingSection />
         <Categories
           categories={categories}
