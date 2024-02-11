@@ -1184,7 +1184,7 @@ function ProductPage({
                   class="text-[#59A0B8] font-semibold "
                   style={{ fontSize: 15 }}
                 >
-                  {item.basePrice}
+                  {item.basePrice}£
                 </p>
               </div>
             </Col>
