@@ -82,36 +82,20 @@ function ProductDetails({ products }) {
                   <Row>
                     <Col md={4} className="hidden md:block">
                       <div class="d-flex flex-col gap-3 p-2 px-5 ">
-                        <img
-                          class="w-36 h-28 shadow-md"
-                          alt="Product Image1"
-                          // src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit1.webp?updatedAt=1704644757475"
-                        />
-
-                        <img
-                          class="w-36 h-28 shadow-md"
-                          alt="Product Image2"
-                          // src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4_1.webp?updatedAt=1704644829533"
-                        />
-
-                        <img
-                          class="w-36 h-28 shadow-md"
-                          alt="Product Image3"
-                          // src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit3.webp?updatedAt=1704644899350"
-                        />
-
-                        <img
-                          class="w-36 h-24 shadow-md"
-                          alt="Product Image4"
-                          // src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4.webp?updatedAt=1704644605618"
-                        />
+                        {filteredProd?.images?.map((url, i) => (
+                          <img
+                            class="w-36 h-28 shadow-md"
+                            alt={`Product Img ${i}`}
+                            src={url}
+                          />
+                        ))}
                       </div>
                     </Col>
                     <Col md={8} className="hidden md:block">
                       <img
                         class="shadow-md h-full "
                         alt="imageprod"
-                        src={filteredProd.coverImage}
+                        src={filteredProd?.coverImage}
                       />
                     </Col>
                   </Row>
@@ -154,7 +138,7 @@ function ProductDetails({ products }) {
               {/* -----deatils------ */}
               <Col>
                 <p class="fs-2 px-2 py-3 font-semibold text-black">
-                  {filteredProd.name}{" "}
+                  {filteredProd?.name}{" "}
                 </p>
                 {/* <p class="text-[#707070] text-sm px-2">
                   Brand :{" "}
@@ -170,7 +154,7 @@ function ProductDetails({ products }) {
                   {filteredProd?.description}
                 </p>
                 <p class="text-xl py-3 font-semibold px-2 text-[#59A0B8] mb-2">
-                  £{filteredProd.basePrice}
+                  £{filteredProd?.basePrice}
                 </p>
                 <Container className="border-y py-3 mx-auto text-center p-0 m-0">
                   <Row className="flex  flex-wrap">
@@ -191,7 +175,7 @@ function ProductDetails({ products }) {
                         </span>
                       </Button>
                     </Col> */}
-                    {filteredProd.variants.map((variant) => {
+                    {filteredProd?.variants?.map((variant) => {
                       return (
                         <Col
                           className="flex py-2 "
@@ -278,7 +262,7 @@ function ProductDetails({ products }) {
                 </div>{" "}
                 {open ? (
                   <p className="text-[#383838] text-[15px] px-2  pt-3 py-3  flex ">
-                    {filteredProd.description}
+                    {filteredProd?.description}
                   </p>
                 ) : null}
                 <div
@@ -422,7 +406,7 @@ function ProductDetails({ products }) {
             open={openOpt}
             style={{ padding: "0" }}
           >
-            {filteredProd.variants.map((variant) => {
+            {filteredProd?.variants.map((variant) => {
               return (
                 <div class="px-2 py-3">
                   {" "}
