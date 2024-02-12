@@ -4,10 +4,10 @@ import Card from "react-bootstrap/Card";
 import { Container, Row, Col } from "react-bootstrap";
 import Footer from "./Footer";
 
-function VapesDeal() {
+function VapesDeal({ categories, filters }) {
   return (
     <div>
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
 
       <div className="mb-5" style={{ marginTop: 184 }}>
         <h1 class="fs-2 font-bold mb-5  text-center md:hidden block">

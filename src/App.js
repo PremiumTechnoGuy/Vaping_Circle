@@ -70,17 +70,37 @@ const App = () => {
             />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profilePage" element={<ProfilePage />} />
-            <Route path="/setting" element={<Setting />} />
-            <Route path="/myOrder" element={<MyOrder />} />
-            <Route path="/vapedeals" element={<VapesDeal />} />
-            <Route path="/flavour_page" element={<FlavourPage />} />
+            <Route
+              path="/profilePage"
+              element={
+                <ProfilePage categories={categories} filters={filters} />
+              }
+            />
+            <Route
+              path="/setting"
+              element={<Setting categories={categories} filters={filters} />}
+            />
+            <Route
+              path="/myOrder"
+              element={<MyOrder categories={categories} filters={filters} />}
+            />
+            <Route
+              path="/vapedeals"
+              element={<VapesDeal categories={categories} filters={filters} />}
+            />
+            <Route
+              path="/flavour_page"
+              element={
+                <FlavourPage categories={categories} filters={filters} />
+              }
+            />
             <Route
               path="/category_page"
               element={
                 <CategoryPage
                   setCurrentCategory={setCurrentCategory}
                   categories={categories}
+                  filters={filters}
                 />
               }
             />
@@ -91,6 +111,7 @@ const App = () => {
                   products={products}
                   currentCategory={currentCategory}
                   categories={categories}
+                  filters={filters}
                   setCurrentProductId={setCurrentProductId}
                 />
               }
@@ -101,12 +122,17 @@ const App = () => {
                 <ProductDetails
                   currentProductId={currentProductId}
                   products={products}
+                  categories={categories}
+                  filters={filters}
                 />
               }
             />
             <Route path="/cartView" element={<CartPage />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/aboutus" element={<AboutUs />} />
+            <Route
+              path="/aboutus"
+              element={<AboutUs categories={categories} filters={filters} />}
+            />
             <Route path="/term_conditions" element={<Term_Conditions />} />
             <Route path="/age_varification" element={<Age_varification />} />
             <Route path="/privacy_policy" element={<Privacy_Policy />} />

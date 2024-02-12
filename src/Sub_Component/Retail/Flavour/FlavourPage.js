@@ -7,7 +7,7 @@ import Fixed_Component from "../Fixed_Component.js";
 import React, { useState } from "react";
 import { Button, Drawer } from "antd";
 
-function FlavourPage() {
+function FlavourPage({ filters, categories }) {
   const [open, setOpen] = useState(false);
 
   const showDrawer = () => {
@@ -21,7 +21,7 @@ function FlavourPage() {
   return (
     <div>
       <div class="mt-36 md:mt-64 mb-5">
-        <Fixed_Component />{" "}
+        <Fixed_Component categories={categories} filters={filters} />{" "}
         <h1 class="fs-1 font-bold mb-5 text-center">Flavour</h1>
         <Container fluid class="flex justify-center items-center mb-5">
           {" "}

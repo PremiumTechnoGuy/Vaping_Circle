@@ -22,6 +22,7 @@ function ProductPage({
   currentCategory,
   categories,
   setCurrentProductId,
+  filters,
 }) {
   const { categoryId, currentCategoryName } = useParams();
   console.log("hellllll", categoryId);
@@ -138,7 +139,7 @@ function ProductPage({
 
   return (
     <div class="mt-36 md:mt-52">
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
       <h2 class="fs-1 py-5 font-bold text-center text-[#59A0B8]">
         {currentCategoryName}
       </h2>

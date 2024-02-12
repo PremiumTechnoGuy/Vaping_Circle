@@ -8,10 +8,10 @@ import Button from "react-bootstrap/Button";
 import Footer from "./Footer";
 import Fixed_Component from "./Fixed_Component";
 
-function ProfilePage() {
+function ProfilePage({ filters, categories }) {
   return (
     <div class="mt-36 md:mt-52 ">
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
       <Container className="flex lg:justify-center mx-auto ml-72">
         <Row>
           <Col xs={12}>

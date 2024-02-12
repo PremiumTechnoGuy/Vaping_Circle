@@ -6,10 +6,10 @@ import { data } from "./../../../data/Cdata.js";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "../Fixed_Component.js";
 
-function CategoryPage({ categories }) {
+function CategoryPage({ categories, filters }) {
   return (
     <div class="mt-36 md:mt-64 ">
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
       <h1 class="fs-1 font-bold mb-5 text-center">Categories</h1>
 
       <Container

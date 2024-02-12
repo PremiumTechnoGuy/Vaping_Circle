@@ -6,11 +6,11 @@ import { Button, Drawer } from "antd";
 import Fixed_Component from "../Fixed_Component";
 import Footer from "../Footer";
 
-function AboutUs() {
+function AboutUs({ filters, categories }) {
   return (
     <div>
       <div class="mt-36 md:mt-[12rem] mb-5">
-        <Fixed_Component />{" "}
+        <Fixed_Component categories={categories} filters={filters} />{" "}
         <img
           src="https://ik.imagekit.io/2nuimwatr/Rectangle%201286.png?updatedAt=1706133377509"
           alt=""
@@ -75,7 +75,9 @@ function AboutUs() {
                   <p class="fs-2 my-3  text-[#59A0B8] font-semibold line hidden md:block">
                     Welcome!
                   </p>
-                  <p class="fs-3 my-3  text-black font-semibold hidden md:block">Mission</p>
+                  <p class="fs-3 my-3  text-black font-semibold hidden md:block">
+                    Mission
+                  </p>
                   <p class=" my-2 pr-5 mr-5 text-[#575757] tracking-wider hidden md:block leading-10 fs-5 mb-4">
                     At VapingCircle, our mission revolves around empowering
                     individuals to break free from smoking through the adoption
