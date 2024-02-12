@@ -5,10 +5,12 @@ import { Link, Outlet } from "react-router-dom";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import React, { useState } from "react";
 import { Button, Drawer } from "antd";
+import axios from "axios";
+import { apiUrl } from "../../data/env.js";
 
 function Flavor({ data }) {
   const [open, setOpen] = useState(false);
-
+  const [flavours, setFlavours] = useState([]);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -16,6 +18,14 @@ function Flavor({ data }) {
   const onClose = () => {
     setOpen(false);
   };
+
+  React.useEffect(() => {
+    axios
+      .get(`${apiUrl}/api/v1/flavour`)
+      .then((res) => setFlavours(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div>
       <div>
@@ -24,17 +34,25 @@ function Flavor({ data }) {
         <Container fluid class="flex justify-center items-center ">
           {" "}
           <Row xs={2} md={4} class="gap-3 ">
-            {data.categories.map((category) => (
-              <Col id="content" key={category.id}>
+          {flavours?.map((flavour) => (
+              <Col
+                id="content"
+                key={flavour.id}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <div className="item e6 relative flex justify-center items-center ">
                   <img
-                    src={category.image}
+                    src={flavour.image}
                     alt=""
                     class="w-[21rem] h-[16rem] md:h-[19rem] object-cover"
                     style={{ borderRadius: "24px 24px 24px 24px" }}
                   />
                   <p class="absolute bottom-0 rounded-b-[24px] text-center w-full bg-[#ffffff40] py-3 md:px-[42px] text-[16px] md:text-[22px] tracking-wider font-semibold text-white">
-                    {category.name}
+                    {flavour.name}
                   </p>
                   <div className="text6 ">
                     <ul
@@ -44,15 +62,15 @@ function Flavor({ data }) {
                         borderRadius: "0px 0px 24px 24px",
                       }}
                     >
-                      {category.items.map((item) => (
+                      {flavour.subFlavours.map((subFlavour) => (
                         <>
                           <li
-                            key={item.id}
+                            key={subFlavour.id}
                             class=" flex justify-around s items-center text-left border-b py-1"
                           >
-                            <span>{item.name}</span>
+                            <span>{subFlavour.name}</span>
                             <span class="bg-[#59a0b8] py-1 px-2 rounded-full text-white">
-                              {item.qty}
+                              {subFlavour.productCountSubFlavour}
                             </span>
                           </li>{" "}
                         </>
