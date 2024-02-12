@@ -12,7 +12,11 @@ import { apiUrl } from "../../../data/env.js";
 function FlavourPage() {
   const [open, setOpen] = useState(false);
   const [flavours, setFlavours] = useState([]);
-  const showDrawer = () => {
+  const [index, setIndex] = useState(0);
+  const showDrawer = (iter) => {
+    console.log(iter)
+    console.log(flavours[iter])
+    setIndex(iter);
     setOpen(true);
   };
 
@@ -35,7 +39,7 @@ function FlavourPage() {
         <Container fluid class="flex justify-center items-center mb-5">
           {" "}
           <Row xs={2} md={3} class="gap-3 ">
-            {flavours?.map((flavour) => (
+            {flavours?.map((flavour, iter) => (
               <Col
                 id="content"
                 key={flavour.id}
@@ -78,7 +82,7 @@ function FlavourPage() {
                       ))}
                       <button
                         class="flex items-baseline py-2 justify-center"
-                        onClick={showDrawer}
+                        onClick={() => showDrawer(iter)}
                       >
                         Show All &#62;&#62;
                       </button>{" "}
@@ -98,11 +102,11 @@ function FlavourPage() {
         >
           <ul class="p-0 ">
             <div class="mb-1 cursor-pointer">
-              {flavours.map((flavour) => {
-                <li key={flavour._id} className="flex border-t border-b justify-between items-center px-5 py-3 cursor-pointer">
-                  <span className="fs-6 tracking-wide">{flavour.name}</span>
+              {flavours[index]?.subFlavours?.map((fl) => {
+                return <li key={fl._id} className="flex border-t border-b justify-between items-center px-5 py-3 cursor-pointer">
+                  <span className="fs-6 tracking-wide">{fl.name}</span>
                   <span className="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                    {flavour.productCount}
+                    {fl.productCountSubFlavour}
                   </span>
                 </li>
               })}
