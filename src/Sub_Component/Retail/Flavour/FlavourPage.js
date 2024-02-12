@@ -4,12 +4,14 @@ import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
 import { data } from "./../../../data/Fdata.js";
 import Fixed_Component from "../Fixed_Component.js";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Drawer } from "antd";
+import axios from "axios";
+import { apiUrl } from "../../../data/env.js";
 
-function FlavourPage({ filters, categories }) {
+function FlavourPage() {
   const [open, setOpen] = useState(false);
-
+  const [flavours, setFlavours] = useState([]);
   const showDrawer = () => {
     setOpen(true);
   };
@@ -18,18 +20,25 @@ function FlavourPage({ filters, categories }) {
     setOpen(false);
   };
 
+  React.useEffect(() => {
+    axios
+      .get(`${apiUrl}/api/v1/flavour`)
+      .then((res) => setFlavours(res.data.data))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div>
       <div class="mt-36 md:mt-64 mb-5">
-        <Fixed_Component categories={categories} filters={filters} />{" "}
+        <Fixed_Component />{" "}
         <h1 class="fs-1 font-bold mb-5 text-center">Flavour</h1>
         <Container fluid class="flex justify-center items-center mb-5">
           {" "}
           <Row xs={2} md={3} class="gap-3 ">
-            {data.categories.map((category) => (
+            {flavours?.map((flavour) => (
               <Col
                 id="content"
-                key={category.id}
+                key={flavour.id}
                 style={{
                   display: "flex",
                   justifyContent: "center",
@@ -38,13 +47,13 @@ function FlavourPage({ filters, categories }) {
               >
                 <div className="item e6 relative flex justify-center items-center ">
                   <img
-                    src={category.image}
+                    src={flavour.image}
                     alt=""
                     class="w-[21rem] h-[16rem] md:h-[19rem] object-cover"
                     style={{ borderRadius: "24px 24px 24px 24px" }}
                   />
                   <p class="absolute bottom-0 rounded-b-[24px] text-center w-full bg-[#ffffff40] py-3 md:px-[42px] text-[16px] md:text-[22px] tracking-wider font-semibold text-white">
-                    {category.name}
+                    {flavour.name}
                   </p>
                   <div className="text6 ">
                     <ul
@@ -54,15 +63,15 @@ function FlavourPage({ filters, categories }) {
                         borderRadius: "0px 0px 24px 24px",
                       }}
                     >
-                      {category.items.map((item) => (
+                      {flavour.subFlavours.map((subFlavour) => (
                         <>
                           <li
-                            key={item.id}
+                            key={subFlavour.id}
                             class=" flex justify-around s items-center text-left border-b py-1"
                           >
-                            <span>{item.name}</span>
+                            <span>{subFlavour.name}</span>
                             <span class="bg-[#59a0b8] py-1 px-2 rounded-full text-white">
-                              {item.qty}
+                              {subFlavour.productCountSubFlavour}
                             </span>
                           </li>{" "}
                         </>
@@ -89,140 +98,14 @@ function FlavourPage({ filters, categories }) {
         >
           <ul class="p-0 ">
             <div class="mb-1 cursor-pointer">
-              {" "}
-              <li class="flex border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Apple Pie</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  29
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Caramel</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  34
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Cereal</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  51
-                </span>
-              </li>
-            </div>
-
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Cake</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  56
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Donut</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  08
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Brownie</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  38
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Honey</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  76
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Jam</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  24
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Pancake</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  19
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Pastry</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  39
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Short Cake</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  12
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Popcorn</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  11
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Rice Pudding</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  65
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Toast</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  343
-                </span>
-              </li>
-            </div>
-            <div class=" mt-1 cursor-pointer">
-              {" "}
-              <li class="flex border-t border-b justify-between items-center px-5 py-3">
-                <span class="fs-6 tracking-wide">Caramel</span>
-                <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                  34
-                </span>
-              </li>
+              {flavours.map((flavour) => {
+                <li key={flavour._id} className="flex border-t border-b justify-between items-center px-5 py-3 cursor-pointer">
+                  <span className="fs-6 tracking-wide">{flavour.name}</span>
+                  <span className="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
+                    {flavour.productCount}
+                  </span>
+                </li>
+              })}
             </div>
           </ul>
         </Drawer>
