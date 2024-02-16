@@ -8,7 +8,7 @@ import { Button, Drawer } from "antd";
 import axios from "axios";
 import { apiUrl } from "../../data/env.js";
 
-function Flavor({ data }) {
+function Flavor() {
   const [open, setOpen] = useState(false);
   const [flavours, setFlavours] = useState([]);
   const [index, setIndex] = useState(0);
@@ -64,7 +64,7 @@ function Flavor({ data }) {
                         borderRadius: "0px 0px 24px 24px",
                       }}
                     >
-                      {flavour.subFlavours.map((subFlavour) => (
+                      {flavour.subFlavours.slice(0, 5).map((subFlavour) => (
                         <>
                           <li
                             key={subFlavour.id}
@@ -102,18 +102,18 @@ function Flavor({ data }) {
         <div class="p-0">
           {" "}
           <ul class="p-0 ">
-            {flavours[index]?.subFlavours?.map(fl => {
-              return <div key={fl._id} class="mb-1 cursor-pointer">
-                <li class="flex border-b justify-between items-center px-5 py-3">
-                  <span class="fs-6 tracking-wide">{fl.name}</span>
-                  <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                    {fl.productCountSubFlavour}
-                  </span>
-                </li>
-              </div>
+            {flavours[index]?.subFlavours?.map((fl) => {
+              return (
+                <div key={fl._id} class="mb-1 cursor-pointer">
+                  <li class="flex border-b justify-between items-center px-5 py-3">
+                    <span class="fs-6 tracking-wide">{fl.name}</span>
+                    <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
+                      {fl.productCountSubFlavour}
+                    </span>
+                  </li>
+                </div>
+              );
             })}
-
-
           </ul>
         </div>
       </Drawer>

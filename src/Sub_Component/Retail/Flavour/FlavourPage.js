@@ -9,13 +9,13 @@ import { Button, Drawer } from "antd";
 import axios from "axios";
 import { apiUrl } from "../../../data/env.js";
 
-function FlavourPage() {
+function FlavourPage({ categories, filters }) {
   const [open, setOpen] = useState(false);
   const [flavours, setFlavours] = useState([]);
   const [index, setIndex] = useState(0);
   const showDrawer = (iter) => {
-    console.log(iter)
-    console.log(flavours[iter])
+    console.log(iter);
+    console.log(flavours[iter]);
     setIndex(iter);
     setOpen(true);
   };
@@ -34,7 +34,7 @@ function FlavourPage() {
   return (
     <div>
       <div class="mt-36 md:mt-64 mb-5">
-        <Fixed_Component />{" "}
+        <Fixed_Component categories={categories} filters={filters} />{" "}
         <h1 class="fs-1 font-bold mb-5 text-center">Flavour</h1>
         <Container fluid class="flex justify-center items-center mb-5">
           {" "}
@@ -67,7 +67,7 @@ function FlavourPage() {
                         borderRadius: "0px 0px 24px 24px",
                       }}
                     >
-                      {flavour.subFlavours.map((subFlavour) => (
+                      {flavour.subFlavours.slice(0, 5).map((subFlavour) => (
                         <>
                           <li
                             key={subFlavour.id}
@@ -103,12 +103,17 @@ function FlavourPage() {
           <ul class="p-0 ">
             <div class="mb-1 cursor-pointer">
               {flavours[index]?.subFlavours?.map((fl) => {
-                return <li key={fl._id} className="flex border-t border-b justify-between items-center px-5 py-3 cursor-pointer">
-                  <span className="fs-6 tracking-wide">{fl.name}</span>
-                  <span className="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
-                    {fl.productCountSubFlavour}
-                  </span>
-                </li>
+                return (
+                  <li
+                    key={fl._id}
+                    className="flex border-t border-b justify-between items-center px-5 py-3 cursor-pointer"
+                  >
+                    <span className="fs-6 tracking-wide">{fl.name}</span>
+                    <span className="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
+                      {fl.productCountSubFlavour}
+                    </span>
+                  </li>
+                );
               })}
             </div>
           </ul>

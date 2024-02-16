@@ -30,7 +30,7 @@ function Home({ setCurrentCategory, categories, setCategories, filters }) {
         />
         <Servcies_V />
         <Super />
-        <Flavor data={data} />
+        <Flavor />
         <JustArrived />
         <News_Letter />
         <About />
