@@ -113,7 +113,7 @@ function Navigation() {
                       width="32px"
                       style={{ marginTop: 3, marginLeft: 5 }}
                       onClick={handleShow}
-                      src="https://ik.imagekit.io/p2slevyg1/magnifying-glass.png?updatedAt=1704116657709"
+                      src="https://ik.imagekit.io/p2sle yg1/magnifying-glass.png?updatedAt=1704116657709"
                     />
                   </span>
 
