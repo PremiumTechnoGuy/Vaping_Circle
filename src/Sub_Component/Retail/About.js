@@ -16,7 +16,7 @@ const About = () => {
           <Col>
             {" "}
             <p class="text-[#0B428B] font-semibold text-2xl md:text-3xl md:ml-[3rem]">
-              Ultimate Vape
+              Vaping Circle
             </p>{" "}
             <p
               class="text-[#575757] ps-5 py-3 hidden leading-8 tracking-wider  md:block "
