@@ -62,7 +62,7 @@ const Footer = () => {
               <span className="lg:ml-[10px]">
                 {" "}
                 <Link to="/age_varification" class="hover:text-black">
-                Age Verification
+                  Age Verification
                 </Link>
               </span>{" "}
               <br />
@@ -158,7 +158,7 @@ const Footer = () => {
         </Row>
       </Container>
       <h1 class="bg-[#59A0B8] text-white text-[16px] py-3  text-center">
-        copyright designed by webcraftio
+        © 2024 Vaping Circle. All rights reserved <br></br>Designed by <a href="https://www.webcraftio.com/">WebCraftio</a>
       </h1>
     </div>
   );
