@@ -65,6 +65,7 @@ const App = () => {
                   categories={categories}
                   setCategories={setCategories}
                   filters={filters}
+                  products={products}
                 />
               }
             />

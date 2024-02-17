@@ -17,7 +17,13 @@ import Fixed_Component from "../Sub_Component/Retail/Fixed_Component.js";
 import axios from "axios";
 import { apiUrl } from "../data/env.js";
 
-function Home({ setCurrentCategory, categories, setCategories, filters }) {
+function Home({
+  setCurrentCategory,
+  categories,
+  setCategories,
+  filters,
+  products,
+}) {
   return (
     <div class="absolute">
       <div>
@@ -30,8 +36,8 @@ function Home({ setCurrentCategory, categories, setCategories, filters }) {
         />
         <Servcies_V />
         <Super />
-        <Flavor data={data} />
-        <JustArrived />
+        <Flavor />
+        <JustArrived categories={categories} products={products} />
         <News_Letter />
         <About />
         <Guides />

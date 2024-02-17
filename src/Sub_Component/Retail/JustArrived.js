@@ -2,11 +2,15 @@ import React, { useState } from "react";
 import "./JustArrived.css";
 import { Container, Row, Col } from "react-bootstrap";
 
-const JustArrived = () => {
-  const [selectedCategory, setSelectedCategory] = useState("disposable");
+const JustArrived = ({ categories, products }) => {
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]?._id);
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
   const handleCategoryChange = (category) => {
+    const filProds = products.filter((p) => p.category === category);
+
     setSelectedCategory(category);
+    setFilteredProducts(filProds);
   };
 
   return (
@@ -20,17 +24,17 @@ const JustArrived = () => {
         >
           <input
             type="radio"
-            id="eliquids"
-            name="category"
-            value="eliquids"
-            checked={selectedCategory === "eliquids"}
-            onChange={() => handleCategoryChange("eliquids")}
+            id={categories[0]?._id}
+            name={categories[0]?._id}
+            value={categories[0]?._id}
+            checked={selectedCategory === categories[0]?._id}
+            onChange={() => handleCategoryChange(categories[0]?._id)}
           />
           <label
-            htmlFor="eliquids"
+            htmlFor={categories[0]?._id}
             class="text-[#555555] text-[18px] font-semibold"
           >
-            Eliquids
+            {categories[0]?.name || "Category 1"}
           </label>
         </div>
         <div
@@ -39,17 +43,17 @@ const JustArrived = () => {
         >
           <input
             type="radio"
-            id="disposable"
-            name="category"
-            value="disposable"
-            checked={selectedCategory === "disposable"}
-            onChange={() => handleCategoryChange("disposable")}
+            id={categories[1]?._id}
+            name={categories[1]?._id}
+            value={categories[1]?._id}
+            checked={selectedCategory === categories[1]?._id}
+            onChange={() => handleCategoryChange(categories[1]?._id)}
           />
           <label
-            htmlFor="disposable"
+            htmlFor={categories[1]?._id}
             class="text-[#555555] text-[18px] font-semibold"
           >
-            Disposable
+            {categories[1]?.name || "Category 2"}
           </label>
         </div>
         <div
@@ -58,127 +62,59 @@ const JustArrived = () => {
         >
           <input
             type="radio"
-            id="refill&pods"
-            name="category"
-            value="refill&pods"
-            checked={selectedCategory === "refill&pods"}
-            onChange={() => handleCategoryChange("refill&pods")}
+            id={categories[2]?._id}
+            name={categories[2]?._id}
+            value={categories[2]?._id}
+            checked={selectedCategory === categories[2]?._id}
+            onChange={() => handleCategoryChange(categories[2]?._id)}
           />
           <label
-            htmlFor="refill&pods"
+            htmlFor={categories[2]?._id}
             class="text-[#555555] text-[18px] font-semibold"
           >
-            Refill & Pods
+            {categories[2]?.name || "Category 3"}
           </label>
         </div>
       </span>
 
       <div>
-        {selectedCategory === "eliquids" && (
-          <Container
-            fluid
-            className="d-flex justify-content-center align-items-center my-5"
-            style={{ display: "flex", justify: "center", align: "center" }}
-          >
-            <Row xs={2} md={4}>
-              <Col>
-                <div id="content" class="m-2 relative">
-                  <img
-                    src="https://ik.imagekit.io/2nuimwatr/Ske-Crystal-Bar-Disposable-Vape-Pen.png?updatedAt=1705572057544"
-                    alt=""
-                    class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                  />
-                  <div class="flex justify-between">
-                    {" "}
-                    <div>
-                      <p class="text-black font-semibold text-[15px] px-3">
-                        Slix Disposable Vape
+        <Container
+          fluid
+          className="d-flex justify-content-center align-items-center my-5"
+          style={{ display: "flex", justify: "center", align: "center" }}
+        >
+          <Row xs={2} md={4}>
+            {filteredProducts?.map((prod) => {
+              return (
+                <Col key={prod._id}>
+                  <div id="content" class="m-2 relative">
+                    <img
+                      src={prod.coverImage.replace(
+                        "/product",
+                        "/tr:ar-1-1,w-301.5,h-336/product"
+                      )}
+                      alt=""
+                      class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
+                    />
+                    <div class="flex justify-between">
+                      {" "}
+                      <div>
+                        <p class="text-black font-semibold text-[15px] px-3">
+                          {prod.name}
+                        </p>
+                      </div>
+                      <p class="text-[#000000] font-semibold text-[15px] px-3">
+                        £{prod.basePrice}
                       </p>
-                     
                     </div>
-                    <p class="text-[#000000] font-semibold text-[15px] px-3">
-                      £14.95
-                    </p>
                   </div>
-                </div>
-              </Col>
+                </Col>
+              );
+            })}
+          </Row>
+        </Container>
 
-              <Col>
-                <div id="content" class="m-2 relative">
-                  <img
-                    src="https://ik.imagekit.io/2nuimwatr/Aroma%20King%20Gem%20600%20Disposable%C2%A0Vape@2x.png?updatedAt=1705572053563"
-                    alt=""
-                    class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-105 duration-150"
-                  />
-                  <div class="flex justify-between">
-                    {" "}
-                    <div>
-                      <p
-                        class="text-black font-semibold  px-3"
-                        style={{ fontSize: 15 }}
-                      >
-                        IVG 2400 Disposable Vape
-                      </p>
-                      
-                    </div>
-                    <p
-                      class="text-[#000000] font-semibold  px-3"
-                      style={{ fontSize: 15 }}
-                    >
-                      £7.95
-                    </p>
-                  </div>
-                </div>
-              </Col>
-
-              <Col>
-                <div id="content" class="m-2 relative">
-                  <img
-                    src="https://ik.imagekit.io/2nuimwatr/Component%2069%20_%209.png?updatedAt=1705572629744"
-                    alt=""
-                    class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-105 duration-150"
-                  />
-                  <div class="flex justify-between">
-                    {" "}
-                    <div>
-                      <p class="text-black font-semibold text-[15px] px-3">
-                        Aroma King 600 Disposable
-                      </p>
-                      
-                    </div>
-                    <p class="text-[#000000] font-semibold text-[15px] px-3">
-                      £7.95
-                    </p>
-                  </div>
-                </div>
-              </Col>
-
-              <Col>
-                <div id="content" class="m-2">
-                  <img
-                    src="https://ik.imagekit.io/2nuimwatr/SikaryS600DisposableVapeDevice.png?updatedAt=1705572053288"
-                    alt=""
-                    class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-105 duration-150"
-                  />
-                  <div class="flex justify-between">
-                    {" "}
-                    <div>
-                      <p class="text-black font-semibold text-[15px] px-3">
-                        Elf Bar Metro 500 Pod
-                      </p>
-                      
-                    </div>
-                    <p class="text-[#000000] font-semibold text-[15px] px-3">
-                      £7.95
-                    </p>
-                  </div>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        )}
-
-        {selectedCategory === "disposable" && (
+        {/* {selectedCategory === categories[1]?._id && (
           <Container
             fluid
             className="d-flex justify-content-center align-items-center my-5"
@@ -198,7 +134,6 @@ const JustArrived = () => {
                       <p class="text-black font-semibold text-[15px] px-3">
                         Slix Disposable Vape
                       </p>
-                      
                     </div>
                     <p class="text-[#000000] font-semibold text-[15px] px-3">
                       £14.95
@@ -223,7 +158,6 @@ const JustArrived = () => {
                       >
                         IVG 2400 Disposable Vape
                       </p>
-                      
                     </div>
                     <p
                       class="text-[#000000] font-semibold  px-3"
@@ -248,7 +182,6 @@ const JustArrived = () => {
                       <p class="text-black font-semibold text-[15px] px-3">
                         Aroma King 600 Disposable
                       </p>
-                      
                     </div>
                     <p class="text-[#000000] font-semibold text-[15px] px-3">
                       £7.95
@@ -270,7 +203,6 @@ const JustArrived = () => {
                       <p class="text-black font-semibold text-[15px] px-3">
                         Elf Bar Metro 500 Pod
                       </p>
-                      
                     </div>
                     <p class="text-[#000000] font-semibold text-[15px] px-3">
                       £7.95
@@ -282,7 +214,7 @@ const JustArrived = () => {
           </Container>
         )}
 
-        {selectedCategory === "refill&pods" && (
+        {selectedCategory === categories[2]?._id && (
           <Container
             fluid
             className="d-flex justify-content-center align-items-center my-5"
@@ -302,7 +234,6 @@ const JustArrived = () => {
                       <p class="text-black font-semibold text-[15px] px-3">
                         Slix Disposable Vape
                       </p>
-                      
                     </div>
                     <p class="text-[#000000] font-semibold text-[15px] px-3">
                       £14.95
@@ -327,7 +258,6 @@ const JustArrived = () => {
                       >
                         IVG 2400 Disposable Vape
                       </p>
-                      
                     </div>
                     <p
                       class="text-[#000000] font-semibold  px-3"
@@ -352,7 +282,6 @@ const JustArrived = () => {
                       <p class="text-black font-semibold text-[15px] px-3">
                         Aroma King 600 Disposable
                       </p>
-                      
                     </div>
                     <p class="text-[#000000] font-semibold text-[15px] px-3">
                       £7.95
@@ -374,7 +303,6 @@ const JustArrived = () => {
                       <p class="text-black font-semibold text-[15px] px-3">
                         Elf Bar Metro 500 Pod
                       </p>
-                      
                     </div>
                     <p class="text-[#000000] font-semibold text-[15px] px-3">
                       £7.95
@@ -384,7 +312,7 @@ const JustArrived = () => {
               </Col>
             </Row>
           </Container>
-        )}
+        )} */}
       </div>
     </div>
   );
