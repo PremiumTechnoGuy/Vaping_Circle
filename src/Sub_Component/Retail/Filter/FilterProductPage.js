@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import "./productpage.css";
 import { MdArrowForward } from "react-icons/md";
 import { MdArrowBack } from "react-icons/md";
-import Footer from "../Footer";
 import { Link, Outlet, useParams } from "react-router-dom";
 import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-import { data } from "./../../../data/Pdata.js";
 import Pagination from "react-bootstrap/Pagination";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import Footer from "../Footer";
 import { FaRegSquare } from "react-icons/fa";
-import Fixed_Component from "../Fixed_Component.js";
-import { apiUrl } from "../../../data/env.js";
+import Fixed_Component from "../Fixed_Component";
 
-function ProductPage({
-  products,
-  // currentCategory,
-  categories,
-  // setCurrentProductId,
-  filters,
-}) {
-  const { categoryId, currentCategoryName } = useParams();
-  console.log("hellllll", categoryId);
+function FilterProductPage({ products, categories, filters }) {
+  const { categoryId, filId, filName, chosenOption } = useParams();
 
-  const filteredProducts = products?.filter(
-    (prod) => prod.category === categoryId
+  // Filter products by category
+  const filteredProducts = products.filter(
+    (product) => product.category === categoryId
   );
 
-  // const filteredCategory = categories?.filter(cat => cat._id === currentCategory);
+  // Find the filter based on filId
+  const filter = filters.find((filter) => filter._id === filId);
 
-  // console.log("allllllll", products);
+  // Filter products based on the chosen option for the filter
+  const filteredProductsByOption = filteredProducts.filter((product) => {
+    const chosenFilter = product.chosenFilters.find(
+      (filter) => filter.filterId === filId
+    );
+    return chosenFilter && chosenFilter.chosenOption === chosenOption;
+  });
+  console.log(filteredProductsByOption);
 
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -141,11 +138,11 @@ function ProductPage({
     <div class="mt-36 md:mt-52">
       <Fixed_Component categories={categories} filters={filters} />
       <h2 class="fs-1 py-5 font-bold text-center text-[#59A0B8]">
-        {currentCategoryName}
+        {filName} ({chosenOption})
       </h2>
 
       <Container fluid>
-        <Row>
+        {/* <Row>
           <Col xs={4} md={2}>
             <p class="font-semibold py-3 text-center text-[#59A0B8]">
               Scroll Left
@@ -1123,12 +1120,12 @@ function ProductPage({
               </Slider>
             </div>
           </Col>
-        </Row>
+        </Row> */}
       </Container>
 
       <Container fluid class="flex justify-center items-baseline">
         <Row xs={2} md={4}>
-          {filteredProducts?.map((item) => (
+          {filteredProductsByOption?.map((item) => (
             <Col
               key={item._id}
               class="flex justify-center items-center"
@@ -1222,4 +1219,4 @@ function ProductPage({
   );
 }
 
-export default ProductPage;
+export default FilterProductPage;
