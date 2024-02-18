@@ -1,14 +1,16 @@
 import React from "react";
 import "./smallNavbar.css";
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { apiUrl } from "../../data/env";
 
 function CategoryComponent({ allFilters, category }) {
+  const nav = useNavigate();
+
   const thisCategoryFilters = allFilters?.filter(
     (fil) => fil.categoryId === category._id
   );
-  console.log(category.name, thisCategoryFilters);
+  // console.log(category.name, thisCategoryFilters);
   return (
     <li role="menuitem">
       <a
@@ -34,63 +36,31 @@ function CategoryComponent({ allFilters, category }) {
                   role="menu"
                 >
                   <div className="nav-column ">
-                    <h3 className="fw-bold"></h3>
+                    {/* <h3 className="fw-bold"></h3> */}
                     <ul>
                       {aFilter.options.map((option) => (
                         <li role="menuitem">
-                          <a href>{option}</a>
+                          <a
+                            href
+                            onClick={(e) => {
+                              e.preventDefault();
+                              nav(
+                                `/filterProductPage/${category._id}/${aFilter._id}/${aFilter.name}/${option}`
+                              );
+                            }}
+                          >
+                            {option}
+                          </a>
                         </li>
                       ))}
-                      {/* <li role="menuitem">
-                        <a href="#">Starter Kits</a>
-                      </li>
-                      <li role="menuitem">
-                        <a href="#">Advanced Kits</a>
-                      </li>
-                      <li role="menuitem">
-                        <a href="#">Vape Pen Kits</a>
-                      </li>
-                      <li role="menuitem">
-                        <a href="#">Pod Kits</a>
-                      </li> */}
                     </ul>
                   </div>
-                  {/* <div className="nav-column">
-                    <h3 className="fw-bold"></h3>
-                    <ul>
-                      <li role="menuitem">
-                        <a href="#">Disposables Vapes</a>
-                      </li>
-                      <li role="menuitem">
-                        <a href="#">MLT Vape Kits</a>
-                      </li>
-                      <li role="menuitem">
-                        <a href="#">Bundle Kits</a>
-                      </li>
-                      <li role="menuitem">
-                        <a href="#">Shop All Vape Kits</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="nav-column">
-                    <h3 className="fw-bold">User Level</h3>
-                    <ul>
-                      <li role="menuitem">
-                        <a href="#">First Time Switcher</a>
-                      </li>
-                      <li role="menuitem">
-                        <a href="#">Intermediate / Mid Range Kits</a>
-                      </li>
-                      <li role="menuitem">
-                        <a href="#">Advanced User Vapes</a>
-                      </li>
-                    </ul>
-                  </div> */}
                   <div className="flex col gap-2  float-right  p-3">
                     <img
                       style={{ height: 200 }}
                       src="https://www.geekvape.com/upload/blog/blog-7.401.jpg"
                       width="400px"
+                      alt="filter img"
                     />
                   </div>
                 </div>
@@ -98,106 +68,6 @@ function CategoryComponent({ allFilters, category }) {
             </div>
           );
         })}
-
-        {/* <div className="nav-column">
-          <li role="menuitem">
-            <h3 class="fw-bold hover:text-blue-900">Shop By Feature</h3>
-            <div
-              className="mega-menu  left-[0px]"
-              aria-hidden="true"
-              role="menu"
-            >
-              <div className="nav-column ">
-                <h3 className="fw-bold"></h3>
-                <ul>
-                  <li role="menuitem">
-                    <a href="#">Inhale- Activated Kits</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">Rechargable Kits</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">Closed Pod Kits</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">Adjustable Airflow</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="flex col float-right  p-3">
-                <img
-                  style={{ height: 200 }}
-                  src="https://www.geekvape.com/upload/blog/blog-7.401.jpg"
-                  width="600px"
-                />
-              </div>
-            </div>
-          </li>
-        </div>
-
-        <div className="nav-column">
-          <li role="menuitem">
-            <h3 class="fw-bold hover:text-blue-900">Featured Brands</h3>
-            <div
-              className="mega-menu  left-[0px]"
-              aria-hidden="true"
-              role="menu"
-            >
-              <div className="nav-column ">
-                <h3 className="fw-bold"></h3>
-                <ul>
-                  <li role="menuitem">
-                    <a href="#">Aspire</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">Elf Bar</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">Geek Vape</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">Innokin</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">JUUL</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="nav-column mb-3">
-                <h3 className="fw-bold"></h3>
-                <ul>
-                  <li role="menuitem">
-                    <a href="#">OXVA</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">SMOKE</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">Vaporesso</a>
-                  </li>
-                  <li role="menuitem">
-                    <a href="#">Voopoo</a>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="flex col gap-2 float-right mb-2 p-3">
-                <img
-                  width="300px"
-                  style={{ height: 200 }}
-                  src="https://ik.imagekit.io/p2slevyg1/images.jpg?updatedAt=1704137315344"
-                />
-                <img
-                  style={{ height: 200 }}
-                  src="https://ik.imagekit.io/p2slevyg1/geekvape-z200-kit_500x-PhotoRoom.jpg?updatedAt=1704137095886"
-                  width="450px"
-                />
-              </div>
-            </div>
-          </li>
-        </div> */}
       </div>
     </li>
   );
