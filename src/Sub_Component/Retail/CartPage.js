@@ -344,7 +344,7 @@ function CartPage() {
                       </span>
                     </Col>
                   </Row>
-                
+
                 </div>
               </div>
             </Col>
@@ -371,7 +371,7 @@ function CartPage() {
 
                 <div class="flex flex-col justify-center items-center pb-5">
                   <Link to="/checkout">
-                    <button class="bg-[#59A0B8] text-white mt-5 px-5  py-2 rounded-[24px]">
+                    <button class="bg-[#59A0B8] text-white mt-5 px-5  py-2 rounded-[24px]" id="btn">
                       Go to Checkout
                     </button>
                   </Link>

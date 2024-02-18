@@ -233,9 +233,14 @@ function ProductDetails({ products }) {
                   </p>
                 </div>
                 <p class="py-2"></p>
-                <div class="flex flex-col justify-center items-center mt-3">
+                <div class="d-flex gap-2 justify-center items-center mt-3">
+                  <Link to="/checkout">
+                    <button id="btn" class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]">
+                      Buy Now
+                    </button>
+                  </Link>
                   <Link to="/cartView">
-                    <button class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]">
+                    <button id="btn" class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]">
                       Add to Cart
                     </button>
                   </Link>
