@@ -12,6 +12,7 @@ import CartPage from "./Sub_Component/Retail/CartPage";
 import Checkout from "./Sub_Component/Retail/Checkout";
 import ProductPage from "./Sub_Component/Retail/Product/ProductPage";
 import ProductDetails from "./Sub_Component/Retail/Product/ProductDetails";
+import FilterProductPage from "./Sub_Component/Retail/Filter/FilterProductPage";
 // import FlavourPageW from "./Sub_Component/WholeSale/FlavourW/FlavourPageW";
 import ScrollToTop from "./ScrollToTop";
 import VapesDeal from "./Sub_Component/Retail/VapesDeal";
@@ -110,10 +111,20 @@ const App = () => {
               element={
                 <ProductPage
                   products={products}
-                  currentCategory={currentCategory}
+                  // currentCategory={currentCategory}
                   categories={categories}
                   filters={filters}
-                  setCurrentProductId={setCurrentProductId}
+                  // setCurrentProductId={setCurrentProductId}
+                />
+              }
+            />
+            <Route
+              path="/filterProductPage/:categoryId/:filId/:filName/:chosenOption"
+              element={
+                <FilterProductPage
+                  products={products}
+                  categories={categories}
+                  filters={filters}
                 />
               }
             />

@@ -19,9 +19,9 @@ import { apiUrl } from "../../../data/env.js";
 
 function ProductPage({
   products,
-  currentCategory,
+  // currentCategory,
   categories,
-  setCurrentProductId,
+  // setCurrentProductId,
   filters,
 }) {
   const { categoryId, currentCategoryName } = useParams();
