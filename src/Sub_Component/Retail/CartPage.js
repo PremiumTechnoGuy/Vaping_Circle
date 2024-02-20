@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
-function CartPage({ categories, filters, cart, products }) {
+function CartPage({ categories, filters, cart, products, setCart }) {
   const cartArr = cart.map((cId) => products.find((p) => p._id === cId));
 
   return (
@@ -109,8 +109,18 @@ function CartPage({ categories, filters, cart, products }) {
                                     >
                                       <span class="">Quantity : 1</span>
                                       <span class="">
-                                        {" "}
-                                        <RiDeleteBin5Line class="text-xl mx-3" />
+                                        <RiDeleteBin5Line
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            setCart((crtArr) =>
+                                              crtArr.filter(
+                                                (cId) => cId !== crt._id
+                                              )
+                                            );
+                                          }}
+                                          class="text-xl mx-3"
+                                          style={{ cursor: "pointer" }}
+                                        />
                                       </span>
                                     </div>
                                   </div>
@@ -124,7 +134,18 @@ function CartPage({ categories, filters, cart, products }) {
                                   </span>
                                   <span class="hidden md:block">
                                     {" "}
-                                    <RiDeleteBin5Line class="text-xl mx-3" />
+                                    <RiDeleteBin5Line
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        setCart((crtArr) =>
+                                          crtArr.filter(
+                                            (cId) => cId !== crt._id
+                                          )
+                                        );
+                                      }}
+                                      class="text-xl mx-3"
+                                      style={{ cursor: "pointer" }}
+                                    />
                                   </span>
                                 </div>
                               </div>

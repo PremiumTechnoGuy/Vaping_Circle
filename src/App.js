@@ -150,6 +150,7 @@ const App = () => {
                   filters={filters}
                   cart={cart}
                   products={products}
+                  setCart={setCart}
                 />
               }
             />
