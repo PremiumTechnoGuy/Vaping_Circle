@@ -5,7 +5,8 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
-function CartPage({ categories, filters }) {
+function CartPage({ categories, filters, cart }) {
+  console.log(cart);
   return (
     <div>
       <Fixed_Component categories={categories} filters={filters} />
