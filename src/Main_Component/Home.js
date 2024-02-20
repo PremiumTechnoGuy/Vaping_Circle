@@ -35,7 +35,7 @@ function Home({
           setCurrentCategory={setCurrentCategory}
         />
         <Servcies_V />
-        <Super />
+        <Super products={products} />
         <Flavor />
         <JustArrived categories={categories} products={products} />
         <News_Letter />
