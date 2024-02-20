@@ -11,129 +11,56 @@ function CartPage({ categories, filters, cart, products, setCart }) {
   return (
     <div>
       <Fixed_Component categories={categories} filters={filters} />
-      <div class="bg-[#FFFFFF] md:bg-[#F1FCFF] mt-[7rem] md:mt-[11rem] ">
-        <h1 class="fs-2 py-5 font-bold text-center">Your Cart</h1>
+      <div className="bg-[#FFFFFF] md:bg-[#F1FCFF] mt-[7rem] md:mt-[11rem] ">
+        <h1 className="fs-2 py-5 font-bold text-center">Your Cart</h1>
         <Container fluid>
           <Row>
             <Col xs={12} md={8}>
-              <div class="bg-[#FFFFFF] rounded-lg m-2 md:mx-5 md:my-5">
-                <div>
-                  {/* <Row>
-                    <Col >
-                      <img
-                        src="https://ik.imagekit.io/2nuimwatr/ELFA-Pod-Kit-by-Elf-Bar-Navy-Blue.png?updatedAt=1704572972475"
-                        alt=""
-                        style={{maxWidth:'none'}}
-                        class=" xs:p-0 md:px-12 md:py-3"
-                      />
-                    </Col>
-                    <Col>
-                      <div
+              <div className="bg-[#FFFFFF] rounded-lg m-2 md:mx-5 md:my-5">
+                {cartArr?.map((crt, i) => (
+                  <div key={crt._id}>
+                    <Row>
+                      <Col
+                        className="flex justify-start items-start"
                         style={{
                           display: "flex",
-                          flexDirection: "column",
-                          justifyContent: "space-between",
+                          justifyContent: "start",
+                          alignItems: "start",
                         }}
                       >
-                        <div class=" py-3 mb-5">
-                          <p class="text-[#000000] font-bold text-sm">
-                            ELFA Pod Kit By Elf Bar
-                          </p>
-                          <p class="text-[#000000] font-bold text-sm">
-                            Aurora Purple
-                          </p>
-                        </div>
-                        <div class="flex">
-                          <p>Quantity : 1</p>
-                          <p class="text-xl mx-5">
-                            <RiDeleteBin5Line />
-                          </p>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col>
-                      <div class=" py-3 text-[#000000] font-bold text-sm">
-                        £7.95
-                      </div>
-                    </Col>
-                  </Row> */}
-                  {cartArr?.map((crt, i) => {
-                    return (
-                      <>
-                        <Row>
-                          <Col
-                            class="flex justify-start items-start"
+                        <span>
+                          <img
+                            src={crt.coverImage.replace(
+                              "/product",
+                              "/tr:w-160,h-153/product"
+                            )}
+                            alt={crt.name}
+                            style={{ maxWidth: "none" }}
+                            className="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem]  md:w-[16rem] "
+                          />
+                        </span>
+                        <span>
+                          <div
                             style={{
                               display: "flex",
-                              justifyContent: "start",
-                              alignItems: "start",
+                              flexDirection: "column",
+                              justifyContent: "space-between",
                             }}
                           >
-                            {" "}
-                            <span>
-                              <img
-                                src={crt.coverImage.replace(
-                                  "/product",
-                                  "/tr:w-160,h-153/product"
-                                )}
-                                alt={crt.name}
-                                style={{ maxWidth: "none" }}
-                                class="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem]  md:w-[16rem] "
-                              />
-                            </span>
-                            <span>
-                              <div
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                  justifyContent: "space-between",
-                                }}
-                              >
-                                <div class="px-2 py-3 mb-5">
-                                  <p class="text-[#000000] font-bold text-sm">
-                                    {crt.name}
+                            <div className="px-2 py-3 mb-5">
+                              <p className="text-[#000000] font-bold text-sm">
+                                {crt.name}
+                              </p>
+                              <div className="flex justify-between items-center block md:hidden">
+                                {" "}
+                                <span>
+                                  <p className=" py-3 md:hidden block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
+                                    £{crt.basePrice}
                                   </p>
-                                  {/* <p class="text-[#000000] font-bold text-sm">
-                                    Aurora Purple
-                                  </p> */}
-                                  <div class="flex justify-between items-center block md:hidden">
-                                    {" "}
-                                    <span>
-                                      <p class=" py-3 md:hidden block  text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
-                                        £{crt.basePrice}
-                                      </p>
-                                    </span>{" "}
-                                    <div
-                                      class="flex  justify-between items-center"
-                                      style={{ display: "flex" }}
-                                    >
-                                      <span class="">Quantity : 1</span>
-                                      <span class="">
-                                        <RiDeleteBin5Line
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            setCart((crtArr) =>
-                                              crtArr.filter(
-                                                (cId) => cId !== crt._id
-                                              )
-                                            );
-                                          }}
-                                          class="text-xl mx-3"
-                                          style={{ cursor: "pointer" }}
-                                        />
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div
-                                  class="flex hidden md:block justify-between items-center"
-                                  style={{ display: "flex" }}
-                                >
-                                  <span class="hidden md:block">
-                                    Quantity : 1
-                                  </span>
-                                  <span class="hidden md:block">
-                                    {" "}
+                                </span>{" "}
+                                <div className="flex justify-between items-center">
+                                  <span className="">Quantity : 1</span>
+                                  <span className="">
                                     <RiDeleteBin5Line
                                       onClick={(e) => {
                                         e.preventDefault();
@@ -143,114 +70,47 @@ function CartPage({ categories, filters, cart, products, setCart }) {
                                           )
                                         );
                                       }}
-                                      class="text-xl mx-3"
+                                      className="text-xl mx-3"
                                       style={{ cursor: "pointer" }}
                                     />
                                   </span>
                                 </div>
                               </div>
-                            </span>
-                            <span>
-                              <div class=" py-3 hidden md:block  text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
-                                £{crt.basePrice}
-                              </div>
-                            </span>
-
-                          </div>
-                        </div>
-                      </span>
-                      <span>
-                        <div class=" py-3 hidden md:block  text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
-                          £7.95
-                        </div>
-                      </span>
-                    </Col>
-                  </Row>
-
-                  <hr class="mx-5 hidden md:block" />
-                  <Row>
-                    <Col
-                      class="flex justify-start items-start"
-                      style={{
-                        display: "flex",
-                        justifyContent: "start",
-                        alignItems: "start",
-                      }}
-                    >
-                      {" "}
-                      <span>
-                        <img
-                          src="https://ik.imagekit.io/2nuimwatr/Blue-Burst-Hybrid-Salt-E-Liquid-by-Riot-Squad-removebg-preview.png?updatedAt=1704572966581"
-                          alt=""
-                          style={{ maxWidth: "none" }}
-                          class="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem]  md:w-[16rem] "
-                        />{" "}
-                      </span>
-                      <span>
-                        <div
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <div class="px-2 py-3 mb-5">
-                            <p class="text-[#000000] font-bold text-sm">
-                              ELFA Pod Kit By Elf Bar
-                            </p>
-                            <p class="text-[#000000] font-bold text-sm">
-                              Aurora Purple
-                            </p>
-                            <div class="flex justify-between items-center block md:hidden">
-                              {" "}
-                              <span>
-                                <p class=" py-3 md:hidden block  text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
-                                  £7.95
-                                </p>
-                              </span>{" "}
-                              <div
-                                class="flex  justify-between items-center"
-                                style={{ display: "flex" }}
-                              >
-                                <span class="">Quantity : 1</span>
-                                <span class="">
-                                  {" "}
-                                  <RiDeleteBin5Line class="text-xl mx-3" />
-                                </span>
-                              </div>
+                            </div>
+                            <div className="flex hidden md:block justify-between items-center">
+                              <span className="hidden md:block">
+                                Quantity : 1
+                              </span>
+                              <span className="hidden md:block">
+                                {" "}
+                                <RiDeleteBin5Line
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    setCart((crtArr) =>
+                                      crtArr.filter(
+                                        (cId) => cId !== crt._id
+                                      )
+                                    );
+                                  }}
+                                  className="text-xl mx-3"
+                                  style={{ cursor: "pointer" }}
+                                />
+                              </span>
                             </div>
                           </div>
-                          <div
-                            class="flex hidden md:block justify-between items-center"
-                            style={{ display: "flex" }}
-                          >
-                            <span class="hidden md:block">Quantity : 1</span>
-                            <span class="hidden md:block">
-                              {" "}
-                              <RiDeleteBin5Line class="text-xl mx-3" />
-                            </span>
+                        </span>
+                        <span>
+                          <div className="py-3 hidden md:block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
+                            £{crt.basePrice}
                           </div>
-                        </div>
-                      </span>
-                      <span>
-                        <div class=" py-3 hidden md:block  text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
-                          £7.95
-                        </div>
-                      </span>
-                    </Col>
-                  </Row>
-
-
-                          </Col>
-                        </Row>
-                        {cartArr.length === i + 1 ? null : (
-                          <hr class="mx-5 hidden md:block" />
-                        )}
-                      </>
-                    );
-                  })}
-
-                </div>
+                        </span>
+                      </Col>
+                    </Row>
+                    {cartArr.length === i + 1 ? null : (
+                      <hr className="mx-5 hidden md:block" />
+                    )}
+                  </div>
+                ))}
               </div>
             </Col>
             <Col xs={12} md={4}>
