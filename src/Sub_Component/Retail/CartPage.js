@@ -5,10 +5,10 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
-function CartPage() {
+function CartPage({ categories, filters }) {
   return (
     <div>
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
       <div class="bg-[#FFFFFF] md:bg-[#F1FCFF] mt-[7rem] md:mt-[11rem] ">
         <h1 class="fs-2 py-5 font-bold text-center">Your Cart</h1>
         <Container fluid>
@@ -344,7 +344,6 @@ function CartPage() {
                       </span>
                     </Col>
                   </Row>
-                
                 </div>
               </div>
             </Col>

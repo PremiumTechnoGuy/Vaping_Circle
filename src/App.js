@@ -139,7 +139,10 @@ const App = () => {
                 />
               }
             />
-            <Route path="/cartView" element={<CartPage />} />
+            <Route
+              path="/cartView"
+              element={<CartPage categories={categories} filters={filters} />}
+            />
             <Route path="/checkout" element={<Checkout />} />
             <Route
               path="/aboutus"

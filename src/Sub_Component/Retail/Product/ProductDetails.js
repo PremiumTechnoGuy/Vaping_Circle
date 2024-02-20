@@ -15,7 +15,7 @@ import { Drawer } from "antd";
 import { Select, Space } from "antd";
 import { apiUrl } from "../../../data/env";
 
-function ProductDetails({ products }) {
+function ProductDetails({ products, categories, filters }) {
   const { currentProdId } = useParams();
   const [filteredProd] = products?.filter((prod) => prod._id === currentProdId);
 
@@ -72,7 +72,7 @@ function ProductDetails({ products }) {
   };
   return (
     <div>
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
       <div class="mt-64">
         <div>
           <Container fluid class="p-3">
