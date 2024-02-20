@@ -1,7 +1,7 @@
 import "./productpage.css";
 import { Container, Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
@@ -15,8 +15,9 @@ import { Drawer } from "antd";
 import { Select, Space } from "antd";
 import { apiUrl } from "../../../data/env";
 
-function ProductDetails({ products }) {
+function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
+  const nav = useNavigate();
   const [filteredProd] = products?.filter((prod) => prod._id === currentProdId);
 
   const [openOpt, setOpenOpt] = useState(false);
@@ -72,7 +73,7 @@ function ProductDetails({ products }) {
   };
   return (
     <div>
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
       <div class="mt-64">
         <div>
           <Container fluid class="p-3">
@@ -233,17 +234,21 @@ function ProductDetails({ products }) {
                   </p>
                 </div>
                 <p class="py-2"></p>
-                <div class="d-flex gap-2 justify-center items-center mt-3">
-                  <Link to="/checkout">
-                    <button id="btn" class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]">
-                      Buy Now
-                    </button>
-                  </Link>
-                  <Link to="/cartView">
-                    <button id="btn" class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]">
-                      Add to Cart
-                    </button>
-                  </Link>
+
+                <div class="flex flex-col justify-center items-center mt-3">
+                  {/* <Link to="/cartView"> */}
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCart((c) => [...c, filteredProd._id]);
+                      nav("/cartView");
+                    }}
+                    class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]"
+                  >
+                    Add to Cart
+                  </button>
+                  {/* </Link> */}
+
                 </div>
               </Col>
             </Row>

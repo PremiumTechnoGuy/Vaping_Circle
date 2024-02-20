@@ -35,6 +35,8 @@ const App = () => {
 
   const [currentProductId, setCurrentProductId] = React.useState("");
 
+  const [cart, setCart] = React.useState([]);
+
   React.useEffect(() => {
     axios
       .get(`${apiUrl}/api/v1/category?sort=priority`)
@@ -136,10 +138,22 @@ const App = () => {
                   products={products}
                   categories={categories}
                   filters={filters}
+                  setCart={setCart}
                 />
               }
             />
-            <Route path="/cartView" element={<CartPage />} />
+            <Route
+              path="/cartView"
+              element={
+                <CartPage
+                  categories={categories}
+                  filters={filters}
+                  cart={cart}
+                  products={products}
+                  setCart={setCart}
+                />
+              }
+            />
             <Route path="/checkout" element={<Checkout />} />
             <Route
               path="/aboutus"
