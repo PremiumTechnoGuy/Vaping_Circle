@@ -149,6 +149,7 @@ const App = () => {
                   categories={categories}
                   filters={filters}
                   cart={cart}
+                  products={products}
                 />
               }
             />
