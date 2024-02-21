@@ -122,15 +122,18 @@ const Footer = () => {
                 <h5>
                   <FaPhoneAlt class="text-white bg-[#0B428B] rounded-full p-1 text-2xl" />
                 </h5>
-                <span className="text-sm ml-2 leading-5"> +44 7511 906313</span>
-              </p>
+                <span onClick={() => window.location.href = 'https://wa.me/+447939278187'} >
+                  +447939278187
+                </span>              </p>
               <p className="lg:ml-[50px] mt-2  flex  col">
                 <h5>
                   <MdEmail class="text-white bg-[#0B428B] rounded-full p-1 text-2xl" />
                 </h5>
                 <span className="text-sm ml-2 leading-5">
-                  {" "}
-                  support@vapingcircle.co.uk
+
+                  <a href="mailto:info@vapingcircle.com" >
+                    info@vapingcircle.com
+                  </a>
                 </span>
               </p>
               <p className="lg:ml-[50px] mt-3  flex  col">
