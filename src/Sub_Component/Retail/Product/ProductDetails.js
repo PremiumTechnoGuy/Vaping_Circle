@@ -234,6 +234,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   </p>
                 </div>
                 <p class="py-2"></p>
+
                 <div class="flex flex-col justify-center items-center mt-3">
                   {/* <Link to="/cartView"> */}
                   <button
@@ -247,6 +248,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     Add to Cart
                   </button>
                   {/* </Link> */}
+
                 </div>
               </Col>
             </Row>

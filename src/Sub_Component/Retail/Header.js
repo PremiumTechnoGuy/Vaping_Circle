@@ -11,7 +11,7 @@ function Header({ phoneNumber }) {
   return (
     <div
       className="container-fluid p-2 text-white bg-[#59A0B8]"
-      // style={{ marginTop:-270 }}
+    // style={{ marginTop:-270 }}
     >
       <div className="row ">
         <div className="  col  lg:grid-cols-5  sm:grid-cols-12">
@@ -22,8 +22,10 @@ function Header({ phoneNumber }) {
               width="20px"
               alt=""
             />
-            <span class="" style={{ marginLeft: -8 }}>
-              info@vapingcircle.com
+            <span>
+              <a href="mailto:info@vapingcircle.com" style={{ marginLeft: -8 }}>
+                info@vapingcircle.com
+              </a>
             </span>
 
             {/* <img
@@ -38,10 +40,10 @@ function Header({ phoneNumber }) {
 
             <FaWhatsapp
               class="text-white text-2xl cursor-pointer"
-              onClick={redirectToWhatsApp}
+              onClick={() => window.location.href = 'https://wa.me/+447939278187'}
             />
-            <span class="" style={{ marginLeft: -8 }}>
-          07939278187
+            <span onClick={() => window.location.href = 'https://wa.me/+447939278187'} style={{ marginLeft: -8 }}>
+              +447939278187
             </span>
           </p>
         </div>

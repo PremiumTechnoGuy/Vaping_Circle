@@ -367,11 +367,11 @@ function SmallNavbar({ filters, categories }) {
             }}
           >
             <Link to="/vapedeals">
-              <button
+              <button id="btn"
                 class="float-end mt-2 right-0 p-2 w-[8rem] text-[15px]  rounded-md hover:bg-[#0B428B]  text-white bg-[#59A0B8]"
-                // style={{ height: 35, margin: "0 auto" }}
+              // style={{ height: 35, margin: "0 auto" }}
               >
-                <p class="hover:scale-125">Vapes Deal</p>
+                <p class="">Vapes Deal</p>
               </button>
             </Link>
           </div>
