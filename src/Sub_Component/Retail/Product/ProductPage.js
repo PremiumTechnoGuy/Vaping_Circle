@@ -1162,17 +1162,17 @@ function ProductPage({
                     />
                   </button>
                 </Link>
-                <img
+                {/* <img
                   src="https://ik.imagekit.io/2nuimwatr/Union%206.png?updatedAt=1704454095286"
                   alt=""
                   class="absolute hidden md:block z-50    top-10 right-0 w-24"
                 />
                 <p class="absolute hidden md:block z-50 top-12 right-3 font-semibold">
                   4 for £14
-                </p>
-                <p class="absolute bg-[#0B428B] z-50 top-4 left-4 py-1 px-3 text-white font-semibold">
+                </p> */}
+                {/* <p class="absolute bg-[#0B428B] z-50 top-4 left-4 py-1 px-3 text-white font-semibold">
                   Multi Buy
-                </p>
+                </p> */}
                 <div>
                   <Link to={`/productDetails/${item._id}`}>
                     {" "}
@@ -1188,7 +1188,7 @@ function ProductPage({
                   class="text-[#59A0B8] font-semibold "
                   style={{ fontSize: 15 }}
                 >
-                  {item.basePrice}£
+                 £ {item.basePrice}
                 </p>
               </div>
             </Col>

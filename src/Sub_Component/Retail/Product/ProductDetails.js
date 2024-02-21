@@ -243,7 +243,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                       setCart((c) => [...c, filteredProd._id]);
                       nav("/cartView");
                     }}
-                    class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]"
+                    class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]" id="btn"
                   >
                     Add to Cart
                   </button>
