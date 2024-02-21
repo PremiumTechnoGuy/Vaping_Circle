@@ -146,9 +146,11 @@ function CartPage({ categories, filters, cart, products, setCart }) {
                       Go to Checkout
                     </button>
                   </Link>
-                  <p class="text-[#59A0B8] p-2 underline underline-offset-2">
-                    Continue Shopping
-                  </p>
+                  <Link to="/">
+                    <p class="text-[#59A0B8] p-2 underline underline-offset-2">
+                      Continue Shopping
+                    </p>
+                  </Link>
                 </div>
               </div>
             </Col>

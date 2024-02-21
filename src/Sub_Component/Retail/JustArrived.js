@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./JustArrived.css";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link, Outlet, useParams } from "react-router-dom";
 
 const JustArrived = ({ categories, products }) => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]?._id);
@@ -88,6 +89,8 @@ const JustArrived = ({ categories, products }) => {
               return (
                 <Col key={prod._id}>
                   <div id="content" class="m-2 relative">
+                  <Link to={`/productDetails/${prod._id}`}>
+
                     <img
                       src={prod.coverImage.replace(
                         "/product",
@@ -107,6 +110,7 @@ const JustArrived = ({ categories, products }) => {
                         £{prod.basePrice}
                       </p>
                     </div>
+                    </Link>
                   </div>
                 </Col>
               );

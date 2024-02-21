@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link, Outlet, useParams } from "react-router-dom";
+
 // import Card from "react-bootstrap/Card";
 // import { TbMathGreater } from "react-icons/tb";
 
@@ -19,6 +21,7 @@ const Super = ({ products }) => {
             return (
               <Col>
                 <div id="content" class="m-2 relative">
+                <Link to={`/productDetails/${p._id}`}>
                   <img
                     src={p.coverImage.replace(
                       "/product",
@@ -47,6 +50,7 @@ const Super = ({ products }) => {
                   >
                     £{p.basePrice}
                   </p>
+                  </Link>
                 </div>
               </Col>
             );
