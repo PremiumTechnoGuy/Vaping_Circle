@@ -246,16 +246,16 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 <div class="flex px-2">
                   <p class="text-[#707070] text-[16px]  pr-2">Quantity</p>
                   <p
-                    class="px-2 py-1 mx-2 bg-white rounded-full text-[20px] shadow-sm shadow-cyan-500/50 cursor-pointer"
+                    class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50 cursor-pointer"
                     onClick={decrement}
                   >
                     -
                   </p>
-                  <p class="px-2 py-1 mx-2 bg-white rounded-full text-[20px] shadow-sm shadow-cyan-500/50">
+                  <p class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50">
                     {count}
                   </p>
                   <p
-                    class="px-2 py-1 mx-2 bg-white rounded-full text-[20px] shadow-sm shadow-cyan-500/50 cursor-pointer"
+                    class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50 cursor-pointer"
                     onClick={increment}
                   >
                     +
