@@ -19,6 +19,17 @@ function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
   const nav = useNavigate();
   const [filteredProd] = products?.filter((prod) => prod._id === currentProdId);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const handleArrowClick = (direction) => {
+    if (direction === 'left') {
+      setCurrentImageIndex((prevIndex) => (prevIndex - 1 + filteredProd.images.length) % filteredProd.images.length);
+    } else {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % filteredProd.images.length);
+    }
+  };
+  const handleImageClick = (clickedIndex) => {
+    setCurrentImageIndex(clickedIndex);
+  };
 
   const [openOpt, setOpenOpt] = useState(false);
   const [count, setCount] = useState(1);
@@ -85,19 +96,36 @@ function ProductDetails({ products, categories, filters, setCart }) {
                       <div class="d-flex flex-col gap-3 p-2 px-5 ">
                         {filteredProd?.images?.map((url, i) => (
                           <img
-                            class="w-36 h-28 shadow-md"
+                            key={i}
+                            class={`w-36 h-28 shadow-md ${i === currentImageIndex ? 'border-2 border-[#59A0B8]' : ''}`}
                             alt={`Product Img ${i}`}
                             src={url}
+                            onClick={() => handleImageClick(i)}
                           />
                         ))}
                       </div>
                     </Col>
                     <Col md={8} className="hidden md:block">
-                      <img
-                        class="shadow-md h-full "
-                        alt="imageprod"
-                        src={filteredProd?.coverImage}
-                      />
+                      <div className="relative">
+                        <img
+                          class="shadow-md h-full w-full"
+                          alt="imageprod"
+                          src={filteredProd?.images[currentImageIndex]}
+                        />
+                        <div className="absolute top-40 left-0 flex justify-between w-full p-3">
+                          <div className="cursor-pointer" onClick={() => handleArrowClick('left')}>
+                            <div style={{ fontSize: '24px' }}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                            </svg></div>
+                          </div>
+                          <div className="cursor-pointer" onClick={() => handleArrowClick('right')}>
+                            <div style={{ fontSize: '24px' }}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
+                            </svg></div>
+
+                          </div>
+                        </div>
+                      </div>
                     </Col>
                   </Row>
                 </div>
