@@ -1,7 +1,7 @@
 import "./flavor.css";
 import { Row, Col, Container } from "react-bootstrap";
 import { FaArrowRight } from "react-icons/fa";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import React, { useState } from "react";
 import { Button, Drawer } from "antd";
@@ -9,6 +9,8 @@ import axios from "axios";
 import { apiUrl } from "../../data/env.js";
 
 function Flavor() {
+  const nav = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [flavours, setFlavours] = useState([]);
   const [index, setIndex] = useState(0);
@@ -23,7 +25,7 @@ function Flavor() {
 
   React.useEffect(() => {
     axios
-      .get(`${apiUrl}/api/v1/flavour`)
+      .get(`${apiUrl}/api/v1/flavour?sort=priority`)
       .then((res) => setFlavours(res.data.data.slice(0, 4)))
       .catch((err) => console.log(err));
   }, []);
@@ -39,7 +41,7 @@ function Flavor() {
             {flavours?.map((flavour, iter) => (
               <Col
                 id="content"
-                key={flavour.id}
+                key={flavour._id}
                 style={{
                   display: "flex",
                   justifyContent: "center",
@@ -69,6 +71,12 @@ function Flavor() {
                           <li
                             key={subFlavour.id}
                             class=" flex justify-around s items-center text-left border-b py-1"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              nav(
+                                `/flavourProductPage/${flavour._id}/${subFlavour.name}/${flavour.name}`
+                              );
+                            }}
                           >
                             <span>{subFlavour.name}</span>
                             <span class="bg-[#59a0b8] py-1 px-2 rounded-full text-white">

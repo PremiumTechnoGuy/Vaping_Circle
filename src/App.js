@@ -26,6 +26,7 @@ import Privacy_Policy from "./Sub_Component/Retail/StaticPages/Privacy_Policy";
 import Compliance from "./Sub_Component/Retail/StaticPages/Compliance";
 import axios from "axios";
 import { apiUrl } from "./data/env";
+import FlavourProductPage from "./Sub_Component/Retail/Flavour/FlavourProductPage";
 
 const App = () => {
   const [products, setProducts] = React.useState([]);
@@ -124,6 +125,16 @@ const App = () => {
               path="/filterProductPage/:categoryId/:filId/:filName/:chosenOption"
               element={
                 <FilterProductPage
+                  products={products}
+                  categories={categories}
+                  filters={filters}
+                />
+              }
+            />
+            <Route
+              path="/flavourProductPage/:flavourId/:subFlavour/:flavourName"
+              element={
+                <FlavourProductPage
                   products={products}
                   categories={categories}
                   filters={filters}
