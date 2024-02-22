@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./JustArrived.css";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const JustArrived = ({ categories, products }) => {
   const [selectedCategory, setSelectedCategory] = useState(categories[0]?._id);
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const handleCategoryChange = (category) => {
-    const filProds = products.filter((p) => p.category === category);
-
-    setSelectedCategory(category);
+  useEffect(() => {
+    // Update filtered products when selected category changes
+    const filProds = products.filter((p) => p.category === selectedCategory);
     setFilteredProducts(filProds);
+  }, [selectedCategory, products]);
+
+  // Handle category change
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
   };
+
+  // Set default category and filtered products on mount
+  useEffect(() => {
+    setSelectedCategory(categories[1]?._id);
+    const filProds = products.filter((p) => p.category === categories[1]?._id);
+    setFilteredProducts(filProds);
+  }, [categories, products]);
 
   return (
     <div>
@@ -88,25 +100,28 @@ const JustArrived = ({ categories, products }) => {
               return (
                 <Col key={prod._id}>
                   <div id="content" class="m-2 relative">
-                    <img
-                      src={prod.coverImage.replace(
-                        "/product",
-                        "/tr:ar-1-1,w-301.5,h-336/product"
-                      )}
-                      alt=""
-                      class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                    />
-                    <div class="flex justify-between">
-                      {" "}
-                      <div>
-                        <p class="text-black font-semibold text-[15px] px-3">
-                          {prod.name}
+                    <Link to={`/productDetails/${prod._id}`}>
+
+                      <img
+                        src={prod.coverImage.replace(
+                          "/product",
+                          "/tr:ar-1-1,w-301.5,h-336/product"
+                        )}
+                        alt=""
+                        class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
+                      />
+                      <div class="flex justify-between">
+                        {" "}
+                        <div>
+                          <p class="text-black font-semibold text-[15px] px-3">
+                            {prod.name}
+                          </p>
+                        </div>
+                        <p class="text-[#000000] font-semibold text-[15px] px-3">
+                          £{prod.basePrice}
                         </p>
                       </div>
-                      <p class="text-[#000000] font-semibold text-[15px] px-3">
-                        £{prod.basePrice}
-                      </p>
-                    </div>
+                    </Link>
                   </div>
                 </Col>
               );
