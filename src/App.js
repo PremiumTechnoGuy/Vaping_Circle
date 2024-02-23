@@ -24,6 +24,9 @@ import Return_Policy from "./Sub_Component/Retail/StaticPages/Return_Policy";
 import Age_varification from "./Sub_Component/Retail/StaticPages/Age_varification";
 import Privacy_Policy from "./Sub_Component/Retail/StaticPages/Privacy_Policy";
 import Compliance from "./Sub_Component/Retail/StaticPages/Compliance";
+import Fusion_Vape from "./Sub_Component/Retail/StaticPages/FusionVape";
+import Cloud_Partner from "./Sub_Component/Retail/StaticPages/CloudPartner";
+import Our_Partner from "./Sub_Component/Retail/StaticPages/OurPartner";
 import axios from "axios";
 import { apiUrl } from "./data/env";
 import FlavourProductPage from "./Sub_Component/Retail/Flavour/FlavourProductPage";
@@ -117,7 +120,7 @@ const App = () => {
                   // currentCategory={currentCategory}
                   categories={categories}
                   filters={filters}
-                  // setCurrentProductId={setCurrentProductId}
+                // setCurrentProductId={setCurrentProductId}
                 />
               }
             />
@@ -175,6 +178,10 @@ const App = () => {
             <Route path="/privacy_policy" element={<Privacy_Policy />} />
             <Route path="/compliance" element={<Compliance />} />
             <Route path="/return_policy" element={<Return_Policy />} />
+            <Route path="/fusion_vape" element={<Fusion_Vape />} />
+            <Route path="/cloud_partner" element={<Cloud_Partner />} />
+            <Route path="/our_partner" element={<Our_Partner />} />
+
           </Routes>
         </ScrollToTop>
       </BrowserRouter>
