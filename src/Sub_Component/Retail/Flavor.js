@@ -113,7 +113,15 @@ function Flavor() {
             {flavours[index]?.subFlavours?.map((fl) => {
               return (
                 <div key={fl._id} class="mb-1 cursor-pointer">
-                  <li class="flex border-b justify-between items-center px-5 py-3">
+                  <li
+                    class="flex border-b justify-between items-center px-5 py-3"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      nav(
+                        `/flavourProductPage/${flavours[index]._id}/${fl.name}/${flavours[index].name}`
+                      );
+                    }}
+                  >
                     <span class="fs-6 tracking-wide">{fl.name}</span>
                     <span class="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">
                       {fl.productCountSubFlavour}
