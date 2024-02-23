@@ -84,6 +84,13 @@ const Footer = () => {
                 </Link>
               </span>
               <br />
+              <span className="lg:ml-[10px]">
+                <Link to="/our_partner" class="hover:text-black">
+                  Our Patner
+                </Link>
+              </span>
+              <br />    
+
             </p>
           </Col>
           <Col xs={6} md={3} className=" flex row">

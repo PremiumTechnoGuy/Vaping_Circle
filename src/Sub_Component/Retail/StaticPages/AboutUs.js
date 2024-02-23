@@ -302,7 +302,7 @@ function AboutUs({ filters, categories }) {
           </div>
           <div class="mx-5 md:mx-5 mt-5  md:px-5 flex justify-center items-center">
             <p class="fs-4 text-black text-center tracking-wide font-semibold line2">
-              Participating Stores
+              Partner Stores
             </p>
           </div>
           <div class="mx-5 md:mx-5 mt-5  md:px-5 ">
