@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+// import NavDropdown from "react-bootstrap/NavDropdown";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavbarBrand } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
@@ -12,42 +12,16 @@ import { IoIosSearch } from "react-icons/io";
 import { Link, Outlet } from "react-router-dom";
 import "./SwitchBtn.css";
 import Modal from "react-bootstrap/Modal";
-import { GoSignIn } from "react-icons/go";
+// import { GoSignIn } from "react-icons/go";
 import { GoSignOut } from "react-icons/go";
 
 // import { AiOutlineShoppingCart } from "react-icons/ai";
 
-function Navigation() {
+function Navigation({ categories, filters }) {
   const [open1, setOpen1] = useState(false);
-
-  const [status, setStatus] = useState(false);
-  const [statusType, setStatusType] = useState(false);
-  const [statusBrand, setStatusBrand] = useState(false);
-  const [statusFeature, setStatusFeature] = useState(false);
-  const [icon, setIcon] = useState("+");
-  const [type, setType] = useState("+");
-  const [feature, setFeature] = useState("+");
-  const [brand, setBrand] = useState("+");
 
   const changeIcon1 = () => {
     setOpen1(!open1);
-  };
-
-  const changeIcon = () => {
-    setIcon(icon === "+" ? "-" : "+");
-    setStatus(!status);
-  };
-  const changeType = () => {
-    setType(type === "+" ? "-" : "+");
-    setStatusType(!statusType);
-  };
-  const changeFeature = () => {
-    setFeature(feature === "+" ? "-" : "+");
-    setStatusFeature(!statusFeature);
-  };
-  const changeBrand = () => {
-    setBrand(brand === "+" ? "-" : "+");
-    setStatusBrand(!statusBrand);
   };
 
   const [show, setShow] = useState(false);
@@ -64,7 +38,7 @@ function Navigation() {
           className="bg-white p-0 m-0 border-b box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;"
         >
           <Container fluid style={{ boxShadow: "0px 4px 6px 0px #e9ecef" }}>
-            <Navbar.Brand href="/">
+            <Navbar.Brand href>
               <img
                 width="70px"
                 alt=""
@@ -170,313 +144,7 @@ function Navigation() {
                 </Offcanvas.Header>
                 <Offcanvas.Body class="p-0">
                   <Nav className="justify-content-end flex-grow-1 ">
-                    <h1
-                      className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer"
-                      onClick={changeIcon}
-                    >
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          Vape Kits
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            {icon}
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-
-                    {status ? (
-                      <>
-                        {" "}
-                        <h1
-                          className="bg-gray-100 hover:bg-gray-200 hover:text-black pt-3 pb-1 pl-6"
-                          onClick={changeType}
-                        >
-                          <Link to="#">
-                            <span className="hover:text-black text-base font-semibold text-[15px] ">
-                              Shop by Type
-                              <p
-                                className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                                style={{ marginTop: "-10px" }}
-                              >
-                                {type}
-                              </p>
-                            </span>
-                          </Link>
-                        </h1>
-                        {statusType ? (
-                          <>
-                            {" "}
-                            <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black  ">
-                              <h3 className="fw-bold"></h3>
-                              <ul>
-                                <li role="menuitem">
-                                  <a href="#">Starter Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Advanced Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Vape Pen Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Pod Kits</a>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black ">
-                              <h3 className="fw-bold"></h3>
-                              <ul>
-                                <li role="menuitem">
-                                  <a href="#">Disposables Vapes</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">MLT Vape Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Bundle Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Shop All Vape Kits</a>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black ">
-                              <ul>
-                                <li role="menuitem">
-                                  <a href="#">User Level</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">First Time Switcher</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Intermediate / Mid Range Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Advanced User Vapes</a>
-                                </li>
-                              </ul>
-                            </div>
-                          </>
-                        ) : null}
-                        <h1
-                          className="bg-gray-100 hover:bg-gray-200 hover:text-black pt-3 pb-1 pl-6"
-                          onClick={changeFeature}
-                        >
-                          <Link to="#">
-                            <span className="hover:text-black text-base font-semibold text-[15px] ">
-                              Shop by Feature
-                              <p
-                                className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                                style={{ marginTop: "-10px" }}
-                              >
-                                {feature}
-                              </p>
-                            </span>
-                          </Link>
-                        </h1>
-                        {statusFeature ? (
-                          <>
-                            <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black">
-                              <h3 className="fw-bold"></h3>
-                              <ul>
-                                <li role="menuitem">
-                                  <a href="#">Inhale- Activated Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Rechargable Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Closed Pod Kits</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Adjustable Airflow</a>
-                                </li>
-                              </ul>
-                            </div>
-                          </>
-                        ) : null}
-                        <h1
-                          className="bg-gray-100 hover:bg-gray-200 hover:text-black pt-3 pb-1 pl-6"
-                          onClick={changeBrand}
-                        >
-                          <Link to="#">
-                            <span className="hover:text-black text-base font-semibold text-[15px] ">
-                              Feature Brand
-                              <p
-                                className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                                style={{ marginTop: "-10px" }}
-                              >
-                                {brand}
-                              </p>
-                            </span>
-                          </Link>
-                        </h1>
-                        {statusBrand ? (
-                          <>
-                            {" "}
-                            <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black ">
-                              <h3 className="fw-bold"></h3>
-                              <ul>
-                                <li role="menuitem">
-                                  <a href="#">Aspire</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Elf Bar</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Geek Vape</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Innokin</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">JUUL</a>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black ">
-                              <h3 className="fw-bold"></h3>
-                              <ul>
-                                <li role="menuitem">
-                                  <a href="#">OXVA</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">SMOKE</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Vaporesso</a>
-                                </li>
-                                <li role="menuitem">
-                                  <a href="#">Voopoo</a>
-                                </li>
-                              </ul>
-                            </div>
-                          </>
-                        ) : null}
-                      </>
-                    ) : null}
-
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black  mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          E-Liquids
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          Disposible
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          Refill & Pods
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          Tanks
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          Mods
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          Coils
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          Accessories
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          CBD
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
-                    <h1 className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer">
-                      <Link>
-                        <span className="hover:text-black text-base font-semibold text-[15px] ">
-                          Help
-                          <p
-                            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
-                            style={{ marginTop: "-10px" }}
-                          >
-                            +
-                          </p>
-                        </span>
-                      </Link>
-                    </h1>
+                    <CategoryComp categories={categories} filters={filters} />
                   </Nav>
                 </Offcanvas.Body>
               </Navbar.Offcanvas>{" "}
@@ -534,6 +202,101 @@ function Navigation() {
         </Modal.Header>
       </Modal>
       <Outlet />
+    </div>
+  );
+}
+
+function CategoryComp({ categories, filters }) {
+  const [status, setStatus] = useState(false);
+  const [icon, setIcon] = useState("+");
+
+  const changeIcon = () => {
+    setIcon(icon === "+" ? "-" : "+");
+    setStatus(!status);
+  };
+
+  return (
+    <>
+      <h1
+        className="bg-gray-100 hover:bg-gray-200 pt-3 pb-3 pl-6 hover:text-black mb-1 cursor-pointer"
+        onClick={changeIcon}
+      >
+        <span className="hover:text-black text-base font-semibold text-[15px] ">
+          Vape Kits
+          <p
+            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
+            style={{ marginTop: "-10px" }}
+          >
+            {icon}
+          </p>
+        </span>
+      </h1>
+
+      {status ? (
+        <>
+          <MainFilterComp temp={"one"} />
+          <MainFilterComp temp={"two"} />
+          <MainFilterComp temp={"three"} />
+        </>
+      ) : null}
+    </>
+  );
+}
+
+function MainFilterComp({ temp }) {
+  const [statusType, setStatusType] = useState(false);
+  const [type, setType] = useState("+");
+
+  const changeType = () => {
+    setType(type === "+" ? "-" : "+");
+    setStatusType(!statusType);
+  };
+
+  return (
+    <>
+      <h1
+        className="bg-gray-100 hover:bg-gray-200 hover:text-black pt-3 pb-1 pl-6"
+        onClick={changeType}
+      >
+        <span className="hover:text-black text-base font-semibold text-[15px] ">
+          Shop by Type ({temp})
+          <p
+            className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
+            style={{ marginTop: "-10px" }}
+          >
+            {type}
+          </p>
+        </span>
+      </h1>
+      {statusType ? (
+        <>
+          <FilterComp />
+          <FilterComp />
+          <FilterComp />
+        </>
+      ) : null}
+    </>
+  );
+}
+
+function FilterComp() {
+  return (
+    <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black  ">
+      {/* <h3 className="fw-bold"></h3> */}
+      <ul>
+        <li role="menuitem">
+          <a href>Starter Kits</a>
+        </li>
+        <li role="menuitem">
+          <a href>Advanced Kits</a>
+        </li>
+        <li role="menuitem">
+          <a href>Vape Pen Kits</a>
+        </li>
+        <li role="menuitem">
+          <a href>Pod Kits</a>
+        </li>
+      </ul>
     </div>
   );
 }
