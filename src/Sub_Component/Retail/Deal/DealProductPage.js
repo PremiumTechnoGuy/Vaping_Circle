@@ -166,17 +166,21 @@ function DealProductPage({ products, categories, filters }) {
                     />
                   </button>
                 </Link>
-                <img
-                  src="https://ik.imagekit.io/2nuimwatr/Union%206.png?updatedAt=1704454095286"
-                  alt=""
-                  class="absolute hidden md:block z-50    top-10 right-0 w-24"
-                />
-                <p class="absolute hidden md:block z-50 top-12 right-3 font-semibold">
-                  4 for £14
-                </p>
-                <p class="absolute bg-[#0B428B] z-50 top-4 left-4 py-1 px-3 text-white font-semibold">
-                  Multi Buy
-                </p>
+                {item.offer?.isOffer ? (
+                  <>
+                    <img
+                      src="https://ik.imagekit.io/2nuimwatr/Union%208.png?updatedAt=1706280379202"
+                      alt=""
+                      class="absolute z-50 top-10 right-0 w-[5rem] md:w-24"
+                    />
+                    <p class="absolute hidden md:block z-50 top-12 right-3 font-semibold">
+                      {item.offer.offerName}
+                    </p>
+                    <p class="absolute bg-[#0B428B] z-50 top-4 left-4 py-1 px-3 text-white font-semibold">
+                      Multi Buy
+                    </p>
+                  </>
+                ) : null}
                 <div>
                   <Link to={`/productDetails/${item._id}`}>
                     {" "}

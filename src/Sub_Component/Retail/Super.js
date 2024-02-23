@@ -21,35 +21,42 @@ const Super = ({ products }) => {
             return (
               <Col>
                 <div id="content" class="m-2 relative">
-                <Link to={`/productDetails/${p._id}`}>
-                  <img
-                    src={p.coverImage.replace(
-                      "/product",
-                      "/tr:w-245,h-272/product"
-                    )}
-                    alt={p.name}
-                    class="w-[50rem] xs:h-[13rem] md:h-[17rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150 "
-                  />
-                  {/* <img
-                    src="https://ik.imagekit.io/2nuimwatr/Union%208.png?updatedAt=1706280379202"
-                    alt=""
-                    class="absolute z-50 top-10 right-[8px] md:right-3 w-[5rem] md:w-24"
-                  />
-                  <p class="absolute z-50 top-[42px] right-[15px] md:top-12 md:right-7 text-white font-semibold">
-                    4 for £14
-                  </p> */}
-                  <p
-                    class="text-black font-semibold px-3"
-                    style={{ fontSize: 15 }}
-                  >
-                    {p.name}
-                  </p>
-                  <p
-                    class="text-[#0B428B] font-semibold px-3"
-                    style={{ fontSize: 15 }}
-                  >
-                    £{p.basePrice}
-                  </p>
+                  <Link to={`/productDetails/${p._id}`}>
+                    <img
+                      src={p.coverImage.replace(
+                        "/product",
+                        "/tr:w-245,h-272/product"
+                      )}
+                      alt={p.name}
+                      class="w-[50rem] xs:h-[13rem] md:h-[17rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150 "
+                    />
+                    {p.offer?.isOffer ? (
+                      <>
+                        <img
+                          src="https://ik.imagekit.io/2nuimwatr/Union%208.png?updatedAt=1706280379202"
+                          alt=""
+                          class="absolute z-50 top-10 right-0 w-[5rem] md:w-24"
+                        />
+                        <p class="absolute hidden md:block z-50 top-12 right-3 font-semibold">
+                          {p.offer.offerName}
+                        </p>
+                        <p class="absolute bg-[#0B428B] z-50 top-4 left-4 py-1 px-3 text-white font-semibold">
+                          Multi Buy
+                        </p>
+                      </>
+                    ) : null}
+                    <p
+                      class="text-black font-semibold px-3"
+                      style={{ fontSize: 15 }}
+                    >
+                      {p.name}
+                    </p>
+                    <p
+                      class="text-[#0B428B] font-semibold px-3"
+                      style={{ fontSize: 15 }}
+                    >
+                      £{p.basePrice}
+                    </p>
                   </Link>
                 </div>
               </Col>
