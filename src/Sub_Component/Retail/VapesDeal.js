@@ -5,6 +5,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import Footer from "./Footer";
 import axios from "axios";
 import { apiUrl } from "../../data/env";
+import { useNavigate } from "react-router-dom";
 
 function chunkArray(array, size) {
   const chunkedArray = [];
@@ -15,6 +16,7 @@ function chunkArray(array, size) {
 }
 
 function VapesDeal({ categories, filters }) {
+  const nav = useNavigate();
   const [allDeals, setAllDeals] = React.useState([]);
 
   React.useEffect(() => {
@@ -98,7 +100,13 @@ function VapesDeal({ categories, filters }) {
                 {arr2.map((deal) => {
                   return (
                     <Col sm={5}>
-                      <Card className="border-0">
+                      <Card
+                        className="border-0"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          nav(`/DealProductPage/${deal.name}/${deal._id}`);
+                        }}
+                      >
                         <Card.Img
                           variant="top"
                           class="relative rounded-2 transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"

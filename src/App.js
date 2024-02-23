@@ -30,6 +30,7 @@ import Our_Partner from "./Sub_Component/Retail/StaticPages/OurPartner";
 import axios from "axios";
 import { apiUrl } from "./data/env";
 import FlavourProductPage from "./Sub_Component/Retail/Flavour/FlavourProductPage";
+import DealProductPage from "./Sub_Component/Retail/Deal/DealProductPage";
 
 const App = () => {
   const [products, setProducts] = React.useState([]);
@@ -97,6 +98,16 @@ const App = () => {
               element={<VapesDeal categories={categories} filters={filters} />}
             />
             <Route
+              path="/DealProductPage/:offerName/:offerId"
+              element={
+                <DealProductPage
+                  products={products}
+                  categories={categories}
+                  filters={filters}
+                />
+              }
+            />
+            <Route
               path="/flavour_page"
               element={
                 <FlavourPage categories={categories} filters={filters} />
@@ -120,7 +131,7 @@ const App = () => {
                   // currentCategory={currentCategory}
                   categories={categories}
                   filters={filters}
-                // setCurrentProductId={setCurrentProductId}
+                  // setCurrentProductId={setCurrentProductId}
                 />
               }
             />
@@ -181,7 +192,6 @@ const App = () => {
             <Route path="/fusion_vape" element={<Fusion_Vape />} />
             <Route path="/cloud_partner" element={<Cloud_Partner />} />
             <Route path="/our_partner" element={<Our_Partner />} />
-
           </Routes>
         </ScrollToTop>
       </BrowserRouter>
