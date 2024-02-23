@@ -9,7 +9,7 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import { NavbarBrand } from "react-bootstrap";
 import InputGroup from "react-bootstrap/InputGroup";
 import { IoIosSearch } from "react-icons/io";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./SwitchBtn.css";
 import Modal from "react-bootstrap/Modal";
 // import { GoSignIn } from "react-icons/go";
@@ -18,6 +18,8 @@ import { GoSignOut } from "react-icons/go";
 // import { AiOutlineShoppingCart } from "react-icons/ai";
 
 function Navigation({ categories, filters }) {
+  const nav = useNavigate();
+
   const [open1, setOpen1] = useState(false);
 
   const changeIcon1 = () => {
@@ -43,6 +45,8 @@ function Navigation({ categories, filters }) {
                 width="70px"
                 alt=""
                 src="https://ik.imagekit.io/p2slevyg1/WhatsApp%20Image%202024-01-01%20at%2012.04.01%20AM.jpeg?updatedAt=1704049949841"
+                onClick={() => nav("/")}
+                style={{ cursor: "pointer" }}
               />
             </Navbar.Brand>
 
@@ -144,7 +148,13 @@ function Navigation({ categories, filters }) {
                 </Offcanvas.Header>
                 <Offcanvas.Body class="p-0">
                   <Nav className="justify-content-end flex-grow-1 ">
-                    <CategoryComp categories={categories} filters={filters} />
+                    {categories.map((cat) => (
+                      <CategoryComp
+                        key={cat._id}
+                        category={cat}
+                        filters={filters}
+                      />
+                    ))}
                   </Nav>
                 </Offcanvas.Body>
               </Navbar.Offcanvas>{" "}
@@ -206,7 +216,7 @@ function Navigation({ categories, filters }) {
   );
 }
 
-function CategoryComp({ categories, filters }) {
+function CategoryComp({ category, filters }) {
   const [status, setStatus] = useState(false);
   const [icon, setIcon] = useState("+");
 
@@ -215,6 +225,10 @@ function CategoryComp({ categories, filters }) {
     setStatus(!status);
   };
 
+  const filteredFilters = filters.filter(
+    (fil) => fil.categoryId === category._id
+  );
+
   return (
     <>
       <h1
@@ -222,7 +236,7 @@ function CategoryComp({ categories, filters }) {
         onClick={changeIcon}
       >
         <span className="hover:text-black text-base font-semibold text-[15px] ">
-          Vape Kits
+          {category.name}
           <p
             className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
             style={{ marginTop: "-10px" }}
@@ -234,16 +248,22 @@ function CategoryComp({ categories, filters }) {
 
       {status ? (
         <>
-          <MainFilterComp temp={"one"} />
-          <MainFilterComp temp={"two"} />
-          <MainFilterComp temp={"three"} />
+          {filteredFilters.map((filter) => (
+            <MainFilterComp
+              key={filter._id}
+              filter={filter}
+              categoryId={category._id}
+            />
+          ))}
         </>
       ) : null}
     </>
   );
 }
 
-function MainFilterComp({ temp }) {
+function MainFilterComp({ filter, categoryId }) {
+  const nav = useNavigate();
+
   const [statusType, setStatusType] = useState(false);
   const [type, setType] = useState("+");
 
@@ -256,10 +276,11 @@ function MainFilterComp({ temp }) {
     <>
       <h1
         className="bg-gray-100 hover:bg-gray-200 hover:text-black pt-3 pb-1 pl-6"
+        style={{ cursor: "pointer" }}
         onClick={changeType}
       >
         <span className="hover:text-black text-base font-semibold text-[15px] ">
-          Shop by Type ({temp})
+          {filter.name}
           <p
             className="d-inline float-right mr-5 text-4xl pt-1 font-normal  hover:text-black "
             style={{ marginTop: "-10px" }}
@@ -269,35 +290,28 @@ function MainFilterComp({ temp }) {
         </span>
       </h1>
       {statusType ? (
-        <>
-          <FilterComp />
-          <FilterComp />
-          <FilterComp />
-        </>
+        <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black">
+          {/* <h3 className="fw-bold"></h3> */}
+          <ul>
+            {filter.options.map((option) => (
+              <li role="menuitem" style={{ cursor: "pointer" }}>
+                <a
+                  href
+                  onClick={(e) => {
+                    e.preventDefault();
+                    nav(
+                      `/filterProductPage/${categoryId}/${filter._id}/${filter.name}/${option}`
+                    );
+                  }}
+                >
+                  {option}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
     </>
-  );
-}
-
-function FilterComp() {
-  return (
-    <div className="px-4 py-2 font-[13px] hover:text-grey-800 text-black  ">
-      {/* <h3 className="fw-bold"></h3> */}
-      <ul>
-        <li role="menuitem">
-          <a href>Starter Kits</a>
-        </li>
-        <li role="menuitem">
-          <a href>Advanced Kits</a>
-        </li>
-        <li role="menuitem">
-          <a href>Vape Pen Kits</a>
-        </li>
-        <li role="menuitem">
-          <a href>Pod Kits</a>
-        </li>
-      </ul>
-    </div>
   );
 }
 
