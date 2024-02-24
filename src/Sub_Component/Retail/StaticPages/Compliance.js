@@ -2,11 +2,11 @@ import React from "react";
 import Fixed_Component from "../Fixed_Component";
 import Footer from "../Footer";
 
-const Compliance = () => {
+const Compliance = ({ categories, filters }) => {
   return (
     <div>
       <div class="mt-[7rem] md:mt-[13rem] ">
-        <Fixed_Component />{" "}
+        <Fixed_Component categories={categories} filters={filters} />{" "}
         <h1 class="md:fs-1 fs-3 font-bold flex justify-center items-center text-white text-center gradident_bg h-[10rem] md:h-[15rem]">
           Compliance - Tobacco Products Directive (TPD)
         </h1>

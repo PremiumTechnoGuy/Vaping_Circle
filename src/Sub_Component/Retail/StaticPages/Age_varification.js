@@ -3,13 +3,13 @@ import { Link, Outlet } from "react-router-dom";
 import Footer from "../Footer";
 import Fixed_Component from "../Fixed_Component";
 
-const Age_varification = () => {
+const Age_varification = ({ categories, filters }) => {
   return (
     <div>
       <div class="mt-[7rem] md:mt-[13rem] ">
-        <Fixed_Component />{" "}
+        <Fixed_Component categories={categories} filters={filters} />{" "}
         <h1 class="fs-1 font-bold flex justify-center items-center text-white text-center gradident_bg h-[10rem] md:h-[15rem]">
-        Age Verification
+          Age Verification
         </h1>
         <div class="mx-5 md:mx-5 mt-5 md:pt-5 md:px-5 ">
           <p class="fs-4 text-black font-semibold line">
@@ -98,10 +98,7 @@ const Age_varification = () => {
             Once you have been successfully verified you will not be required to
             take this action again on future orders. For further information
             please review our
-            <Link
-              to="#"
-              class="text-[#59a0b8] hover:text-[#59a0b8]"
-            >
+            <Link to="#" class="text-[#59a0b8] hover:text-[#59a0b8]">
               {" "}
               privacy policy.
             </Link>

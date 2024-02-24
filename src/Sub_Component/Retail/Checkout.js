@@ -8,10 +8,10 @@ import Form from "react-bootstrap/Form";
 import Footer from "./Footer";
 import Fixed_Component from "./Fixed_Component";
 
-function Checkout() {
+function Checkout({ categories, filters }) {
   return (
     <div>
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
       <div class="bg-[#FFFFFF] md:bg-[#F1FCFF] mt-[7rem] md:mt-[11rem]">
         <h2 class="text-3xl  font-bold text-center py-5">Checkout</h2>
         <Container fluid>
@@ -51,14 +51,14 @@ function Checkout() {
                     <div>
                       <Form sm={12}>
                         <Row className="mb-3">
-                          <Form.Group as={Col} controlId="" >
+                          <Form.Group as={Col} controlId="">
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               First Name
                             </Form.Label>
                             <Form.Control type="text" />
                           </Form.Group>
 
-                          <Form.Group as={Col} controlId="" >
+                          <Form.Group as={Col} controlId="">
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               Last Name
                             </Form.Label>
@@ -88,21 +88,24 @@ function Checkout() {
                             <Form.Control />
                           </Form.Group>
 
-                          <Form.Group as={Col} controlId="" >
+                          <Form.Group as={Col} controlId="">
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               State
                             </Form.Label>
                             <Form.Control />
                           </Form.Group>
 
-                          <Form.Group as={Col} controlId="" >
+                          <Form.Group as={Col} controlId="">
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               Zip Code
                             </Form.Label>
                             <Form.Control />
                           </Form.Group>
                         </Row>
-                        <Form.Group className="mb-3" controlId="formGridAddress1">
+                        <Form.Group
+                          className="mb-3"
+                          controlId="formGridAddress1"
+                        >
                           <Form.Label class="text-[#59A0B8] font-semibold py-2">
                             Address
                           </Form.Label>
@@ -115,14 +118,16 @@ function Checkout() {
                           id="formGridCheckbox"
                         >
                           <Form.Check
-
                             type="checkbox"
                             label="By making a purchase with Vape Superstore, you confirm to be Age Verified via 1Account and agree to our terms & conditions. Please tick to confirm."
                           />
                         </Form.Group>
 
                         <div class="flex flex-col justify-center items-center ">
-                          <button id="btn" class="bg-[#59A0B8] text-white mt-5 px-5 lg:text-xl font-semibold  py-2 rounded-[50px] ">
+                          <button
+                            id="btn"
+                            class="bg-[#59A0B8] text-white mt-5 px-5 lg:text-xl font-semibold  py-2 rounded-[50px] "
+                          >
                             Proceed to Payment
                           </button>
                         </div>
@@ -140,7 +145,9 @@ function Checkout() {
                     alt=""
                     class="w-[70px] h-[70px]"
                   />
-                  <p class="text-[#707070]" style={{ fontSize: 12 }}>Elf Bar Disposable Vape</p>
+                  <p class="text-[#707070]" style={{ fontSize: 12 }}>
+                    Elf Bar Disposable Vape
+                  </p>
 
                   <div class="border flex  w-16 h-5 border-black ">
                     <p class="text-[#59A0B8]  ml-2">-</p>
@@ -175,7 +182,7 @@ function Checkout() {
         <Footer />
       </div>
     </div>
-  )
+  );
 }
 
-export default Checkout
+export default Checkout;
