@@ -179,19 +179,60 @@ const App = () => {
                 />
               }
             />
-            <Route path="/checkout" element={<Checkout />} />
+            <Route
+              path="/checkout"
+              element={<Checkout categories={categories} filters={filters} />}
+            />
             <Route
               path="/aboutus"
               element={<AboutUs categories={categories} filters={filters} />}
             />
-            <Route path="/term_conditions" element={<Term_Conditions />} />
-            <Route path="/age_varification" element={<Age_varification />} />
-            <Route path="/privacy_policy" element={<Privacy_Policy />} />
-            <Route path="/compliance" element={<Compliance />} />
-            <Route path="/return_policy" element={<Return_Policy />} />
-            <Route path="/fusion_vape" element={<Fusion_Vape />} />
-            <Route path="/cloud_partner" element={<Cloud_Partner />} />
-            <Route path="/our_partner" element={<Our_Partner />} />
+            <Route
+              path="/term_conditions"
+              element={
+                <Term_Conditions categories={categories} filters={filters} />
+              }
+            />
+            <Route
+              path="/age_varification"
+              element={
+                <Age_varification categories={categories} filters={filters} />
+              }
+            />
+            <Route
+              path="/privacy_policy"
+              element={
+                <Privacy_Policy categories={categories} filters={filters} />
+              }
+            />
+            <Route
+              path="/compliance"
+              element={<Compliance categories={categories} filters={filters} />}
+            />
+            <Route
+              path="/return_policy"
+              element={
+                <Return_Policy categories={categories} filters={filters} />
+              }
+            />
+            <Route
+              path="/fusion_vape"
+              element={
+                <Fusion_Vape categories={categories} filters={filters} />
+              }
+            />
+            <Route
+              path="/cloud_partner"
+              element={
+                <Cloud_Partner categories={categories} filters={filters} />
+              }
+            />
+            <Route
+              path="/our_partner"
+              element={
+                <Our_Partner categories={categories} filters={filters} />
+              }
+            />
           </Routes>
         </ScrollToTop>
       </BrowserRouter>

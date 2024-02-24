@@ -3,11 +3,11 @@ import Footer from "../Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "../Fixed_Component";
 
-const Return_Policy = () => {
+const Return_Policy = ({ categories, filters }) => {
   return (
     <div>
       <div class="mt-[7rem] md:mt-[13rem] ">
-        <Fixed_Component />{" "}
+        <Fixed_Component categories={categories} filters={filters} />{" "}
         <h1 class="fs-1 font-bold flex justify-center items-center text-white text-center gradident_bg h-[10rem] md:h-[15rem]">
           Returns Policy
         </h1>

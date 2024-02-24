@@ -6,11 +6,11 @@ import { Button, Drawer } from "antd";
 import Fixed_Component from "../Fixed_Component";
 import Footer from "../Footer";
 
-function Term_Conditions() {
+function Term_Conditions({ categories, filters }) {
   return (
     <div>
       <div class="mt-[7rem] md:mt-[13rem] ">
-        <Fixed_Component />{" "}
+        <Fixed_Component categories={categories} filters={filters} />
         <h1 class="fs-1 font-bold flex justify-center items-center text-white text-center gradident_bg h-[10rem] md:h-[15rem]">
           Terms & Conditions
         </h1>
