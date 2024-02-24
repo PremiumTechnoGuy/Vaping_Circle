@@ -35,7 +35,7 @@ function Fixed_Component({ categories, filters }) {
         }}
       >
         <Header />
-        <Navigation />
+        <Navigation categories={categories} filters={filters} />
         <SmallNavbar categories={categories} filters={filters} />
         {/* <BlackSection /> */}
       </div>

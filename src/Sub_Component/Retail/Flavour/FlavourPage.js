@@ -1,6 +1,6 @@
 import "../flavor.css";
 import { Container, Row, Col } from "react-bootstrap";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../Footer";
 import { data } from "./../../../data/Fdata.js";
 import Fixed_Component from "../Fixed_Component.js";
@@ -10,6 +10,8 @@ import axios from "axios";
 import { apiUrl } from "../../../data/env.js";
 
 function FlavourPage({ categories, filters }) {
+  const nav = useNavigate();
+
   const [open, setOpen] = useState(false);
   const [flavours, setFlavours] = useState([]);
   const [index, setIndex] = useState(0);
@@ -72,6 +74,12 @@ function FlavourPage({ categories, filters }) {
                           <li
                             key={subFlavour.id}
                             class=" flex justify-around s items-center text-left border-b py-1"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              nav(
+                                `/flavourProductPage/${flavour._id}/${subFlavour.name}/${flavour.name}`
+                              );
+                            }}
                           >
                             <span>{subFlavour.name}</span>
                             <span class="bg-[#59a0b8] py-1 px-2 rounded-full text-white">
@@ -107,6 +115,12 @@ function FlavourPage({ categories, filters }) {
                   <li
                     key={fl._id}
                     className="flex border-t border-b justify-between items-center px-5 py-3 cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      nav(
+                        `/flavourProductPage/${flavours[index]._id}/${fl.name}/${flavours[index].name}`
+                      );
+                    }}
                   >
                     <span className="fs-6 tracking-wide">{fl.name}</span>
                     <span className="bg-[#59A0B8] rounded-full px-2 py-1 text-white fs-6">

@@ -3,15 +3,36 @@ import Fixed_Component from "./Fixed_Component";
 import Card from "react-bootstrap/Card";
 import { Container, Row, Col } from "react-bootstrap";
 import Footer from "./Footer";
+import axios from "axios";
+import { apiUrl } from "../../data/env";
+import { useNavigate } from "react-router-dom";
+
+function chunkArray(array, size) {
+  const chunkedArray = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunkedArray.push(array.slice(i, i + size));
+  }
+  return chunkedArray;
+}
 
 function VapesDeal({ categories, filters }) {
+  const nav = useNavigate();
+  const [allDeals, setAllDeals] = React.useState([]);
+
+  React.useEffect(() => {
+    axios
+      .get(`${apiUrl}/api/v1/offer?sort=priority`)
+      .then((res) => setAllDeals(chunkArray(res.data.data, 2)))
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <div>
       <Fixed_Component categories={categories} filters={filters} />
 
       <div className="mb-5" style={{ marginTop: 184 }}>
         <h1 class="fs-2 font-bold mb-5  text-center md:hidden block">
-          Our Vape Deal
+          Our Vape Deals
         </h1>
         <div class="md:block hidden">
           <Card className="rounded-none  text-white">
@@ -22,14 +43,14 @@ function VapesDeal({ categories, filters }) {
             <Card.ImgOverlay>
               <Card.Title class="text-center p-5">
                 <p class="fs-2 font-bold ">
-                  Our <br /> Vape Deal
+                  Our <br /> Vape Deals
                 </p>
               </Card.Title>
             </Card.ImgOverlay>
           </Card>
         </div>
 
-        <Container className="mt-5 ">
+        {/* <Container className="mt-5 ">
           <Row>
             <Col sm={1}></Col>
             <Col sm={4}>
@@ -53,13 +74,13 @@ function VapesDeal({ categories, filters }) {
                   class="relative rounded-2 mt-3 transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
                   src="https://ik.imagekit.io/p2slevyg1/b8b6b689-5311-4d70-a025-910c0db2491e.jpg?updatedAt=1705264393397"
                 />
-                {/* <Card.Img
+                <Card.Img
                   variant="top"
                   class="absolute text-center"
                   width={450}
                   style={{ marginLeft: 91 }}
                   src="https://ik.imagekit.io/p2slevyg1/ICEDBERRYPEACH-FP_1024x1024-1-510x510-removebg-preview.png?updatedAt=1705258319627"
-                /> */}
+                />
                 <Card.Body>
                   <Card.Title>
                     <h2 class="text-center  font-bold">Any 5 for £20</h2>
@@ -69,57 +90,50 @@ function VapesDeal({ categories, filters }) {
             </Col>
             <Col sm={1}></Col>
           </Row>
-        </Container>
+        </Container> */}
 
-        <Container className="mt-3">
-          <Row class="">
-            <Col sm={1}></Col>
-            <Col sm={5}>
-              <Card className="border-0">
-                <Card.Img
-                  variant="top"
-                  class="relative rounded-2 transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                  src="https://ik.imagekit.io/p2slevyg1/bfac1710-b5d2-45c1-b846-a73ca1d69eac.jpg?updatedAt=1705344789822"
-                />
-                {/* <Card.Img
+        {allDeals?.map((arr2, i) => {
+          return (
+            <Container className={`mt-${i === 0 ? "5" : "3"}`}>
+              <Row class="">
+                <Col sm={1}></Col>
+                {arr2.map((deal) => {
+                  return (
+                    <Col sm={5}>
+                      <Card
+                        className="border-0"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          nav(`/DealProductPage/${deal.name}/${deal._id}`);
+                        }}
+                      >
+                        <Card.Img
+                          variant="top"
+                          class="relative rounded-2 transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
+                          src={deal.image}
+                        />
+                        {/* <Card.Img
                   class="absolute"
                   width={350}
                   style={{ marginLeft: 91 }}
                   src="https://ik.imagekit.io/p2slevyg1/images__6_-removebg-preview.png?updatedAt=1705261048159"
                 /> */}
-                <Card.Body>
-                  <Card.Title>
-                    <h2 class="text-center font-bold">Any 4 for £10</h2>
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col sm={5}>
-              <Card className="border-0">
-                <Card.Img
-                  variant="top"
-                  class="relative shadow-md transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                  src="https://ik.imagekit.io/p2slevyg1/271b5ca0-98de-4f82-8aa9-5ff7d5f23a90.jpg?updatedAt=1705261645068"
-                />
-                {/* <Card.Img
-                  variant="top"
-                  class="absolute text-center"
-                  width={350}
-                  style={{ marginLeft: 91 }}
-                  src=""
-                /> */}
-                <Card.Body>
-                  <Card.Title>
-                    <h2 class="text-center  font-bold">Any 3 for £20</h2>
-                  </Card.Title>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col sm={1}></Col>
-          </Row>
-        </Container>
+                        <Card.Body>
+                          <Card.Title>
+                            <h2 class="text-center font-bold">{deal.name}</h2>
+                          </Card.Title>
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  );
+                })}
+                <Col sm={1}></Col>
+              </Row>
+            </Container>
+          );
+        })}
 
-        <Container className="mt-3 ">
+        {/* <Container className="mt-3 ">
           <Row>
             <Col sm={1}></Col>
             <Col sm={6}>
@@ -154,7 +168,7 @@ function VapesDeal({ categories, filters }) {
             </Col>
             <Col sm={1}></Col>
           </Row>
-        </Container>
+        </Container> */}
       </div>
 
       <Footer />
