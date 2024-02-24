@@ -9,7 +9,7 @@ const Our_Partner = ({ categories, filters }) => {
       <div class="mt-[7rem] md:mt-[13rem] ">
         <Fixed_Component categories={categories} filters={filters} />
         <h1 class="fs-1 font-bold flex justify-center items-center text-white text-center gradident_bg h-[10rem] md:h-[15rem]">
-          Our Partners
+          Our Partner
         </h1>
         <div class="mx-5 md:mx-5 mt-5  md:px-5 flex justify-center items-center"></div>
         <div class="mx-5 md:mx-5 mt-5  md:px-5 ">
