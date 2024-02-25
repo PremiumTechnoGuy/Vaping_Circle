@@ -22,10 +22,16 @@ function ProductDetails({ products, categories, filters, setCart }) {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const handleArrowClick = (direction) => {
-    if (direction === 'left') {
-      setCurrentImageIndex((prevIndex) => (prevIndex - 1 + filteredProd.images.length) % filteredProd.images.length);
+    if (direction === "left") {
+      setCurrentImageIndex(
+        (prevIndex) =>
+          (prevIndex - 1 + filteredProd.images.length) %
+          filteredProd.images.length
+      );
     } else {
-      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % filteredProd.images.length);
+      setCurrentImageIndex(
+        (prevIndex) => (prevIndex + 1) % filteredProd.images.length
+      );
     }
   };
   const handleImageClick = (clickedIndex) => {
@@ -37,6 +43,28 @@ function ProductDetails({ products, categories, filters, setCart }) {
 
   const handleChange = (value) => {
     console.log(`selected ${value}`);
+  };
+
+  const handleSelectVariant = (value) => {
+    const [currOption] = currentVariantType.options.filter(
+      (opt) => opt.optionValue === value
+    );
+
+    setSelectedVariants((vars) => {
+      const newVars = vars.map((vr) => {
+        if (vr.variantType === currentVariantType.variantType)
+          return {
+            variantType: currentVariantType.variantType,
+            chosenOption: currOption,
+          };
+        else
+          return {
+            variantType: vr.variantType,
+            chosenOption: vr.chosenOption,
+          };
+      });
+      return newVars;
+    });
   };
 
   function increment() {
@@ -55,8 +83,16 @@ function ProductDetails({ products, categories, filters, setCart }) {
     });
   }
 
-  const showDrawer = () => {
+  const [currentVariantType, setCurrentVariantType] = useState("");
+  const [selectedVariants, setSelectedVariants] = useState(
+    filteredProd?.variants
+  );
+  const [chosenVariants, setChosenVariants] = useState([]);
+
+  const showDrawer = (v) => {
+    console.log(selectedVariants);
     setOpenOpt(true);
+    setCurrentVariantType(v);
   };
 
   const onClose = () => {
@@ -98,7 +134,11 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         {filteredProd?.images?.map((url, i) => (
                           <img
                             key={i}
-                            class={`w-36 h-28 shadow-md ${i === currentImageIndex ? 'border-2 border-[#59A0B8]' : ''}`}
+                            class={`w-36 h-28 shadow-md ${
+                              i === currentImageIndex
+                                ? "border-2 border-[#59A0B8]"
+                                : ""
+                            }`}
                             alt={`Product Img ${i}`}
                             src={url}
                             onClick={() => handleImageClick(i)}
@@ -114,16 +154,45 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           src={filteredProd?.images[currentImageIndex]}
                         />
                         <div className="absolute top-40 left-0 flex justify-between w-full p-3">
-                          <div className="cursor-pointer" onClick={() => handleArrowClick('left')}>
-                            <div style={{ fontSize: '24px' }}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
-                            </svg></div>
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => handleArrowClick("left")}
+                          >
+                            <div style={{ fontSize: "24px" }}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="26"
+                                height="26"
+                                fill="currentColor"
+                                class="bi bi-arrow-left-circle"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"
+                                />
+                              </svg>
+                            </div>
                           </div>
-                          <div className="cursor-pointer" onClick={() => handleArrowClick('right')}>
-                            <div style={{ fontSize: '24px' }}><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-right-circle" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                            </svg></div>
-
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => handleArrowClick("right")}
+                          >
+                            <div style={{ fontSize: "24px" }}>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="26"
+                                height="26"
+                                fill="currentColor"
+                                class="bi bi-arrow-right-circle"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"
+                                />
+                              </svg>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -139,7 +208,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     class="shadow-md h-full "
                     alt={`Product Img main`}
                     src={filteredProd?.images[currentImageIndex]}
-                  // onClick={() => handleImageClick(0)} 
+                    // onClick={() => handleImageClick(0)}
                   />
                 </Row>
 
@@ -148,10 +217,15 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     {filteredProd?.images?.map((url, y) => (
                       <img
                         key={y}
-                        class={`w-36 h-24 shadow-md  ${y === currentImageIndex ? 'border-2 border-[#59A0B8]' : ''}`}
+                        class={`w-36 h-24 shadow-md  ${
+                          y === currentImageIndex
+                            ? "border-2 border-[#59A0B8]"
+                            : ""
+                        }`}
                         alt={`Product Img ${y}`}
                         src={url}
-                        onClick={() => handleImageClick(y)} />
+                        onClick={() => handleImageClick(y)}
+                      />
                     ))}
                   </div>
                 </Row>
@@ -196,7 +270,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         </span>
                       </Button>
                     </Col> */}
-                    {filteredProd?.variants?.map((variant) => {
+                    {filteredProd?.variants?.map((variant, i) => {
                       return (
                         <Col
                           className="flex py-2 "
@@ -208,9 +282,13 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         >
                           <Button
                             className="cursor-pointer border-[#59A0B8] font-semibold bg-[#59A0B8] text-white grow hover:border-[#59A0B8] hover:bg-[#59A0B8] py-3 px-4 rounded-none text-md"
-                            onClick={showDrawer}
+                            onClick={(e) => showDrawer(variant)}
                           >
-                            {variant.variantType}
+                            {Boolean(selectedVariants)
+                              ? selectedVariants[i]?.chosenOption
+                                  ?.optionValue ||
+                                `Select ${variant.variantType}`
+                              : `Select ${variant.variantType}`}
                           </Button>
                         </Col>
                       );
@@ -263,12 +341,12 @@ function ProductDetails({ products, categories, filters, setCart }) {
                       setCart((c) => [...c, filteredProd._id]);
                       nav("/cartView");
                     }}
-                    class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]" id="btn"
+                    class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]"
+                    id="btn"
                   >
                     Add to Cart
                   </button>
                   {/* </Link> */}
-
                 </div>
               </Col>
             </Row>
@@ -430,27 +508,25 @@ function ProductDetails({ products, categories, filters, setCart }) {
             </Row>
           </Container>
           <Drawer
-            title="Choose Your Flavour"
+            title={`Choose your ${currentVariantType.variantType}`}
             class="p-0 font-semibold"
             onClose={onClose}
             open={openOpt}
             style={{ padding: "0" }}
           >
-            {filteredProd?.variants.map((variant) => {
-              return (
-                <div class="px-2 py-3">
-                  {" "}
-                  <Select
-                    defaultValue={variant.variantType}
-                    style={{ width: "100%" }}
-                    onChange={handleChange}
-                    options={variant.options.map((opt) => {
-                      return { value: opt.optionValue, label: opt.optionValue };
-                    })}
-                  />
-                </div>
-              );
-            })}
+            <div class="px-2 py-3">
+              {" "}
+              <Select
+                // defaultValue={currentVariantType?.variantType}
+                value={currentVariantType?.variantType}
+                style={{ width: "100%" }}
+                onChange={handleChange}
+                onSelect={handleSelectVariant}
+                options={currentVariantType?.options?.map((opt) => {
+                  return { value: opt.optionValue, label: opt.optionValue };
+                })}
+              />
+            </div>
             {/* <div class="px-2 py-3">
               {" "}
               <Select
@@ -479,7 +555,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
               />
             </div> */}
 
-            <button class="absolute bottom-0 right-0 bg-[#59a0b8] py-1 px-3 rounded-md text-[18px] m-2 font-semibold text-white">
+            <button
+              class="absolute bottom-0 right-0 bg-[#59a0b8] py-1 px-3 rounded-md text-[18px] m-2 font-semibold text-white"
+              onClick={onClose}
+            >
               Save
             </button>
           </Drawer>
