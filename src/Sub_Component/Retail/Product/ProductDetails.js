@@ -19,6 +19,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
   const nav = useNavigate();
   const [filteredProd] = products?.filter((prod) => prod._id === currentProdId);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const handleArrowClick = (direction) => {
     if (direction === 'left') {
@@ -136,38 +137,29 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 <Row>
                   <img
                     class="shadow-md h-full "
-                    src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4.webp?updatedAt=1704644605618"
+                    alt={`Product Img main`}
+                    src={filteredProd?.images[currentImageIndex]}
+                  // onClick={() => handleImageClick(0)} 
                   />
                 </Row>
 
                 <Row>
                   <div class="d-flex flex-row gap-2 py-5 ">
-                    <img
-                      class="w-36 h-24 shadow-md"
-                      src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit1.webp?updatedAt=1704644757475"
-                    />
-
-                    <img
-                      class="w-36 h-24 shadow-md"
-                      src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4_1.webp?updatedAt=1704644829533"
-                    />
-
-                    <img
-                      class="w-36 h-24 shadow-md"
-                      src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit3.webp?updatedAt=1704644899350"
-                    />
-
-                    <img
-                      class="w-36 h-24 shadow-md"
-                      src="https://ik.imagekit.io/p2slevyg1/JWNELFAProPodKit4.webp?updatedAt=1704644605618"
-                    />
+                    {filteredProd?.images?.map((url, y) => (
+                      <img
+                        key={y}
+                        class={`w-36 h-24 shadow-md  ${y === currentImageIndex ? 'border-2 border-[#59A0B8]' : ''}`}
+                        alt={`Product Img ${y}`}
+                        src={url}
+                        onClick={() => handleImageClick(y)} />
+                    ))}
                   </div>
                 </Row>
               </Col>
               {/* -----deatils------ */}
               <Col>
                 <p class="fs-2 px-2 py-3 font-semibold text-black">
-                  {filteredProd?.name}{" "}
+                  {filteredProd?.name}
                 </p>
                 {/* <p class="text-[#707070] text-sm px-2">
                   Brand :{" "}
