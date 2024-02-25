@@ -19,19 +19,19 @@ function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
   const nav = useNavigate();
   const [filteredProd] = products?.filter((prod) => prod._id === currentProdId);
+  const [allImages, setAllImages] = React.useState([
+    filteredProd.coverImage,
+    ...filteredProd.images,
+  ]);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const handleArrowClick = (direction) => {
     if (direction === "left") {
       setCurrentImageIndex(
-        (prevIndex) =>
-          (prevIndex - 1 + filteredProd.images.length) %
-          filteredProd.images.length
+        (prevIndex) => (prevIndex - 1 + allImages.length) % allImages.length
       );
     } else {
-      setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % filteredProd.images.length
-      );
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % allImages.length);
     }
   };
   const handleImageClick = (clickedIndex) => {
@@ -49,6 +49,15 @@ function ProductDetails({ products, categories, filters, setCart }) {
     const [currOption] = currentVariantType.options.filter(
       (opt) => opt.optionValue === value
     );
+
+    if (currOption.optionImg)
+      setAllImages((imgs) => {
+        if (imgs[0] === filteredProd.coverImage) return imgs;
+        const newImgs = imgs.shift();
+        newImgs.unshift(currOption.optionImg);
+        console.log(newImgs);
+        return newImgs;
+      });
 
     setSelectedVariants((vars) => {
       const newVars = vars.map((vr) => {
@@ -131,17 +140,17 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   <Row>
                     <Col md={4} className="hidden md:block">
                       <div class="d-flex flex-col gap-3 p-2 px-5 ">
-                        {filteredProd?.images?.map((url, i) => (
+                        {allImages?.slice(1, 5).map((url, i) => (
                           <img
-                            key={i}
+                            key={i + 1}
                             class={`w-36 h-28 shadow-md ${
-                              i === currentImageIndex
+                              i + 1 === currentImageIndex
                                 ? "border-2 border-[#59A0B8]"
                                 : ""
                             }`}
-                            alt={`Product Img ${i}`}
+                            alt={`Product Img ${i + 1}`}
                             src={url}
-                            onClick={() => handleImageClick(i)}
+                            onClick={() => handleImageClick(i + 1)}
                           />
                         ))}
                       </div>
@@ -151,7 +160,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         <img
                           class="shadow-md h-full w-full"
                           alt="imageprod"
-                          src={filteredProd?.images[currentImageIndex]}
+                          src={allImages[currentImageIndex]}
                         />
                         <div className="absolute top-40 left-0 flex justify-between w-full p-3">
                           <div
@@ -207,24 +216,24 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   <img
                     class="shadow-md h-full "
                     alt={`Product Img main`}
-                    src={filteredProd?.images[currentImageIndex]}
+                    src={allImages[currentImageIndex]}
                     // onClick={() => handleImageClick(0)}
                   />
                 </Row>
 
                 <Row>
                   <div class="d-flex flex-row gap-2 py-5 ">
-                    {filteredProd?.images?.map((url, y) => (
+                    {allImages?.slice(1, 5).map((url, y) => (
                       <img
-                        key={y}
+                        key={y + 1}
                         class={`w-36 h-24 shadow-md  ${
-                          y === currentImageIndex
+                          y + 1 === currentImageIndex
                             ? "border-2 border-[#59A0B8]"
                             : ""
                         }`}
-                        alt={`Product Img ${y}`}
+                        alt={`Product Img ${y + 1}`}
                         src={url}
-                        onClick={() => handleImageClick(y)}
+                        onClick={() => handleImageClick(y + 1)}
                       />
                     ))}
                   </div>
