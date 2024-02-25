@@ -1164,12 +1164,15 @@ function ProductPage({
                 </Link>
                 {item.offer?.isOffer ? (
                   <>
-                    <img
-                      src="https://ik.imagekit.io/2nuimwatr/Union%208.png?updatedAt=1706280379202"
+                    {/* <img
+                      src={getSvg('#f0f0f0')}
                       alt=""
                       class="absolute z-50 top-10 right-0 w-[5rem] md:w-24"
-                    />
-                    <p class="absolute hidden md:block z-50 top-12 right-3 font-semibold">
+                    /> */}
+                    <svg class="absolute z-50 top-10 right-0 w-[5rem] md:w-24" xmlns="http://www.w3.org/2000/svg" width="114.173" height="32.999" viewBox="0 0 114.173 32.999">
+                      <path id="Union_6" data-name="Union 6" d="M396.316,65h-.143v-.081L367,48.5l29.173-16.419V32h85V65Z" transform="translate(-367 -32)" fill={`#${Math.floor(Math.random() * (907000 - 100000 + 1)) + 100000}`} />
+                    </svg>
+                    <p class="absolute hidden md:block z-50 top-12 right-3 font-semibold ">
                       {item.offer.offerName}
                     </p>
                     <p class="absolute bg-[#0B428B] z-50 top-4 left-4 py-1 px-3 text-white font-semibold">
