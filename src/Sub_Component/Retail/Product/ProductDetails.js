@@ -300,7 +300,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 </div>{" "}
                 {open ? (
                   <p className="text-[#383838] text-[15px] px-2  pt-3 py-3  flex ">
-                    {filteredProd?.description}
+                    {filteredProd?.overview}
                   </p>
                 ) : null}
                 <div
