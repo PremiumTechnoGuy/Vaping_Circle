@@ -86,7 +86,7 @@ const Footer = () => {
               <br />
               <span className="lg:ml-[10px]">
                 <Link to="/our_partner" class="hover:text-black">
-                  Our Patner
+                  Our Partners
                 </Link>
               </span>
               <br />    
