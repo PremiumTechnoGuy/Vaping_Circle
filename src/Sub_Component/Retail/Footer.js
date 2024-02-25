@@ -11,7 +11,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const Footer = () => {
+const Footer = ({categories}) => {
   return (
     <div className="bg-[#00000029] text-black">
       <Container>
@@ -89,16 +89,20 @@ const Footer = () => {
                   Our Partners
                 </Link>
               </span>
-              <br />    
+              <br />
 
             </p>
           </Col>
           <Col xs={6} md={3} className=" flex row">
             <p className="text-left  leading-loose mt-4">
               <h6 className="lg:ml-[15px] text-[15px] py-2 font-bold ">
-                Our Products
+                Our Collections
               </h6>
-              <span className="lg:ml-[15px]">Disposables</span> <br />
+              <Link
+                to={`/productPage/${categories[0]?._id}/${categories[0]?.name}`}
+              >
+                <button className="lg:ml-[15px]"> {categories[0]?.name || "just"}</button> 
+                </Link><br />
               <span className="lg:ml-[15px]">Eliquids</span>
               <br />
               <span className="lg:ml-[15px]">Vape Kits</span>
