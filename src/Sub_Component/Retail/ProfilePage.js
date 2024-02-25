@@ -136,7 +136,7 @@ function ProfilePage({ filters, categories }) {
         </Row>
       </Container>
 
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

@@ -7,7 +7,7 @@ import axios from "axios";
 import { apiUrl } from "../../data/env";
 import { useNavigate } from "react-router-dom";
 
-function chunkArray(array, size) {
+function chunkArray(array, size, categories) {
   const chunkedArray = [];
   for (let i = 0; i < array.length; i += size) {
     chunkedArray.push(array.slice(i, i + size));
@@ -171,7 +171,7 @@ function VapesDeal({ categories, filters }) {
         </Container> */}
       </div>
 
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

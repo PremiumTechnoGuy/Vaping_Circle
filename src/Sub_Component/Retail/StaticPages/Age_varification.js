@@ -104,7 +104,7 @@ const Age_varification = ({ categories, filters }) => {
             </Link>
           </p>
         </div>
-        <Footer />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>

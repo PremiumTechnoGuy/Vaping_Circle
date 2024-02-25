@@ -368,7 +368,7 @@ function AboutUs({ filters, categories }) {
             </p>
           </div>
         </div>
-        <Footer />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>

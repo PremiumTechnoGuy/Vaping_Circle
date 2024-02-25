@@ -69,7 +69,7 @@ const Cloud_Partner = ({ categories, filters }) => {
           </ul>
         </div>
         <br></br>
-        <Footer />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>

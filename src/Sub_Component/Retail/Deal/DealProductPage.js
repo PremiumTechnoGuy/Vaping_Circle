@@ -225,7 +225,7 @@ function DealProductPage({ products, categories, filters }) {
       </div>
 
       <Outlet />
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

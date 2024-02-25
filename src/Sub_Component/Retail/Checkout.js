@@ -179,7 +179,7 @@ function Checkout({ categories, filters }) {
           </Row>
         </Container>
 
-        <Footer />
+        <Footer categories={categories} />
       </div>
     </div>
   );

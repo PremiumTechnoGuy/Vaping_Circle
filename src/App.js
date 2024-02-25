@@ -131,7 +131,7 @@ const App = () => {
                   // currentCategory={currentCategory}
                   categories={categories}
                   filters={filters}
-                  // setCurrentProductId={setCurrentProductId}
+                // setCurrentProductId={setCurrentProductId}
                 />
               }
             />
@@ -236,7 +236,7 @@ const App = () => {
           </Routes>
         </ScrollToTop>
       </BrowserRouter>
-      {/* <Footer /> */}
+      {/* <Footer categories={categories} /> */}
     </>
   );
 };
