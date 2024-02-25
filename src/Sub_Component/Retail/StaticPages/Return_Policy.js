@@ -104,7 +104,7 @@ const Return_Policy = ({ categories, filters }) => {
             options. Your satisfaction is our priority at VapingCircle.
           </p>
         </div>
-        <Footer />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>

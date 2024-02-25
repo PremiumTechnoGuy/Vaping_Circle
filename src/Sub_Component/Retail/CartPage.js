@@ -157,7 +157,7 @@ function CartPage({ categories, filters, cart, products, setCart }) {
           </Row>
         </Container>
 
-        <Footer />
+        <Footer categories={categories} />
 
         <Outlet />
       </div>

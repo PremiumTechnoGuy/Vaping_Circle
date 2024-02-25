@@ -152,7 +152,7 @@ function Term_Conditions({ categories, filters }) {
             </ul>
           </div>
         </div>
-        <Footer />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>

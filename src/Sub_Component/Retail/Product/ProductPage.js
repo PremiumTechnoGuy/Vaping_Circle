@@ -1221,7 +1221,7 @@ function ProductPage({
       </div>
 
       <Outlet />
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

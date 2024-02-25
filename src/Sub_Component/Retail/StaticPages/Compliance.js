@@ -49,7 +49,7 @@ const Compliance = ({ categories, filters }) => {
             </span>
           </p>
         </div>
-        <Footer />
+        <Footer categories={categories} />
       </div>
     </div>
   );

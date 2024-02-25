@@ -53,7 +53,7 @@ function CategoryPage({ categories, filters }) {
         </Row>
       </Container>
 
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

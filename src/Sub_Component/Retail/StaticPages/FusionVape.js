@@ -71,7 +71,7 @@ const Fusion_Vape = ({ categories, filters }) => {
           </ul>
         </div>
         <br></br>
-        <Footer />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>

@@ -494,7 +494,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
         </div>
         <Outlet />
 
-        <Footer />
+        <Footer categories={categories} />
       </div>
     </div>
   );

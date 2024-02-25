@@ -98,19 +98,49 @@ const Footer = ({categories}) => {
               <h6 className="lg:ml-[15px] text-[15px] py-2 font-bold ">
                 Our Collections
               </h6>
+
               <Link
                 to={`/productPage/${categories[0]?._id}/${categories[0]?.name}`}
               >
-                <button className="lg:ml-[15px]"> {categories[0]?.name || "just"}</button> 
+                <button className="lg:ml-[15px]"> {categories[0]?.name || "Add"}</button> 
                 </Link><br />
-              <span className="lg:ml-[15px]">Eliquids</span>
+
+                <Link
+                to={`/productPage/${categories[1]?._id}/${categories[1]?.name}`}
+              >
+                <button className="lg:ml-[15px]"> {categories[1]?.name || "Add"}</button> 
+                </Link>
               <br />
-              <span className="lg:ml-[15px]">Vape Kits</span>
+
+              <Link
+                to={`/productPage/${categories[2]?._id}/${categories[2]?.name}`}
+              >
+                <button className="lg:ml-[15px]"> {categories[2]?.name || "Add"}</button> 
+                </Link>
+                <br />
+
+              <Link
+                to={`/productPage/${categories[3]?._id}/${categories[3]?.name}`}
+              >
+                <button className="lg:ml-[15px]"> {categories[3]?.name || "Add"}</button> 
+                </Link>
               <br />
-              <span className="lg:ml-[15px]">Tanks</span>
+
+              <Link
+                to={`/productPage/${categories[4]?._id}/${categories[4]?.name}`}
+              >
+                <button className="lg:ml-[15px]"> {categories[4]?.name || "Add"}</button> 
+                </Link>
+
               <br />
-              <span className="lg:ml-[15px]">Mods</span>
-              <br />
+
+              <Link
+                to={`/productPage/${categories[5]?._id}/${categories[5]?.name}`}
+              >
+                <button className="lg:ml-[15px]"> {categories[5]?.name || "Add"}</button> 
+                </Link>
+
+             
               <br />
             </p>
           </Col>

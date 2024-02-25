@@ -132,7 +132,7 @@ function FlavourPage({ categories, filters }) {
             </div>
           </ul>
         </Drawer>
-        <Footer />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>

@@ -9,7 +9,7 @@ import { BiShow, BiHide } from "react-icons/bi";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 
-function Login() {
+function Login({categories}) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,7 +28,7 @@ function Login() {
       <div className="container-fluid ">
         <div className="row">
           <div className="col-lg-6 bg-[#1B94A080] p-4 h-screen hidden md:block">
-          <Link to="/"> <img
+            <Link to="/"> <img
               src="https://ik.imagekit.io/2nuimwatr/WhatsApp_Image_2024-01-01_at_12.04.01_AM-removebg-preview.png?updatedAt=1704471063051"
               alt=""
               class="h-[75px] w-[75px]"
@@ -109,7 +109,7 @@ function Login() {
       </div>
       {/* About End */}
 
-      {/* <Footer /> */}
+      {/* <Footer categories={categories} /> */}
     </div>
   );
 }

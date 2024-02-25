@@ -8,7 +8,7 @@ import Button from "react-bootstrap/Button";
 import Footer from "./Footer";
 import Fixed_Component from "./Fixed_Component";
 
-function Setting() {
+function Setting({categories}) {
   return (
     <div class="mt-36 md:mt-52 ">
       <Fixed_Component />
@@ -56,7 +56,7 @@ function Setting() {
         </Row>
       </Container>
 
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

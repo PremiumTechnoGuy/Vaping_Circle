@@ -11,7 +11,7 @@ const Privacy_Policy = ({ categories, filters }) => {
         <h1 class="fs-1 font-bold flex justify-center items-center text-white text-center gradident_bg h-[10rem] md:h-[15rem]">
           Privacy Policy
         </h1>
-        <Footer />
+        <Footer categories={categories} />
       </div>
     </div>
   );

@@ -1218,7 +1218,7 @@ function FilterProductPage({ products, categories, filters }) {
       </div>
 
       <Outlet />
-      <Footer />
+      <Footer categories={categories} />
     </div>
   );
 }

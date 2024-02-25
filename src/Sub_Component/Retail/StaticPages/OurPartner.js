@@ -103,7 +103,7 @@ const Our_Partner = ({ categories, filters }) => {
         </div>
         <br></br>
 
-        <Footer />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>

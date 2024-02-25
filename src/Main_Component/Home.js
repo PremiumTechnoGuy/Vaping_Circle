@@ -41,8 +41,8 @@ function Home({
         <News_Letter />
         <About />
         <Guides />
-        <Footer 
-        categories={categories}/>
+        <Footer categories={categories}
+           />
       </div>
       <Outlet />
     </div>
