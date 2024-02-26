@@ -29,7 +29,17 @@ function CategoryComponent({ allFilters, category }) {
           return (
             <div className="nav-column">
               <li role="menuitem">
-                <h3 class="font-bold hover:text-blue-900">{aFilter.name}</h3>
+                <h3
+                  class="font-bold hover:text-blue-900"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    nav(
+                      `/filterProductPage/${category._id}/${aFilter._id}/${aFilter.name}/null`
+                    );
+                  }}
+                >
+                  {aFilter.name}
+                </h3>
                 <div
                   className="mega-menu  left-[0px]"
                   aria-hidden="true"

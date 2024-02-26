@@ -14,6 +14,7 @@ import Fixed_Component from "../Fixed_Component";
 
 function FilterProductPage({ products, categories, filters }) {
   const { categoryId, filId, filName, chosenOption } = useParams();
+  const [filProds, setFilProds] = useState([]);
 
   // Filter products by category
   const filteredProducts = products.filter(
@@ -21,16 +22,32 @@ function FilterProductPage({ products, categories, filters }) {
   );
 
   // Find the filter based on filId
-  const filter = filters.find((filter) => filter._id === filId);
+  // const filter = filters.find((filter) => filter._id === filId);
 
-  // Filter products based on the chosen option for the filter
-  const filteredProductsByOption = filteredProducts.filter((product) => {
-    const chosenFilter = product.chosenFilters.find(
-      (filter) => filter.filterId === filId
-    );
-    return chosenFilter && chosenFilter.chosenOption === chosenOption;
-  });
-  console.log(filteredProductsByOption);
+  React.useEffect(() => {
+    // filter products according to main filter
+    if (chosenOption === "null") {
+      const filteredProductsByFilter = filteredProducts.filter((product) => {
+        const chosenFilter = product.chosenFilters.find(
+          (filter) => filter.filterId === filId
+        );
+        return chosenFilter;
+      });
+      console.log("filterProductOnly: ", filteredProductsByFilter);
+      setFilProds(filteredProductsByFilter);
+    } else {
+      // Filter products based on the chosen option for the filter
+      // // modified so products filtered axording to chosen option not filter id
+      const filteredProductsByOption = filteredProducts.filter((product) => {
+        const chosenFilter = product.chosenFilters.find(
+          (filter) => filter.chosenOption === chosenOption
+        );
+        return chosenFilter && chosenFilter.chosenOption === chosenOption;
+      });
+      console.log(filteredProductsByOption);
+      setFilProds(filteredProductsByOption);
+    }
+  }, []);
 
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -138,7 +155,7 @@ function FilterProductPage({ products, categories, filters }) {
     <div class="mt-36 md:mt-52">
       <Fixed_Component categories={categories} filters={filters} />
       <h2 class="fs-1 py-5 font-bold text-center text-[#59A0B8]">
-        {filName} ({chosenOption})
+        {filName} {chosenOption === "null" ? null : `(${chosenOption})`}
       </h2>
 
       <Container fluid>
@@ -1125,7 +1142,7 @@ function FilterProductPage({ products, categories, filters }) {
 
       <Container fluid class="flex justify-center items-baseline">
         <Row xs={2} md={4}>
-          {filteredProductsByOption?.map((item) => (
+          {filProds?.map((item) => (
             <Col
               key={item._id}
               class="flex justify-center items-center"
