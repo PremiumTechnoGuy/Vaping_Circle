@@ -50,14 +50,15 @@ function ProductDetails({ products, categories, filters, setCart }) {
       (opt) => opt.optionValue === value
     );
 
-    if (currOption.optionImg)
+    if (currOption.optionImg) {
       setAllImages((imgs) => {
-        if (imgs[0] === filteredProd.coverImage) return imgs;
-        const newImgs = imgs.shift();
+        const newImgs = imgs;
+        newImgs.shift();
         newImgs.unshift(currOption.optionImg);
-        console.log(newImgs);
         return newImgs;
       });
+      handleImageClick(0);
+    }
 
     setSelectedVariants((vars) => {
       const newVars = vars.map((vr) => {
