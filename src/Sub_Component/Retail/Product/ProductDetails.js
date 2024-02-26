@@ -348,8 +348,15 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   <button
                     onClick={(e) => {
                       e.preventDefault();
-                      setCart((c) => [...c, filteredProd._id]);
-                      nav("/cartView");
+                      const bool = selectedVariants?.every(
+                        (sVar) => sVar.chosenOption !== undefined
+                      );
+                      if (bool) {
+                        setCart((c) => [...c, filteredProd._id]);
+                        nav("/cartView");
+                      } else {
+                        alert("Select all variants before adding to cart!");
+                      }
                     }}
                     class="bg-[#59A0B8] font-bold text-white px-5 text-xl w-64 py-2 rounded-[24px]"
                     id="btn"
