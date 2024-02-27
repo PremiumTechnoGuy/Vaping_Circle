@@ -5,13 +5,13 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
-import { get } from "idb-keyval";
+import { values } from "idb-keyval";
 
 function CartPage({ categories, filters, cart, products, setCart }) {
   const cartArr = cart.map((cId) => products.find((p) => p._id === cId));
 
   React.useEffect(() => {
-    get("65dcdfc1819090eb5303eb10")
+    values()
       .then((res) => console.log(res))
       .catch((err) => console.error(err));
   }, []);
