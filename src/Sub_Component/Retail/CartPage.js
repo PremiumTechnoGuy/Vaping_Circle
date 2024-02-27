@@ -5,8 +5,16 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
+import { get } from "idb-keyval";
+
 function CartPage({ categories, filters, cart, products, setCart }) {
   const cartArr = cart.map((cId) => products.find((p) => p._id === cId));
+
+  React.useEffect(() => {
+    get("65dcdfc1819090eb5303eb10")
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div>
@@ -87,9 +95,7 @@ function CartPage({ categories, filters, cart, products, setCart }) {
                                   onClick={(e) => {
                                     e.preventDefault();
                                     setCart((crtArr) =>
-                                      crtArr.filter(
-                                        (cId) => cId !== crt._id
-                                      )
+                                      crtArr.filter((cId) => cId !== crt._id)
                                     );
                                   }}
                                   className="text-xl mx-3"
@@ -142,7 +148,10 @@ function CartPage({ categories, filters, cart, products, setCart }) {
 
                 <div class="flex flex-col justify-center items-center pb-5">
                   <Link to="/checkout">
-                    <button class="bg-[#59A0B8] text-white mt-5 px-5  py-2 rounded-[24px]" id="btn">
+                    <button
+                      class="bg-[#59A0B8] text-white mt-5 px-5  py-2 rounded-[24px]"
+                      id="btn"
+                    >
                       Go to Checkout
                     </button>
                   </Link>
