@@ -68,6 +68,15 @@ function CartProduct({ product }) {
             >
               <div className="px-2 py-3 mb-5">
                 <p className="text-[#000000] font-bold text-sm">{product.nm}</p>
+                <ul>
+                  {product.variants?.map((vr) => {
+                    return (
+                      <li>
+                        {vr.variantType}: {vr.chosenOption.optionValue}
+                      </li>
+                    );
+                  })}
+                </ul>
                 <div className="flex justify-between items-center block md:hidden">
                   {" "}
                   <span>
