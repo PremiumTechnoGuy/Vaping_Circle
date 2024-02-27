@@ -14,6 +14,7 @@ import Fixed_Component from "../Fixed_Component";
 import { Drawer } from "antd";
 import { Select, Space } from "antd";
 import { apiUrl } from "../../../data/env";
+import { set, keys } from "idb-keyval";
 
 function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
@@ -24,6 +25,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
     ...filteredProd.images,
   ]);
 
+  const [totalPrice, setTotalPrice] = useState(filteredProd?.basePrice);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const handleArrowClick = (direction) => {
     if (direction === "left") {
@@ -97,7 +99,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
   const [selectedVariants, setSelectedVariants] = useState(
     filteredProd?.variants
   );
-  const [chosenVariants, setChosenVariants] = useState([]);
+  // const [chosenVariants, setChosenVariants] = useState([]);
 
   const showDrawer = (v) => {
     console.log(selectedVariants);
@@ -259,7 +261,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   {filteredProd?.description}
                 </p>
                 <p class="text-xl py-3 font-semibold px-2 text-[#59A0B8] mb-2">
-                  £{filteredProd?.basePrice}
+                  £{filteredProd?.basePrice * count}
                 </p>
                 <Container className="border-y py-3 mx-auto text-center p-0 m-0">
                   <Row className="flex  flex-wrap">
@@ -352,7 +354,17 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         (sVar) => sVar.chosenOption !== undefined
                       );
                       if (bool) {
-                        setCart((c) => [...c, filteredProd._id]);
+                        // setCart((c) => [...c, filteredProd._id]);
+
+                        set(filteredProd._id, {
+                          id: filteredProd._id,
+                          price: filteredProd.basePrice,
+                          variants: selectedVariants,
+                          nm: filteredProd.name,
+                          image: filteredProd.coverImage,
+                          quantity: count,
+                          offer: filteredProd.offer,
+                        });
                         nav("/cartView");
                       } else {
                         alert("Select all variants before adding to cart!");
