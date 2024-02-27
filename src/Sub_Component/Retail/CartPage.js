@@ -5,14 +5,103 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
-import { values } from "idb-keyval";
+import { keys, values } from "idb-keyval";
 
-function CartPage({ categories, filters, cart, products, setCart }) {
-  const cartArr = cart.map((cId) => products.find((p) => p._id === cId));
+function CartProduct({ product }) {
+  const [count, setCount] = React.useState(product.quantity);
+  return (
+    <div>
+      <Row>
+        <Col
+          className="flex justify-start items-start"
+          style={{
+            display: "flex",
+            justifyContent: "start",
+            alignItems: "start",
+          }}
+        >
+          <span>
+            <img
+              src={product.image.replace("/product", "/tr:w-160,h-153/product")}
+              alt={product.nm}
+              style={{ maxWidth: "none" }}
+              className="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem]  md:w-[16rem] "
+            />
+          </span>
+          <span>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <div className="px-2 py-3 mb-5">
+                <p className="text-[#000000] font-bold text-sm">{product.nm}</p>
+                <div className="flex justify-between items-center block md:hidden">
+                  {" "}
+                  <span>
+                    <p className=" py-3 md:hidden block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
+                      £{product.price * count}
+                    </p>
+                  </span>{" "}
+                  <div className="flex justify-between items-center">
+                    <span className="">Quantity : {count}</span>
+                    <span className="">
+                      <RiDeleteBin5Line
+                        onClick={(e) => {
+                          e.preventDefault();
+                          // setCart((productArr) =>
+                          //   crtArr.filter(
+                          //     (cId) => cId !== crt._id
+                          //   )
+                          // );
+                        }}
+                        className="text-xl mx-3"
+                        style={{ cursor: "pointer" }}
+                      />
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="flex hidden md:block justify-between items-center">
+                <span className="hidden md:block">Quantity : {count}</span>
+                {/* <span className="hidden md:block">
+                  {" "}
+                  <RiDeleteBin5Line
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // setCart((crtArr) =>
+                      //   crtArr.filter((cId) => cId !== crt._id)
+                      // );
+                    }}
+                    className="text-xl mx-3"
+                    style={{ cursor: "pointer" }}
+                  />
+                </span> */}
+              </div>
+            </div>
+          </span>
+          <span>
+            <div className="py-3 hidden md:block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
+              £{product.price * count}
+            </div>
+          </span>
+        </Col>
+      </Row>
+    </div>
+  );
+}
+
+function CartPage({ categories, filters }) {
+  const [cartArr, setCartArr] = React.useState([]);
 
   React.useEffect(() => {
     values()
-      .then((res) => console.log(res))
+      .then((res) => {
+        // setCartArr(res.map((cId) => products.find((p) => p._id === cId)));
+        setCartArr(res);
+      })
       .catch((err) => console.error(err));
   }, []);
 
@@ -26,96 +115,7 @@ function CartPage({ categories, filters, cart, products, setCart }) {
             <Col xs={12} md={8}>
               <div className="bg-[#FFFFFF] rounded-lg m-2 md:mx-5 md:my-5">
                 {cartArr?.map((crt, i) => (
-                  <div key={crt._id}>
-                    <Row>
-                      <Col
-                        className="flex justify-start items-start"
-                        style={{
-                          display: "flex",
-                          justifyContent: "start",
-                          alignItems: "start",
-                        }}
-                      >
-                        <span>
-                          <img
-                            src={crt.coverImage.replace(
-                              "/product",
-                              "/tr:w-160,h-153/product"
-                            )}
-                            alt={crt.name}
-                            style={{ maxWidth: "none" }}
-                            className="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem]  md:w-[16rem] "
-                          />
-                        </span>
-                        <span>
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              justifyContent: "space-between",
-                            }}
-                          >
-                            <div className="px-2 py-3 mb-5">
-                              <p className="text-[#000000] font-bold text-sm">
-                                {crt.name}
-                              </p>
-                              <div className="flex justify-between items-center block md:hidden">
-                                {" "}
-                                <span>
-                                  <p className=" py-3 md:hidden block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
-                                    £{crt.basePrice}
-                                  </p>
-                                </span>{" "}
-                                <div className="flex justify-between items-center">
-                                  <span className="">Quantity : 1</span>
-                                  <span className="">
-                                    <RiDeleteBin5Line
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        setCart((crtArr) =>
-                                          crtArr.filter(
-                                            (cId) => cId !== crt._id
-                                          )
-                                        );
-                                      }}
-                                      className="text-xl mx-3"
-                                      style={{ cursor: "pointer" }}
-                                    />
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="flex hidden md:block justify-between items-center">
-                              <span className="hidden md:block">
-                                Quantity : 1
-                              </span>
-                              <span className="hidden md:block">
-                                {" "}
-                                <RiDeleteBin5Line
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    setCart((crtArr) =>
-                                      crtArr.filter((cId) => cId !== crt._id)
-                                    );
-                                  }}
-                                  className="text-xl mx-3"
-                                  style={{ cursor: "pointer" }}
-                                />
-                              </span>
-                            </div>
-                          </div>
-                        </span>
-                        <span>
-                          <div className="py-3 hidden md:block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
-                            £{crt.basePrice}
-                          </div>
-                        </span>
-                      </Col>
-                    </Row>
-                    {cartArr.length === i + 1 ? null : (
-                      <hr className="mx-5 hidden md:block" />
-                    )}
-                  </div>
+                  <CartProduct key={i} product={crt} />
                 ))}
               </div>
             </Col>
