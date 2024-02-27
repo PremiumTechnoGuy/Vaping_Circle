@@ -65,14 +65,14 @@ function CategoryComponent({ allFilters, category }) {
                       ))}
                     </ul>
                   </div>
-                  <div className="flex col gap-2  float-right  p-3">
+                  {/* <div className="flex col gap-2  float-right  p-3">
                     <img
                       style={{ height: 200 }}
                       src="https://www.geekvape.com/upload/blog/blog-7.401.jpg"
                       width="400px"
                       alt="filter img"
                     />
-                  </div>
+                  </div> */}
                 </div>
               </li>
             </div>
