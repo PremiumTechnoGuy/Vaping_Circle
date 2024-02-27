@@ -5,10 +5,40 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
-import { keys, values } from "idb-keyval";
+import { get, set, values } from "idb-keyval";
 
 function CartProduct({ product }) {
   const [count, setCount] = React.useState(product.quantity);
+
+  function increment() {
+    setCount((prev) => prev + 1);
+    get(product._id).then((obj) => {
+      const newObj = JSON.parse(JSON.stringify(obj));
+      newObj.quantity = obj.quantity + 1;
+      console.log(newObj);
+      set(product._id, newObj);
+    });
+  }
+
+  function decrement() {
+    let bool = false;
+    setCount((prev) => {
+      if (prev > 1) {
+        bool = true;
+        return prev - 1;
+      } else return prev;
+    });
+
+    if (bool) {
+      get(product._id).then((obj) => {
+        const newObj = JSON.parse(JSON.stringify(obj));
+        newObj.quantity = obj.quantity - 1;
+        console.log(newObj);
+        set(product._id, newObj);
+      });
+    }
+  }
+
   return (
     <div>
       <Row>
@@ -46,7 +76,24 @@ function CartProduct({ product }) {
                     </p>
                   </span>{" "}
                   <div className="flex justify-between items-center">
-                    <span className="">Quantity : {count}</span>
+                    <span className="flex px-1">
+                      <p class="text-[#707070] text-sm pr-2">Quantity</p>
+                      <p
+                        class="px-1 py-1 mx-0 bg-white text-sm shadow-lg shadow-cyan-500/50 cursor-pointer"
+                        onClick={decrement}
+                      >
+                        -
+                      </p>
+                      <p class="px-1 py-1 mx-0 bg-white  text-sm shadow-lg shadow-cyan-500/50">
+                        {count}
+                      </p>
+                      <p
+                        class="px-1 py-1 mx-0 bg-white text-sm shadow-lg shadow-cyan-500/50 cursor-pointer"
+                        onClick={increment}
+                      >
+                        +
+                      </p>
+                    </span>
                     <span className="">
                       <RiDeleteBin5Line
                         onClick={(e) => {
@@ -65,7 +112,27 @@ function CartProduct({ product }) {
                 </div>
               </div>
               <div className="flex hidden md:block justify-between items-center">
-                <span className="hidden md:block">Quantity : {count}</span>
+                <span className="hidden md:block">
+                  <span className="flex px-1">
+                    <p class="text-md">Quantity</p>
+                    &nbsp;
+                    <p
+                      class="px-1 py-1 mx-0 bg-white text-md shadow-lg shadow-cyan-500/50 cursor-pointer"
+                      onClick={decrement}
+                    >
+                      -
+                    </p>
+                    <p class="px-1 py-1 mx-0 bg-white  text-md shadow-lg shadow-cyan-500/50">
+                      {count}
+                    </p>
+                    <p
+                      class="px-1 py-1 mx-0 bg-white text-md shadow-lg shadow-cyan-500/50 cursor-pointer"
+                      onClick={increment}
+                    >
+                      +
+                    </p>
+                  </span>
+                </span>
                 {/* <span className="hidden md:block">
                   {" "}
                   <RiDeleteBin5Line
@@ -126,7 +193,9 @@ function CartPage({ categories, filters }) {
                   <p>Subtotal</p>
                   <p>
                     £
-                    {cartArr.map((c) => c.basePrice).reduce((p, c) => p + c, 0)}
+                    {cartArr
+                      .map((c) => c.price * c.quantity)
+                      .reduce((p, c) => p + c, 0)}
                   </p>{" "}
                 </div>
                 <div class="px-4 flex justify-between">
@@ -142,7 +211,9 @@ function CartPage({ categories, filters }) {
                   <h3 class="text-xl font-bold">Estimated Total</h3>
                   <h3 class="text-xl font-bold">
                     £
-                    {cartArr.map((c) => c.basePrice).reduce((p, c) => p + c, 0)}
+                    {cartArr
+                      .map((c) => c.price * c.quantity)
+                      .reduce((p, c) => p + c, 0)}
                   </h3>
                 </div>
 

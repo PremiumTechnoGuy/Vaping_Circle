@@ -357,7 +357,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         // setCart((c) => [...c, filteredProd._id]);
 
                         set(filteredProd._id, {
-                          id: filteredProd._id,
+                          _id: filteredProd._id,
                           price: filteredProd.basePrice,
                           variants: selectedVariants,
                           nm: filteredProd.name,
