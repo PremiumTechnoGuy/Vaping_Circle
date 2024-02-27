@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
-import { get, set, values } from "idb-keyval";
+import { del, get, set, values } from "idb-keyval";
 
 function CartProduct({ product }) {
   const [count, setCount] = React.useState(product.quantity);
@@ -93,16 +93,11 @@ function CartProduct({ product }) {
                       >
                         +
                       </p>
-                    </span>
-                    <span className="">
                       <RiDeleteBin5Line
                         onClick={(e) => {
                           e.preventDefault();
-                          // setCart((productArr) =>
-                          //   crtArr.filter(
-                          //     (cId) => cId !== crt._id
-                          //   )
-                          // );
+                          del(product._id);
+                          window.location.reload(false);
                         }}
                         className="text-xl mx-3"
                         style={{ cursor: "pointer" }}
@@ -131,6 +126,15 @@ function CartProduct({ product }) {
                     >
                       +
                     </p>
+                    <RiDeleteBin5Line
+                      onClick={(e) => {
+                        e.preventDefault();
+                        del(product._id);
+                        window.location.reload(false);
+                      }}
+                      className="text-xl mx-3"
+                      style={{ cursor: "pointer" }}
+                    />
                   </span>
                 </span>
                 {/* <span className="hidden md:block">
