@@ -3,10 +3,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import Fixed_Component from "./Fixed_Component";
 // import { RiDeleteBin5Line } from "react-icons/ri";
 
-function MyOrder() {
+function MyOrder({ categories, filters }) {
   return (
     <div class="mt-36 md:mt-52 ">
-      <Fixed_Component />
+      <Fixed_Component categories={categories} filters={filters} />
       <h1 class="fs-2 font-bold py-5 text-center">My Orders</h1>
       <Container>
         <Row class="shadow-md mb-3">

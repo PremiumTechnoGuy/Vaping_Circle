@@ -32,6 +32,9 @@ import { apiUrl } from "./data/env";
 import FlavourProductPage from "./Sub_Component/Retail/Flavour/FlavourProductPage";
 import DealProductPage from "./Sub_Component/Retail/Deal/DealProductPage";
 
+import { AuthProvider } from "./utils/auth";
+import { RequireAuth } from "./utils/RequireAuth";
+
 const App = () => {
   const [products, setProducts] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
@@ -63,178 +66,194 @@ const App = () => {
     <>
       <BrowserRouter>
         {/* <Fixed_Component /> */}
-        <ScrollToTop>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  setCurrentCategory={setCurrentCategory}
-                  categories={categories}
-                  setCategories={setCategories}
-                  filters={filters}
-                  products={products}
-                />
-              }
-            />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/profilePage"
-              element={
-                <ProfilePage categories={categories} filters={filters} />
-              }
-            />
-            <Route
-              path="/setting"
-              element={<Setting categories={categories} filters={filters} />}
-            />
-            <Route
-              path="/myOrder"
-              element={<MyOrder categories={categories} filters={filters} />}
-            />
-            <Route
-              path="/vapedeals"
-              element={<VapesDeal categories={categories} filters={filters} />}
-            />
-            <Route
-              path="/DealProductPage/:offerName/:offerId"
-              element={
-                <DealProductPage
-                  products={products}
-                  categories={categories}
-                  filters={filters}
-                />
-              }
-            />
-            <Route
-              path="/flavour_page"
-              element={
-                <FlavourPage categories={categories} filters={filters} />
-              }
-            />
-            <Route
-              path="/category_page"
-              element={
-                <CategoryPage
-                  setCurrentCategory={setCurrentCategory}
-                  categories={categories}
-                  filters={filters}
-                />
-              }
-            />
-            <Route
-              path="/productPage/:categoryId/:currentCategoryName"
-              element={
-                <ProductPage
-                  products={products}
-                  // currentCategory={currentCategory}
-                  categories={categories}
-                  filters={filters}
-                // setCurrentProductId={setCurrentProductId}
-                />
-              }
-            />
-            <Route
-              path="/filterProductPage/:categoryId/:filId/:filName/:chosenOption"
-              element={
-                <FilterProductPage
-                  products={products}
-                  categories={categories}
-                  filters={filters}
-                />
-              }
-            />
-            <Route
-              path="/flavourProductPage/:flavourId/:subFlavour/:flavourName"
-              element={
-                <FlavourProductPage
-                  products={products}
-                  categories={categories}
-                  filters={filters}
-                />
-              }
-            />
-            <Route
-              path="/productDetails/:currentProdId"
-              element={
-                <ProductDetails
-                  currentProductId={currentProductId}
-                  products={products}
-                  categories={categories}
-                  filters={filters}
-                  setCart={setCart}
-                />
-              }
-            />
-            <Route
-              path="/cartView"
-              element={
-                <CartPage
-                  categories={categories}
-                  filters={filters}
-                  cart={cart}
-                  products={products}
-                  setCart={setCart}
-                />
-              }
-            />
-            <Route
-              path="/checkout"
-              element={<Checkout categories={categories} filters={filters} />}
-            />
-            <Route
-              path="/aboutus"
-              element={<AboutUs categories={categories} filters={filters} />}
-            />
-            <Route
-              path="/term_conditions"
-              element={
-                <Term_Conditions categories={categories} filters={filters} />
-              }
-            />
-            <Route
-              path="/age_varification"
-              element={
-                <Age_varification categories={categories} filters={filters} />
-              }
-            />
-            <Route
-              path="/privacy_policy"
-              element={
-                <Privacy_Policy categories={categories} filters={filters} />
-              }
-            />
-            <Route
-              path="/compliance"
-              element={<Compliance categories={categories} filters={filters} />}
-            />
-            <Route
-              path="/return_policy"
-              element={
-                <Return_Policy categories={categories} filters={filters} />
-              }
-            />
-            <Route
-              path="/fusion_vape"
-              element={
-                <Fusion_Vape categories={categories} filters={filters} />
-              }
-            />
-            <Route
-              path="/cloud_partner"
-              element={
-                <Cloud_Partner categories={categories} filters={filters} />
-              }
-            />
-            <Route
-              path="/our_partner"
-              element={
-                <Our_Partner categories={categories} filters={filters} />
-              }
-            />
-          </Routes>
-        </ScrollToTop>
+        <AuthProvider>
+          <ScrollToTop>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Home
+                    setCurrentCategory={setCurrentCategory}
+                    categories={categories}
+                    setCategories={setCategories}
+                    filters={filters}
+                    products={products}
+                  />
+                }
+              />
+              <Route path="/register" element={<Register />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/profilePage"
+                element={
+                  <RequireAuth>
+                    <ProfilePage categories={categories} filters={filters} />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/setting"
+                element={
+                  <RequireAuth>
+                    <Setting categories={categories} filters={filters} />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/myOrder"
+                element={
+                  <RequireAuth>
+                    <MyOrder categories={categories} filters={filters} />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="/vapedeals"
+                element={
+                  <VapesDeal categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/DealProductPage/:offerName/:offerId"
+                element={
+                  <DealProductPage
+                    products={products}
+                    categories={categories}
+                    filters={filters}
+                  />
+                }
+              />
+              <Route
+                path="/flavour_page"
+                element={
+                  <FlavourPage categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/category_page"
+                element={
+                  <CategoryPage
+                    setCurrentCategory={setCurrentCategory}
+                    categories={categories}
+                    filters={filters}
+                  />
+                }
+              />
+              <Route
+                path="/productPage/:categoryId/:currentCategoryName"
+                element={
+                  <ProductPage
+                    products={products}
+                    // currentCategory={currentCategory}
+                    categories={categories}
+                    filters={filters}
+                    // setCurrentProductId={setCurrentProductId}
+                  />
+                }
+              />
+              <Route
+                path="/filterProductPage/:categoryId/:filId/:filName/:chosenOption"
+                element={
+                  <FilterProductPage
+                    products={products}
+                    categories={categories}
+                    filters={filters}
+                  />
+                }
+              />
+              <Route
+                path="/flavourProductPage/:flavourId/:subFlavour/:flavourName"
+                element={
+                  <FlavourProductPage
+                    products={products}
+                    categories={categories}
+                    filters={filters}
+                  />
+                }
+              />
+              <Route
+                path="/productDetails/:currentProdId"
+                element={
+                  <ProductDetails
+                    currentProductId={currentProductId}
+                    products={products}
+                    categories={categories}
+                    filters={filters}
+                    setCart={setCart}
+                  />
+                }
+              />
+              <Route
+                path="/cartView"
+                element={
+                  <CartPage
+                    categories={categories}
+                    filters={filters}
+                    cart={cart}
+                    products={products}
+                    setCart={setCart}
+                  />
+                }
+              />
+              <Route
+                path="/checkout"
+                element={<Checkout categories={categories} filters={filters} />}
+              />
+              <Route
+                path="/aboutus"
+                element={<AboutUs categories={categories} filters={filters} />}
+              />
+              <Route
+                path="/term_conditions"
+                element={
+                  <Term_Conditions categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/age_varification"
+                element={
+                  <Age_varification categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/privacy_policy"
+                element={
+                  <Privacy_Policy categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/compliance"
+                element={
+                  <Compliance categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/return_policy"
+                element={
+                  <Return_Policy categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/fusion_vape"
+                element={
+                  <Fusion_Vape categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/cloud_partner"
+                element={
+                  <Cloud_Partner categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/our_partner"
+                element={
+                  <Our_Partner categories={categories} filters={filters} />
+                }
+              />
+            </Routes>
+          </ScrollToTop>
+        </AuthProvider>
       </BrowserRouter>
       {/* <Footer categories={categories} /> */}
     </>

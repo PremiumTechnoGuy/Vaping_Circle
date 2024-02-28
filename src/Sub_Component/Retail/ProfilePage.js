@@ -7,8 +7,16 @@ import TextField from "@mui/material/TextField";
 import Button from "react-bootstrap/Button";
 import Footer from "./Footer";
 import Fixed_Component from "./Fixed_Component";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../utils/auth";
 
 function ProfilePage({ filters, categories }) {
+  const navigate = useNavigate();
+  const auth = useAuth();
+  const handleLogout = () => {
+    auth.logout();
+    navigate("/");
+  };
   return (
     <div class="mt-36 md:mt-52 ">
       <Fixed_Component categories={categories} filters={filters} />
@@ -28,19 +36,8 @@ function ProfilePage({ filters, categories }) {
               <div>
                 <TextField
                   id="standard-read-only-input"
-                  label="First Name"
-                  defaultValue="Abdullah"
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                  style={{ width: "381px" }}
-                />
-              </div>
-              <div>
-                <TextField
-                  id="standard-read-only-input"
-                  label="Last Name"
-                  defaultValue="Aslam"
+                  label="Full Name"
+                  defaultValue={auth.user.fullName || "N/A"}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -51,7 +48,7 @@ function ProfilePage({ filters, categories }) {
                 <TextField
                   id="standard-read-only-input"
                   label="Email"
-                  defaultValue="profileinfo@gmail.com"
+                  defaultValue={auth.user.email || "N/A"}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -62,7 +59,7 @@ function ProfilePage({ filters, categories }) {
                 <TextField
                   id="standard-read-only-input"
                   label="Phone Number"
-                  defaultValue="234398242029"
+                  defaultValue={auth.user.phone || "N/A"}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -73,7 +70,7 @@ function ProfilePage({ filters, categories }) {
                 <TextField
                   id="standard-read-only-input"
                   label="Address"
-                  defaultValue="118 Rd.Derby ED1 1FE"
+                  defaultValue={auth.user.address || "N/A"}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -83,15 +80,15 @@ function ProfilePage({ filters, categories }) {
               <div>
                 <TextField
                   id="standard-read-only-input"
-                  label="Country"
-                  defaultValue="United Kingdom"
+                  label="Postcode"
+                  defaultValue={auth.user.postcode || "N/A"}
                   InputProps={{
                     readOnly: true,
                   }}
                   style={{ width: "381px" }}
                 />
               </div>
-              <div>
+              {/* <div>
                 <TextField
                   id="standard-read-only-input"
                   label="Date"
@@ -100,7 +97,7 @@ function ProfilePage({ filters, categories }) {
                     readOnly: true,
                   }}
                 />
-              </div>
+              </div> */}
               <Button className="mt-6 border-0 rounded-full bg-[#59A0B8] hover:bg-[#0b428b]  text-white px-14 py-2 font-semibold text-sm">
                 Save
               </Button>

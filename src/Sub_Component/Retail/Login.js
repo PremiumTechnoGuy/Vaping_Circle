@@ -7,9 +7,10 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { BiShow, BiHide } from "react-icons/bi";
 import Footer from "./Footer";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../utils/auth";
 
-function Login({categories}) {
+function Login({ categories }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,17 +23,38 @@ function Login({categories}) {
   const handleShowConfirmPassword = () => {
     setShowConfirmPassword((preve) => !preve);
   };
+
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = useAuth();
+
+  const redirectPath = location.state?.path || "/";
+
+  const handleLogin = () => {
+    auth.login({
+      fullName: "test name",
+      email,
+      address: "knsjha876ts",
+      phone: "8271yd",
+      postcode: "djsd",
+    });
+    navigate(redirectPath, { replace: true });
+  };
   return (
     <div class="mt-0 ">
       {/* About Start */}
       <div className="container-fluid ">
         <div className="row">
           <div className="col-lg-6 bg-[#1B94A080] p-4 h-screen hidden md:block">
-            <Link to="/"> <img
-              src="https://ik.imagekit.io/2nuimwatr/WhatsApp_Image_2024-01-01_at_12.04.01_AM-removebg-preview.png?updatedAt=1704471063051"
-              alt=""
-              class="h-[75px] w-[75px]"
-            /></Link>
+            <Link to="/">
+              {" "}
+              <img
+                src="https://ik.imagekit.io/2nuimwatr/WhatsApp_Image_2024-01-01_at_12.04.01_AM-removebg-preview.png?updatedAt=1704471063051"
+                alt=""
+                class="h-[75px] w-[75px]"
+              />
+            </Link>
             <h3 class="text-white text-2xl font-semibold text-wrap  hidden md:block w-50 ">
               Welcome to Vaping CIRCLE!
             </h3>
@@ -48,7 +70,7 @@ function Login({categories}) {
             <h3 class=" text-3xl font-bold text-center pt-5 pl-2 md:pl-[5rem] pb-4">
               Log In
             </h3>
-            <div class="flex justify-center items-center pl-2 md:pl-[5rem] cursor-pointer">
+            {/* <div class="flex justify-center items-center pl-2 md:pl-[5rem] cursor-pointer">
               <p class="flex justify-center items-center border p-2 mx-2 rounded-md">
                 <FcGoogle class="mx-2 text-2xl" />
                 Login with Google
@@ -57,12 +79,12 @@ function Login({categories}) {
                 <FaFacebookF class="mx-2 text-xl text-blue-800" />
                 Login with Facebook
               </p>
-            </div>
-            <p class="flex justify-center items-center pt-3 pb-3 pl-2 md:pl-[5rem]">
+            </div> */}
+            {/* <p class="flex justify-center items-center pt-3 pb-3 pl-2 md:pl-[5rem]">
               <FiMinus />
               OR
               <FiMinus />
-            </p>
+            </p> */}
             <div class="pl-2 md:pl-[13%]">
               <Form>
                 <Form.Group className="mb-3" controlId="">
@@ -88,11 +110,14 @@ function Login({categories}) {
                 </div>
 
                 <div class="flex flex-col justify-center items-center mt-5">
-                  <Link to="/">
-                    <button class="bg-[#59A0B8] text-white px-5  py-2  rounded-[24px]">
-                      Login
-                    </button>
-                  </Link>
+                  {/* <Link to="/"> */}
+                  <button
+                    class="bg-[#59A0B8] text-white px-5  py-2  rounded-[24px]"
+                    onClick={handleLogin}
+                  >
+                    Login
+                  </button>
+                  {/* </Link> */}
                   <p class="text-[#000000] px-1 p-2">
                     Create an account
                     <Link to="/register">
