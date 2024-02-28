@@ -146,11 +146,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         {allImages?.slice(1, 5).map((url, i) => (
                           <img
                             key={i + 1}
-                            class={`w-36 h-28 shadow-md ${
-                              i + 1 === currentImageIndex
-                                ? "border-2 border-[#59A0B8]"
-                                : ""
-                            }`}
+                            class={`w-36 h-28 shadow-md ${i + 1 === currentImageIndex
+                              ? "border-2 border-[#59A0B8]"
+                              : ""
+                              }`}
                             alt={`Product Img ${i + 1}`}
                             src={url}
                             onClick={() => handleImageClick(i + 1)}
@@ -220,7 +219,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     class="shadow-md h-full "
                     alt={`Product Img main`}
                     src={allImages[currentImageIndex]}
-                    // onClick={() => handleImageClick(0)}
+                  // onClick={() => handleImageClick(0)}
                   />
                 </Row>
 
@@ -229,11 +228,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     {allImages?.slice(1, 5).map((url, y) => (
                       <img
                         key={y + 1}
-                        class={`w-36 h-24 shadow-md  ${
-                          y + 1 === currentImageIndex
-                            ? "border-2 border-[#59A0B8]"
-                            : ""
-                        }`}
+                        class={`w-36 h-24 shadow-md  ${y + 1 === currentImageIndex
+                          ? "border-2 border-[#59A0B8]"
+                          : ""
+                          }`}
                         alt={`Product Img ${y + 1}`}
                         src={url}
                         onClick={() => handleImageClick(y + 1)}
@@ -298,8 +296,8 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           >
                             {Boolean(selectedVariants)
                               ? selectedVariants[i]?.chosenOption
-                                  ?.optionValue ||
-                                `Select ${variant.variantType}`
+                                ?.optionValue ||
+                              `Select ${variant.variantType}`
                               : `Select ${variant.variantType}`}
                           </Button>
                         </Col>
@@ -328,16 +326,16 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 <div class="flex px-2">
                   <p class="text-[#707070] text-[16px]  pr-2">Quantity</p>
                   <p
-                    class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50 cursor-pointer"
+                    class="px-3 py-1 mx-1 bg-white text-[#59A0B8]  font-semibold text-[20px] shadow-sm  cursor-pointer"
                     onClick={decrement}
                   >
                     -
                   </p>
-                  <p class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50">
+                  <p class="px-3 py-1 mx-1 bg-white  text-[20px] shadow-sm ">
                     {count}
                   </p>
                   <p
-                    class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50 cursor-pointer"
+                    class="px-3 py-1 mx-1 bg-white text-[#59A0B8] font-semibold text-[20px] shadow-sm  cursor-pointer"
                     onClick={increment}
                   >
                     +
