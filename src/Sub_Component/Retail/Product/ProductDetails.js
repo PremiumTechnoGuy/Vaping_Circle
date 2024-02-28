@@ -549,9 +549,11 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 style={{ width: "100%" }}
                 onChange={handleChange}
                 onSelect={handleSelectVariant}
-                options={currentVariantType?.options?.map((opt) => {
-                  return { value: opt.optionValue, label: opt.optionValue };
-                })}
+                options={currentVariantType?.options
+                  ?.filter((opt) => (opt.optionQuantity === 0 ? false : true))
+                  .map((opt) => {
+                    return { value: opt.optionValue, label: opt.optionValue };
+                  })}
               />
             </div>
             {/* <div class="px-2 py-3">
