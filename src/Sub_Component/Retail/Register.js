@@ -6,10 +6,11 @@ import { FiMinus } from "react-icons/fi";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { BiShow, BiHide } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
+import { useAuth } from "../../utils/auth";
 
-function Register({categories}) {
+function Register({ categories }) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,17 +23,38 @@ function Register({categories}) {
   const handleShowConfirmPassword = () => {
     setShowConfirmPassword((preve) => !preve);
   };
+
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const auth = useAuth();
+
+  const redirectPath = location.state?.path || "/";
+
+  const handleSignup = () => {
+    auth.login({
+      fullName,
+      email,
+      address: "knsjha876ts",
+      phone: "8271yd",
+      postcode: "djsd",
+    });
+    navigate(redirectPath, { replace: true });
+  };
   return (
     <div class=" ">
       {/* About Start */}
       <div className="container-fluid ">
         <div className="row">
           <div className="col-lg-6 bg-[#1B94A080] p-4 h-screen hidden md:block">
-            <Link to="/"><img
-              src="https://ik.imagekit.io/2nuimwatr/WhatsApp_Image_2024-01-01_at_12.04.01_AM-removebg-preview.png?updatedAt=1704471063051"
-              alt=""
-              class="h-[75px] w-[75px]"
-            /></Link>
+            <Link to="/">
+              <img
+                src="https://ik.imagekit.io/2nuimwatr/WhatsApp_Image_2024-01-01_at_12.04.01_AM-removebg-preview.png?updatedAt=1704471063051"
+                alt=""
+                class="h-[75px] w-[75px]"
+              />
+            </Link>
 
             <h3 class="text-white text-2xl font-semibold text-wrap  hidden md:block w-50 ">
               Welcome to Vaping CIRCLE!
@@ -49,7 +71,7 @@ function Register({categories}) {
             <h3 class=" text-3xl font-bold text-center pt-5 pl-2 md:pl-[5rem] pb-4">
               Create Your Account
             </h3>
-            <div class="flex justify-center items-center pl-2 md:pl-[5rem]">
+            {/* <div class="flex justify-center items-center pl-2 md:pl-[5rem]">
               <p class="flex justify-center items-center border p-2 mx-2 rounded-md">
                 <FcGoogle class="mx-2 text-xl" />
                 Sign up with Google
@@ -63,21 +85,27 @@ function Register({categories}) {
               <FiMinus />
               OR
               <FiMinus />
-            </p>
+            </p> */}
             <div class="pl-2 md:pl-[13%] ">
               <Form class="p-2">
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="">
-                    <Form.Control type="text" placeholder="First Name" />
-                  </Form.Group>
-
-                  <Form.Group as={Col} controlId="">
-                    <Form.Control type="text" placeholder="Last Name" />
+                    <Form.Control
+                      type="text"
+                      placeholder="Full Name"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                    />
                   </Form.Group>
                 </Row>
 
                 <Form.Group className="mb-3" controlId="">
-                  <Form.Control type="email" placeholder="Email" />
+                  <Form.Control
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.targetvalue)}
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="">
@@ -150,12 +178,14 @@ function Register({categories}) {
                     Create Account
                   </button>
                   <p class="text-[#000000]  p-2">
-                    Already have an account{" "}
-                    <Link to="/login">
-                      <span class="text-[#8dc9cf] px-1 font-bold underline underline-offset-2">
-                        Login
-                      </span>
-                    </Link>
+                    Already have an account {/* <Link to="/login"> */}
+                    <span
+                      class="text-[#8dc9cf] px-1 font-bold underline underline-offset-2"
+                      onClick={handleSignup}
+                    >
+                      Register
+                    </span>
+                    {/* </Link> */}
                   </p>
                 </div>
               </Form>
@@ -167,7 +197,7 @@ function Register({categories}) {
 
       {/* <Footer categories={categories} /> */}
     </div>
-  )
+  );
 }
 
-export default Register
+export default Register;
