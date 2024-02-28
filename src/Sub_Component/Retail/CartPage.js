@@ -72,7 +72,7 @@ function CartProduct({ product }) {
                   {product.variants?.map((vr) => {
                     return (
                       <li>
-                        {vr.variantType}: {vr.chosenOption.optionValue}
+                        <span className=" font-semibold">{vr.variantType}:</span> <span className="text-[#59A0B8]"> {vr.chosenOption.optionValue}</span>
                       </li>
                     );
                   })}
