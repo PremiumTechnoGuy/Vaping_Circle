@@ -91,7 +91,7 @@ function Navigation({ categories, filters }) {
                       width="32px"
                       style={{ marginTop: 3, marginLeft: 5 }}
                       onClick={handleShow}
-                      src="https://ik.imagekit.io/p2sle yg1/magnifying-glass.png?updatedAt=1704116657709"
+                      src="https://ik.imagekit.io/mctozv7td/Icon%20ionic-ios-search.svg?updatedAt=1709101380385"
                     />
                   </span>
 
