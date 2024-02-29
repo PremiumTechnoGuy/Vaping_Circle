@@ -23,7 +23,7 @@ const Super = ({ products }) => {
                 <div id="content" class="m-2 relative">
                   <Link to={`/productDetails/${p._id}`}>
                     <img
-                      src={p.coverImage.replace(
+                      src={p.coverImage.url.replace(
                         "/product",
                         "/tr:w-245,h-272/product"
                       )}

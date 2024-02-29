@@ -53,7 +53,7 @@ function FlavourPage({ categories, filters }) {
               >
                 <div className="item e6 relative flex justify-center items-center ">
                   <img
-                    src={flavour.image}
+                    src={flavour.image.url}
                     alt=""
                     class="w-[21rem] h-[16rem] md:h-[19rem] object-cover"
                     style={{ borderRadius: "24px 24px 24px 24px" }}

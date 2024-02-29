@@ -34,10 +34,17 @@ function CategoryPage({ categories, filters }) {
                   <div className="item e6">
                     <img
                       class="relative object-cover transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                      src={item.image.replace(
-                        "/category",
-                        "/tr:ar-1-1,w-285.5/category"
-                      )}
+                      src={
+                        item.image.url
+                          ? item.image.url.replace(
+                              "/category",
+                              "/tr:ar-1-1,w-285.5/category"
+                            )
+                          : item.image.replace(
+                              "/category",
+                              "/tr:ar-1-1,w-285.5/category"
+                            ) || ""
+                      }
                       alt={item.name}
                       width="330px"
                       height="270px"

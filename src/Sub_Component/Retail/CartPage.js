@@ -52,7 +52,10 @@ function CartProduct({ product }) {
         >
           <span>
             <img
-              src={product.image.replace("/product", "/tr:w-160,h-153/product")}
+              src={product.image.url.replace(
+                "/product",
+                "/tr:w-160,h-153/product"
+              )}
               alt={product.nm}
               style={{ maxWidth: "none" }}
               className="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem]  md:w-[16rem] "
