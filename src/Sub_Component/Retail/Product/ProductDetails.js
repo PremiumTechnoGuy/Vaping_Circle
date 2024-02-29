@@ -25,6 +25,17 @@ function ProductDetails({ products, categories, filters, setCart }) {
     ...filteredProd.images,
   ]);
 
+  const [more4You, setMore4You] = useState([]);
+
+  React.useEffect(() => {
+    setMore4You(
+      products
+        .filter((p) => filteredProd._id !== p._id)
+        .filter((p) => filteredProd.category === p.category)
+        .slice(0, 4)
+    );
+  }, []);
+
   const [totalPrice, setTotalPrice] = useState(filteredProd?.basePrice);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const handleArrowClick = (direction) => {
@@ -146,10 +157,11 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         {allImages?.slice(1, 5).map((url, i) => (
                           <img
                             key={i + 1}
-                            class={`w-36 h-28 shadow-md ${i + 1 === currentImageIndex
-                              ? "border-2 border-[#59A0B8]"
-                              : ""
-                              }`}
+                            class={`w-36 h-28 shadow-md ${
+                              i + 1 === currentImageIndex
+                                ? "border-2 border-[#59A0B8]"
+                                : ""
+                            }`}
                             alt={`Product Img ${i + 1}`}
                             src={url.url}
                             onClick={() => handleImageClick(i + 1)}
@@ -170,7 +182,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
                             onClick={() => handleArrowClick("left")}
                           >
                             <div style={{ fontSize: "24px" }}>
-                              <img src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/left%20vaping.svg?updatedAt=1709101944351" width={'24px'} />
+                              <img
+                                src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/left%20vaping.svg?updatedAt=1709101944351"
+                                width={"24px"}
+                              />
                             </div>
                           </div>
                           <div
@@ -178,7 +193,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
                             onClick={() => handleArrowClick("right")}
                           >
                             <div style={{ fontSize: "24px" }}>
-                              <img src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/right%20vaping.svg?updatedAt=1709101957229" width={'24px'} />
+                              <img
+                                src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/right%20vaping.svg?updatedAt=1709101957229"
+                                width={"24px"}
+                              />
                             </div>
                           </div>
                         </div>
@@ -203,7 +221,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
                       onClick={() => handleArrowClick("left")}
                     >
                       <div style={{ fontSize: "24px" }}>
-                        <img src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/left%20vaping.svg?updatedAt=1709101944351" width={'24px'} />
+                        <img
+                          src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/left%20vaping.svg?updatedAt=1709101944351"
+                          width={"24px"}
+                        />
                       </div>
                     </div>
                     <div
@@ -211,7 +232,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
                       onClick={() => handleArrowClick("right")}
                     >
                       <div style={{ fontSize: "24px" }}>
-                        <img src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/right%20vaping.svg?updatedAt=1709101957229" width={'24px'} />
+                        <img
+                          src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/right%20vaping.svg?updatedAt=1709101957229"
+                          width={"24px"}
+                        />
                       </div>
                     </div>
                   </div>
@@ -222,10 +246,11 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     {allImages?.slice(1, 5).map((url, y) => (
                       <img
                         key={y + 1}
-                        class={`w-36 h-24 shadow-md  ${y + 1 === currentImageIndex
-                          ? "border-2 border-[#59A0B8]"
-                          : ""
-                          }`}
+                        class={`w-36 h-24 shadow-md  ${
+                          y + 1 === currentImageIndex
+                            ? "border-2 border-[#59A0B8]"
+                            : ""
+                        }`}
                         alt={`Product Img ${y + 1}`}
                         src={url.url}
                         onClick={() => handleImageClick(y + 1)}
@@ -290,8 +315,8 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           >
                             {Boolean(selectedVariants)
                               ? selectedVariants[i]?.chosenOption
-                                ?.optionValue ||
-                              `Select ${variant.variantType}`
+                                  ?.optionValue ||
+                                `Select ${variant.variantType}`
                               : `Select ${variant.variantType}`}
                           </Button>
                         </Col>
@@ -440,90 +465,37 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 style={{ display: "flex", justify: "center", align: "center" }}
               >
                 <Row xs={2} md={4}>
-                  <Col>
-                    <div id="content" class="m-2 relative">
-                      <img
-                        src="https://ik.imagekit.io/2nuimwatr/Slix%20Disposable%20Vape.png?updatedAt=1704592106815"
-                        alt=""
-                        class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                      />
-                      <div class="flex justify-between">
-                        {" "}
-                        <div>
-                          <p class="text-black font-semibold text-[15px] px-3">
-                            Slix Disposable Vape
-                          </p>
-                          <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
-                            £14.95
-                          </p>
+                  {more4You?.map((p) => {
+                    return (
+                      <Col key={p._id}>
+                        <div
+                          id="content"
+                          class="m-2 relative"
+                          // onClick={() => {
+                          //   nav("/");
+                          //   nav(`/productDetails/${p._id}`);
+                          // }}
+                        >
+                          <img
+                            src={p.coverImage.url}
+                            alt={p.name}
+                            class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
+                          />
+                          <div class="flex justify-between">
+                            {" "}
+                            <div>
+                              <p class="text-black font-semibold text-[15px] px-3">
+                                {p.name}
+                              </p>
+                              <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
+                                £{p.basePrice}
+                              </p>
+                            </div>
+                          </div>
                         </div>
-                        {/* <p class="text-[#000000] font-semibold text-[15px] px-3" >£14.95</p> */}
-                      </div>
-                    </div>
-                  </Col>
-
-                  <Col>
-                    <div id="content" class="m-2 relative">
-                      <img
-                        src="https://ik.imagekit.io/2nuimwatr/IVG%202400%20Disposable%20Vape.png?updatedAt=1704592106819"
-                        alt=""
-                        class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-105 duration-150"
-                      />
-                      <div class="flex justify-between">
-                        {" "}
-                        <div>
-                          <p class="text-black font-semibold text-[15px] px-3">
-                            Slix Disposable Vape
-                          </p>
-                          <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
-                            £14.95
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Col>
-
-                  <Col>
-                    <div id="content" class="m-2 relative">
-                      <img
-                        src="https://ik.imagekit.io/2nuimwatr/Aroma%20King%20Gem%20600%20Disposable%C2%A0Vape.png?updatedAt=1704592106742"
-                        alt=""
-                        class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-105 duration-150"
-                      />
-                      <div class="flex justify-between">
-                        {" "}
-                        <div>
-                          <p class="text-black font-semibold text-[15px] px-3">
-                            Slix Disposable Vape
-                          </p>
-                          <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
-                            £14.95
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Col>
-
-                  <Col>
-                    <div id="content" class="m-2">
-                      <img
-                        src="https://ik.imagekit.io/2nuimwatr/prodcut%202%20hot%20seller.png?updatedAt=1704592106814"
-                        alt=""
-                        class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75 hover:-translate-y-1 hover:scale-105 duration-150"
-                      />
-                      <div class="flex justify-between">
-                        {" "}
-                        <div>
-                          <p class="text-black font-semibold text-[15px] px-3">
-                            Slix Disposable Vape
-                          </p>
-                          <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
-                            £14.95
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </Col>
+                      </Col>
+                    );
+                  })}
                 </Row>
               </Container>
             </Row>
