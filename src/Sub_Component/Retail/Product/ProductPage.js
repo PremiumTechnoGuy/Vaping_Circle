@@ -1187,7 +1187,7 @@ function ProductPage({
                         }`}
                       />
                     </svg>
-                    <p class="absolute hidden md:block z-50 top-12 right-3 font-semibold ">
+                    <p class="absolute hidden md:block z-50 top-12 right-3 font-semibold text-white">
                       {item.offer.offerName}
                     </p>
                     <p class="absolute bg-[#0B428B] z-50 top-4 left-4 py-1 px-3 text-white font-semibold">

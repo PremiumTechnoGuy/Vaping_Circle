@@ -58,7 +58,7 @@ function CartProduct({ product }) {
               )}
               alt={product.nm}
               style={{ maxWidth: "none" }}
-              className="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem]  md:w-[16rem] "
+              className="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem] mt-2  md:w-[16rem] "
             />
           </span>
           <span>
@@ -69,38 +69,38 @@ function CartProduct({ product }) {
                 justifyContent: "space-between",
               }}
             >
-              <div className="px-2 py-3 mb-5">
-                <p className="text-[#000000] font-bold text-sm">{product.nm}</p>
-                <ul>
+              <div className="px-2 py-3 mt-1 mb-3">
+                <p className="text-[#000000] font-bold text-lg">{product.nm}</p>
+                <ul className="text-xs">
                   {product.variants?.map((vr) => {
                     return (
                       <li>
-                        {vr.variantType}: {vr.chosenOption.optionValue}
+                        <span className=" font-semibold">{vr.variantType}:</span> <span className="text-[#59A0B8]"> {vr.chosenOption.optionValue}</span>
                       </li>
                     );
                   })}
                 </ul>
-                <div className="flex justify-between items-center block md:hidden">
+                <div className=" justify-between items-center block md:hidden">
                   {" "}
-                  <span>
+                  <div>
                     <p className=" py-3 md:hidden block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
                       £{product.price * count}
                     </p>
-                  </span>{" "}
+                  </div>{" "}
                   <div className="flex justify-between items-center">
                     <span className="flex px-1">
                       <p class="text-[#707070] text-sm pr-2">Quantity</p>
                       <p
-                        class="px-1 py-1 mx-0 bg-white text-sm shadow-lg shadow-cyan-500/50 cursor-pointer"
+                        class="px-3 py-1 mx-1 bg-white text-[#59A0B8]  font-semibold text-[15px] shadow-sm  cursor-pointer"
                         onClick={decrement}
                       >
                         -
                       </p>
-                      <p class="px-1 py-1 mx-0 bg-white  text-sm shadow-lg shadow-cyan-500/50">
+                      <p class="px-3 py-1 mx-1 bg-white  text-[15px] shadow-sm ">
                         {count}
                       </p>
                       <p
-                        class="px-1 py-1 mx-0 bg-white text-sm shadow-lg shadow-cyan-500/50 cursor-pointer"
+                        class="px-3 py-1 mx-1 bg-white text-[#59A0B8]  font-semibold text-[15px] shadow-sm  cursor-pointer"
                         onClick={increment}
                       >
                         +
@@ -111,7 +111,7 @@ function CartProduct({ product }) {
                           del(product._id);
                           window.location.reload(false);
                         }}
-                        className="text-xl mx-3"
+                        className="text-[20px] mt-2 mx-3"
                         style={{ cursor: "pointer" }}
                       />
                     </span>
@@ -124,16 +124,16 @@ function CartProduct({ product }) {
                     <p class="text-md">Quantity</p>
                     &nbsp;
                     <p
-                      class="px-1 py-1 mx-0 bg-white text-md shadow-lg shadow-cyan-500/50 cursor-pointer"
+                      class="px-3 py-1 mx-1 bg-white text-[#59A0B8]  font-semibold text-[20px] shadow-sm  cursor-pointer"
                       onClick={decrement}
                     >
                       -
                     </p>
-                    <p class="px-1 py-1 mx-0 bg-white  text-md shadow-lg shadow-cyan-500/50">
+                    <p class="px-3 py-1 mx-1 bg-white  text-[20px] shadow-sm ">
                       {count}
                     </p>
                     <p
-                      class="px-1 py-1 mx-0 bg-white text-md shadow-lg shadow-cyan-500/50 cursor-pointer"
+                      class="px-3 py-1 mx-1 bg-white text-[#59A0B8]  font-semibold text-[20px] shadow-sm  cursor-pointer"
                       onClick={increment}
                     >
                       +
@@ -144,7 +144,7 @@ function CartProduct({ product }) {
                         del(product._id);
                         window.location.reload(false);
                       }}
-                      className="text-xl mx-3"
+                      className="text-[20px] mx-3 mt-2"
                       style={{ cursor: "pointer" }}
                     />
                   </span>
@@ -171,7 +171,7 @@ function CartProduct({ product }) {
             </div>
           </span>
         </Col>
-      </Row>
+      </Row><hr></hr>
     </div>
   );
 }
@@ -191,8 +191,8 @@ function CartPage({ categories, filters }) {
   return (
     <div>
       <Fixed_Component categories={categories} filters={filters} />
-      <div className="bg-[#FFFFFF] md:bg-[#F1FCFF] mt-[7rem] md:mt-[11rem] ">
-        <h1 className="fs-2 py-5 font-bold text-center">Your Cart</h1>
+      <div className="bg-[#f1fcff]  md:bg-[#F1FCFF] mt-[7rem] md:mt-[11rem] ">
+        <h1 className="fs-2 py-5 font-bold text-center text-[#59A0B8] ">Your Cart</h1>
         <Container fluid>
           <Row>
             <Col xs={12} md={8}>

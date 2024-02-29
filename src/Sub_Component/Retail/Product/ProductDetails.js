@@ -146,11 +146,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         {allImages?.slice(1, 5).map((url, i) => (
                           <img
                             key={i + 1}
-                            class={`w-36 h-28 shadow-md ${
-                              i + 1 === currentImageIndex
-                                ? "border-2 border-[#59A0B8]"
-                                : ""
-                            }`}
+                            class={`w-36 h-28 shadow-md ${i + 1 === currentImageIndex
+                              ? "border-2 border-[#59A0B8]"
+                              : ""
+                              }`}
                             alt={`Product Img ${i + 1}`}
                             src={url.url}
                             onClick={() => handleImageClick(i + 1)}
@@ -165,25 +164,13 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           alt="imageprod"
                           src={allImages[currentImageIndex].url}
                         />
-                        <div className="absolute top-40 left-0 flex justify-between w-full p-3">
+                        <div className="absolute top-40 left-0 flex justify-between w-full">
                           <div
                             className="cursor-pointer"
                             onClick={() => handleArrowClick("left")}
                           >
                             <div style={{ fontSize: "24px" }}>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="26"
-                                height="26"
-                                fill="currentColor"
-                                class="bi bi-arrow-left-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"
-                                />
-                              </svg>
+                              <img src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/left%20vaping.svg?updatedAt=1709101944351" width={'24px'} />
                             </div>
                           </div>
                           <div
@@ -191,19 +178,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                             onClick={() => handleArrowClick("right")}
                           >
                             <div style={{ fontSize: "24px" }}>
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="26"
-                                height="26"
-                                fill="currentColor"
-                                class="bi bi-arrow-right-circle"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z"
-                                />
-                              </svg>
+                              <img src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/right%20vaping.svg?updatedAt=1709101957229" width={'24px'} />
                             </div>
                           </div>
                         </div>
@@ -222,6 +197,24 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     src={allImages[currentImageIndex].url}
                     // onClick={() => handleImageClick(0)}
                   />
+                  <div className="absolute top-40 left-0 flex justify-between w-full">
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => handleArrowClick("left")}
+                    >
+                      <div style={{ fontSize: "24px" }}>
+                        <img src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/left%20vaping.svg?updatedAt=1709101944351" width={'24px'} />
+                      </div>
+                    </div>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => handleArrowClick("right")}
+                    >
+                      <div style={{ fontSize: "24px" }}>
+                        <img src="https://ik.imagekit.io/mctozv7td/Vaping%20Circle/right%20vaping.svg?updatedAt=1709101957229" width={'24px'} />
+                      </div>
+                    </div>
+                  </div>
                 </Row>
 
                 <Row>
@@ -229,11 +222,10 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     {allImages?.slice(1, 5).map((url, y) => (
                       <img
                         key={y + 1}
-                        class={`w-36 h-24 shadow-md  ${
-                          y + 1 === currentImageIndex
-                            ? "border-2 border-[#59A0B8]"
-                            : ""
-                        }`}
+                        class={`w-36 h-24 shadow-md  ${y + 1 === currentImageIndex
+                          ? "border-2 border-[#59A0B8]"
+                          : ""
+                          }`}
                         alt={`Product Img ${y + 1}`}
                         src={url.url}
                         onClick={() => handleImageClick(y + 1)}
@@ -298,8 +290,8 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           >
                             {Boolean(selectedVariants)
                               ? selectedVariants[i]?.chosenOption
-                                  ?.optionValue ||
-                                `Select ${variant.variantType}`
+                                ?.optionValue ||
+                              `Select ${variant.variantType}`
                               : `Select ${variant.variantType}`}
                           </Button>
                         </Col>
@@ -328,16 +320,16 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 <div class="flex px-2">
                   <p class="text-[#707070] text-[16px]  pr-2">Quantity</p>
                   <p
-                    class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50 cursor-pointer"
+                    class="px-3 py-1 mx-1 bg-white text-[#59A0B8]  font-semibold text-[20px] shadow-sm  cursor-pointer"
                     onClick={decrement}
                   >
                     -
                   </p>
-                  <p class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50">
+                  <p class="px-3 py-1 mx-1 bg-white  text-[20px] shadow-sm ">
                     {count}
                   </p>
                   <p
-                    class="px-3 py-1 mx-2 bg-white  text-[20px] shadow-lg shadow-cyan-500/50 cursor-pointer"
+                    class="px-3 py-1 mx-1 bg-white text-[#59A0B8] font-semibold text-[20px] shadow-sm  cursor-pointer"
                     onClick={increment}
                   >
                     +
