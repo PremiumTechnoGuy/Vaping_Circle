@@ -110,7 +110,7 @@ function VapesDeal({ categories, filters }) {
                         <Card.Img
                           variant="top"
                           class="relative rounded-2 transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                          src={deal.image}
+                          src={deal.image?.url || deal.image || ""}
                         />
                         {/* <Card.Img
                   class="absolute"

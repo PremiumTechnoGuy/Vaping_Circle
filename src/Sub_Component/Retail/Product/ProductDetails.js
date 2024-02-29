@@ -151,7 +151,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                               : ""
                               }`}
                             alt={`Product Img ${i + 1}`}
-                            src={url}
+                            src={url.url}
                             onClick={() => handleImageClick(i + 1)}
                           />
                         ))}
@@ -162,7 +162,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         <img
                           class="shadow-md h-full w-full"
                           alt="imageprod"
-                          src={allImages[currentImageIndex]}
+                          src={allImages[currentImageIndex].url}
                         />
                         <div className="absolute top-40 left-0 flex justify-between w-full">
                           <div
@@ -194,8 +194,8 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   <img
                     class="shadow-md h-full "
                     alt={`Product Img main`}
-                    src={allImages[currentImageIndex]}
-                  // onClick={() => handleImageClick(0)}
+                    src={allImages[currentImageIndex].url}
+                    // onClick={() => handleImageClick(0)}
                   />
                   <div className="absolute top-40 left-0 flex justify-between w-full">
                     <div
@@ -227,7 +227,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           : ""
                           }`}
                         alt={`Product Img ${y + 1}`}
-                        src={url}
+                        src={url.url}
                         onClick={() => handleImageClick(y + 1)}
                       />
                     ))}

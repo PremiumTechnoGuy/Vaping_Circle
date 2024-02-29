@@ -1156,7 +1156,7 @@ function FilterProductPage({ products, categories, filters }) {
                 <Link to={`/productDetails/${item._id}`}>
                   {" "}
                   <img
-                    src={item.coverImage.replace(
+                    src={item.coverImage.url.replace(
                       "/product",
                       "/tr:ar-1-1,w-285.5/product"
                     )}

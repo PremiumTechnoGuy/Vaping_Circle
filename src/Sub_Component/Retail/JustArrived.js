@@ -118,7 +118,7 @@ const JustArrived = ({ categories, products }) => {
                       ) : null}
 
                       <img
-                        src={prod.coverImage.replace(
+                        src={prod.coverImage.url.replace(
                           "/product",
                           "/tr:ar-1-1,w-301.5,h-336/product"
                         )}
