@@ -4,6 +4,14 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { apiUrl } from "../../data/env";
 
+function chunkArray(array, size, categories) {
+  const chunkedArray = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunkedArray.push(array.slice(i, i + size));
+  }
+  return chunkedArray;
+}
+
 function CategoryComponent({ allFilters, category }) {
   const nav = useNavigate();
 
@@ -26,6 +34,7 @@ function CategoryComponent({ allFilters, category }) {
         role="menu"
       >
         {thisCategoryFilters?.map((aFilter) => {
+          const chunkedArray = chunkArray(aFilter.options, 5);
           return (
             <div className="nav-column">
               <li role="menuitem">
@@ -45,26 +54,29 @@ function CategoryComponent({ allFilters, category }) {
                   aria-hidden="true"
                   role="menu"
                 >
-                  <div className="nav-column ">
-                    {/* <h3 className="fw-bold"></h3> */}
-                    <ul>
-                      {aFilter.options.map((option) => (
-                        <li role="menuitem">
-                          <a
-                            href
-                            onClick={(e) => {
-                              e.preventDefault();
-                              nav(
-                                `/filterProductPage/${category._id}/${aFilter._id}/${aFilter.name}/${option}`
-                              );
-                            }}
-                          >
-                            {option}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {chunkedArray.map((chunk, i) => {
+                    return (
+                      <div className="nav-column " key={i}>
+                        <ul>
+                          {chunk.map((option, i) => (
+                            <li role="menuitem" key={i}>
+                              <a
+                                href
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  nav(
+                                    `/filterProductPage/${category._id}/${aFilter._id}/${aFilter.name}/${option}`
+                                  );
+                                }}
+                              >
+                                {option}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    );
+                  })}
                   {/* <div className="flex col gap-2  float-right  p-3">
                     <img
                       style={{ height: 200 }}
