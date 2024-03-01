@@ -52,10 +52,7 @@ function CartProduct({ product }) {
         >
           <span>
             <img
-              src={product.image.url.replace(
-                "/product",
-                "/tr:w-160,h-153/product"
-              )}
+              src={product.image || ""}
               alt={product.nm}
               style={{ maxWidth: "none" }}
               className="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem] mt-2  md:w-[16rem] "
@@ -75,7 +72,13 @@ function CartProduct({ product }) {
                   {product.variants?.map((vr) => {
                     return (
                       <li>
-                        <span className=" font-semibold">{vr.variantType}:</span> <span className="text-[#59A0B8]"> {vr.chosenOption.optionValue}</span>
+                        <span className=" font-semibold">
+                          {vr.variantType}:
+                        </span>{" "}
+                        <span className="text-[#59A0B8]">
+                          {" "}
+                          {vr.chosenOption.optionValue}
+                        </span>
                       </li>
                     );
                   })}
@@ -171,7 +174,8 @@ function CartProduct({ product }) {
             </div>
           </span>
         </Col>
-      </Row><hr></hr>
+      </Row>
+      <hr></hr>
     </div>
   );
 }
@@ -192,7 +196,9 @@ function CartPage({ categories, filters }) {
     <div>
       <Fixed_Component categories={categories} filters={filters} />
       <div className="bg-[#f1fcff]  md:bg-[#F1FCFF] mt-[7rem] md:mt-[11rem] ">
-        <h1 className="fs-2 py-5 font-bold text-center text-[#59A0B8] ">Your Cart</h1>
+        <h1 className="fs-2 py-5 font-bold text-center text-[#59A0B8] ">
+          Your Cart
+        </h1>
         <Container fluid>
           <Row>
             <Col xs={12} md={8}>

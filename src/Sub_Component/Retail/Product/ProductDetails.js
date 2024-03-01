@@ -378,7 +378,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           price: filteredProd.basePrice,
                           variants: selectedVariants,
                           nm: filteredProd.name,
-                          image: filteredProd.coverImage,
+                          image: filteredProd.coverImage.url,
                           quantity: count,
                           offer: filteredProd.offer,
                         });
