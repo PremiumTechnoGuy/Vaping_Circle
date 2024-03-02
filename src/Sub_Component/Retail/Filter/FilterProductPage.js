@@ -13,7 +13,9 @@ import { FaRegSquare } from "react-icons/fa";
 import Fixed_Component from "../Fixed_Component";
 
 function FilterProductPage({ products, categories, filters }) {
-  const { categoryId, filId, filName, chosenOption } = useParams();
+  const { categoryId, filId, filNameEnc, chosenOptionEnc } = useParams();
+  const filName = filNameEnc.replaceAll("@", "/");
+  const chosenOption = chosenOptionEnc?.replaceAll("@", "/") || null;
   const [filProds, setFilProds] = useState([]);
 
   // Filter products by category

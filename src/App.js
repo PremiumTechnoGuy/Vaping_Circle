@@ -152,7 +152,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/filterProductPage/:categoryId/:filId/:filName/:chosenOption"
+                path="/filterProductPage/:categoryId/:filId/:filNameEnc/:chosenOptionEnc"
                 element={
                   <FilterProductPage
                     products={products}

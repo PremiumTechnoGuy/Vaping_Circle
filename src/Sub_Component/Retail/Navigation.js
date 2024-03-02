@@ -300,7 +300,12 @@ function MainFilterComp({ filter, categoryId }) {
                   onClick={(e) => {
                     e.preventDefault();
                     nav(
-                      `/filterProductPage/${categoryId}/${filter._id}/${filter.name}/${option}`
+                      `/filterProductPage/${categoryId}/${
+                        filter._id
+                      }/${filter.name.replaceAll("/", "@")}/${option.replaceAll(
+                        "/",
+                        "@"
+                      )}`
                     );
                   }}
                 >
