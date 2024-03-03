@@ -93,7 +93,7 @@ function CartProduct({ product, getSavedCartProducts }) {
                   {" "}
                   <div>
                     <p className=" py-3 md:hidden block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
-                      £{product.price * count}
+                      £{(product.price * count).toPrecision(4)}
                     </p>
                   </div>{" "}
                   <div className="flex justify-between items-center">
@@ -176,7 +176,7 @@ function CartProduct({ product, getSavedCartProducts }) {
           </span>
           <span>
             <div className="py-3 hidden md:block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
-              £{product.price * count}
+              £{(product.price * count).toPrecision(4)}
             </div>
           </span>
         </Col>
@@ -232,7 +232,8 @@ function CartPage({ categories, filters }) {
                     £
                     {cartArr
                       .map((c) => c.price * c.quantity)
-                      .reduce((p, c) => p + c, 0)}
+                      .reduce((p, c) => p + c, 0)
+                      .toPrecision(4)}
                   </p>{" "}
                 </div>
                 <div class="px-4 flex justify-between">
@@ -250,7 +251,8 @@ function CartPage({ categories, filters }) {
                     £
                     {cartArr
                       .map((c) => c.price * c.quantity)
-                      .reduce((p, c) => p + c, 0)}
+                      .reduce((p, c) => p + c, 0)
+                      .toPrecision(4)}
                   </h3>
                 </div>
 

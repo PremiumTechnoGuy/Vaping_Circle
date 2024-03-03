@@ -343,7 +343,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   {filteredProd?.description}
                 </p>
                 <p class="text-xl py-3 font-semibold px-2 text-[#59A0B8] mb-2">
-                  £{filteredProd?.basePrice * count}
+                  £{(filteredProd?.basePrice * count).toPrecision(4)}
                 </p>
                 <Container className="border-y py-3 mx-auto text-center p-0 m-0">
                   <Row className="flex  flex-wrap">
