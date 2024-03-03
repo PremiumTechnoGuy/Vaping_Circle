@@ -96,7 +96,7 @@ const JustArrived = ({ categories, products }) => {
           style={{ display: "flex", justify: "center", align: "center" }}
         >
           <Row xs={2} md={4}>
-            {filteredProducts?.map((prod) => {
+            {filteredProducts?.slice(0, 4).map((prod) => {
               return (
                 <Col key={prod._id}>
                   <div id="content" class="m-2 relative">
