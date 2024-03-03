@@ -23,10 +23,12 @@ const Super = ({ products }) => {
                 <div id="content" class="m-2 relative">
                   <Link to={`/productDetails/${p._id}`}>
                     <img
-                      src={p.coverImage.url.replace(
-                        "/product",
-                        "/tr:w-245,h-272/product"
-                      )}
+                      src={
+                        p.coverImage?.url?.replace(
+                          "/product",
+                          "/tr:w-245,h-272/product"
+                        ) || ""
+                      }
                       alt={p.name}
                       class="w-[50rem] xs:h-[13rem] md:h-[17rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150 "
                     />

@@ -118,10 +118,12 @@ const JustArrived = ({ categories, products }) => {
                       ) : null}
 
                       <img
-                        src={prod.coverImage.url.replace(
-                          "/product",
-                          "/tr:ar-1-1,w-301.5,h-336/product"
-                        )}
+                        src={
+                          prod.coverImage?.url?.replace(
+                            "/product",
+                            "/tr:ar-1-1,w-301.5,h-336/product"
+                          ) || ""
+                        }
                         alt=""
                         class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
                       />

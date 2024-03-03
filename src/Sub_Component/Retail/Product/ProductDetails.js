@@ -150,7 +150,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
       price: filteredProd.basePrice,
       variants: selectedVariants,
       nm: filteredProd.name,
-      image: filteredProd.coverImage.url,
+      image: filteredProd.coverImage?.url || "",
       quantity: count,
       offer: filteredProd.offer,
     };
@@ -228,7 +228,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                                 : ""
                             }`}
                             alt={`Product Img ${i + 1}`}
-                            src={url.url}
+                            src={url?.url || ""}
                             onClick={() => handleImageClick(i + 1)}
                           />
                         ))}
@@ -239,7 +239,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         <img
                           class="shadow-md h-full w-full"
                           alt="imageprod"
-                          src={allImages[currentImageIndex].url}
+                          src={allImages[currentImageIndex]?.url || ""}
                         />
                         <div className="absolute top-40 left-0 flex justify-between w-full">
                           <div
@@ -277,7 +277,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   <img
                     class="shadow-md h-full "
                     alt={`Product Img main`}
-                    src={allImages[currentImageIndex].url}
+                    src={allImages[currentImageIndex]?.url || ""}
                     // onClick={() => handleImageClick(0)}
                   />
                   <div className="absolute top-40 left-0 flex justify-between w-full">
@@ -317,7 +317,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                             : ""
                         }`}
                         alt={`Product Img ${y + 1}`}
-                        src={url.url}
+                        src={url?.url || ""}
                         onClick={() => handleImageClick(y + 1)}
                       />
                     ))}
@@ -531,7 +531,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           // }}
                         >
                           <img
-                            src={p.coverImage.url}
+                            src={p.coverImage?.url || ""}
                             alt={p.name}
                             class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
                           />
