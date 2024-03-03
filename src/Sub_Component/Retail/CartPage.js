@@ -7,7 +7,7 @@ import Fixed_Component from "./Fixed_Component";
 
 import { del, get, set, values } from "idb-keyval";
 
-function CartProduct({ product }) {
+function CartProduct({ product, getSavedCartProducts }) {
   const [count, setCount] = React.useState(product.quantity);
 
   function increment() {
@@ -18,6 +18,9 @@ function CartProduct({ product }) {
       console.log(newObj);
       set(product._id, newObj);
     });
+    setTimeout(() => {
+      getSavedCartProducts();
+    }, 200);
   }
 
   function decrement() {
@@ -36,6 +39,9 @@ function CartProduct({ product }) {
         console.log(newObj);
         set(product._id, newObj);
       });
+      setTimeout(() => {
+        getSavedCartProducts();
+      }, 200);
     }
   }
 
@@ -183,13 +189,18 @@ function CartProduct({ product }) {
 function CartPage({ categories, filters }) {
   const [cartArr, setCartArr] = React.useState([]);
 
-  React.useEffect(() => {
+  function getSavedCartProducts() {
     values()
       .then((res) => {
         // setCartArr(res.map((cId) => products.find((p) => p._id === cId)));
         setCartArr(res);
+        console.log(res);
       })
       .catch((err) => console.error(err));
+  }
+
+  React.useEffect(() => {
+    getSavedCartProducts();
   }, []);
 
   return (
@@ -204,7 +215,11 @@ function CartPage({ categories, filters }) {
             <Col xs={12} md={8}>
               <div className="bg-[#FFFFFF] rounded-lg m-2 md:mx-5 md:my-5">
                 {cartArr?.map((crt, i) => (
-                  <CartProduct key={i} product={crt} />
+                  <CartProduct
+                    key={i}
+                    product={crt}
+                    getSavedCartProducts={getSavedCartProducts}
+                  />
                 ))}
               </div>
             </Col>
