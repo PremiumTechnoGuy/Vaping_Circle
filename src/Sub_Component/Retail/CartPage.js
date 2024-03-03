@@ -12,11 +12,11 @@ function CartProduct({ product, getSavedCartProducts }) {
 
   function increment() {
     setCount((prev) => prev + 1);
-    get(product._id).then((obj) => {
+    get(product.uId).then((obj) => {
       const newObj = JSON.parse(JSON.stringify(obj));
       newObj.quantity = obj.quantity + 1;
       console.log(newObj);
-      set(product._id, newObj);
+      set(product.uId, newObj);
     });
     setTimeout(() => {
       getSavedCartProducts();
@@ -33,11 +33,11 @@ function CartProduct({ product, getSavedCartProducts }) {
     });
 
     if (bool) {
-      get(product._id).then((obj) => {
+      get(product.uId).then((obj) => {
         const newObj = JSON.parse(JSON.stringify(obj));
         newObj.quantity = obj.quantity - 1;
         console.log(newObj);
-        set(product._id, newObj);
+        set(product.uId, newObj);
       });
       setTimeout(() => {
         getSavedCartProducts();
@@ -117,7 +117,7 @@ function CartProduct({ product, getSavedCartProducts }) {
                       <RiDeleteBin5Line
                         onClick={(e) => {
                           e.preventDefault();
-                          del(product._id);
+                          del(product.uId);
                           window.location.reload(false);
                         }}
                         className="text-[20px] mt-2 mx-3"
@@ -150,7 +150,7 @@ function CartProduct({ product, getSavedCartProducts }) {
                     <RiDeleteBin5Line
                       onClick={(e) => {
                         e.preventDefault();
-                        del(product._id);
+                        del(product.uId);
                         window.location.reload(false);
                       }}
                       className="text-[20px] mx-3 mt-2"

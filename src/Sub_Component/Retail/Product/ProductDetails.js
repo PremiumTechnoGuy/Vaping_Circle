@@ -14,7 +14,8 @@ import Fixed_Component from "../Fixed_Component";
 import { Drawer } from "antd";
 import { Select, Space } from "antd";
 import { apiUrl } from "../../../data/env";
-import { set, keys } from "idb-keyval";
+import { set, keys, values, clear } from "idb-keyval";
+import { v4 } from "uuid";
 
 function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
@@ -142,6 +143,70 @@ function ProductDetails({ products, categories, filters, setCart }) {
     setIcon3(!icon3);
     setOpen3(!open3);
   };
+
+  async function handleAddToCart() {
+    const productToAdd = {
+      _id: filteredProd._id,
+      price: filteredProd.basePrice,
+      variants: selectedVariants,
+      nm: filteredProd.name,
+      image: filteredProd.coverImage.url,
+      quantity: count,
+      offer: filteredProd.offer,
+    };
+
+    const cart = await values()
+      .then((res) => res)
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+
+    // Function to add product to cart
+    function addToCart(productToAdd) {
+      const existingProductIndex = cart.findIndex(
+        (product) => product._id === productToAdd._id
+      );
+      if (existingProductIndex !== -1) {
+        // Product exists in cart
+        const existingProduct = cart[existingProductIndex];
+        let bool = false;
+        bool = existingProduct.variants.some((variant, i) => {
+          return (
+            variant.variantType === productToAdd.variants[i].variantType &&
+            variant.chosenOption.optionValue !==
+              productToAdd.variants[i].chosenOption.optionValue
+          );
+        });
+        if (bool) {
+          // add new product in cart if chosen option is different
+          cart.push(productToAdd);
+        } else {
+          // update quantity of existing product
+          existingProduct.quantity += productToAdd.quantity;
+        }
+      } else {
+        // Product not found, add it to the cart
+        cart.push(productToAdd);
+      }
+    }
+    addToCart(productToAdd);
+
+    clear()
+      .then(() => {
+        cart.forEach((crt) => {
+          const uId = v4();
+          crt.uId = uId;
+          set(uId, crt);
+        });
+      })
+      .then(() => nav("/cartView"))
+      .catch((err) => {
+        alert("Could not add to cart!!!");
+        console.log(err);
+      });
+  }
+
   return (
     <div>
       <Fixed_Component categories={categories} filters={filters} />
@@ -365,24 +430,13 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 <div class="flex flex-col justify-center items-center mt-3">
                   {/* <Link to="/cartView"> */}
                   <button
-                    onClick={(e) => {
+                    onClick={async (e) => {
                       e.preventDefault();
                       const bool = selectedVariants?.every(
                         (sVar) => sVar.chosenOption !== undefined
                       );
                       if (bool) {
-                        // setCart((c) => [...c, filteredProd._id]);
-
-                        set(filteredProd._id, {
-                          _id: filteredProd._id,
-                          price: filteredProd.basePrice,
-                          variants: selectedVariants,
-                          nm: filteredProd.name,
-                          image: filteredProd.coverImage.url,
-                          quantity: count,
-                          offer: filteredProd.offer,
-                        });
-                        nav("/cartView");
+                        await handleAddToCart();
                       } else {
                         alert("Select all variants before adding to cart!");
                       }
