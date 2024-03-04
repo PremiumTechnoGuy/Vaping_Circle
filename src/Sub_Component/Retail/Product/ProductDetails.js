@@ -530,6 +530,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           //   nav(`/productDetails/${p._id}`);
                           // }}
                         >
+                          <Link to={`/productDetails/${p._id}`}>
                           <img
                             src={p.coverImage?.url || ""}
                             alt={p.name}
@@ -546,6 +547,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                               </p>
                             </div>
                           </div>
+                          </Link>
                         </div>
                       </Col>
                     );
