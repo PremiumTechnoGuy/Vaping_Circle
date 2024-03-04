@@ -14,7 +14,8 @@ import Fixed_Component from "../Fixed_Component";
 import { Drawer } from "antd";
 import { Select, Space } from "antd";
 import { apiUrl } from "../../../data/env";
-import { set, keys } from "idb-keyval";
+import { set, keys, values, clear } from "idb-keyval";
+import { v4 } from "uuid";
 
 function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
@@ -142,6 +143,70 @@ function ProductDetails({ products, categories, filters, setCart }) {
     setIcon3(!icon3);
     setOpen3(!open3);
   };
+
+  async function handleAddToCart() {
+    const productToAdd = {
+      _id: filteredProd._id,
+      price: filteredProd.basePrice,
+      variants: selectedVariants,
+      nm: filteredProd.name,
+      image: filteredProd.coverImage?.url || "",
+      quantity: count,
+      offer: filteredProd.offer,
+    };
+
+    const cart = await values()
+      .then((res) => res)
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+
+    // Function to add product to cart
+    function addToCart(productToAdd) {
+      const existingProductIndex = cart.findIndex(
+        (product) => product._id === productToAdd._id
+      );
+      if (existingProductIndex !== -1) {
+        // Product exists in cart
+        const existingProduct = cart[existingProductIndex];
+        let bool = false;
+        bool = existingProduct.variants.some((variant, i) => {
+          return (
+            variant.variantType === productToAdd.variants[i].variantType &&
+            variant.chosenOption.optionValue !==
+              productToAdd.variants[i].chosenOption.optionValue
+          );
+        });
+        if (bool) {
+          // add new product in cart if chosen option is different
+          cart.push(productToAdd);
+        } else {
+          // update quantity of existing product
+          existingProduct.quantity += productToAdd.quantity;
+        }
+      } else {
+        // Product not found, add it to the cart
+        cart.push(productToAdd);
+      }
+    }
+    addToCart(productToAdd);
+
+    clear()
+      .then(() => {
+        cart.forEach((crt) => {
+          const uId = v4();
+          crt.uId = uId;
+          set(uId, crt);
+        });
+      })
+      .then(() => nav("/cartView"))
+      .catch((err) => {
+        alert("Could not add to cart!!!");
+        console.log(err);
+      });
+  }
+
   return (
     <div>
       <Fixed_Component categories={categories} filters={filters} />
@@ -163,7 +228,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                                 : ""
                             }`}
                             alt={`Product Img ${i + 1}`}
-                            src={url.url}
+                            src={url?.url || ""}
                             onClick={() => handleImageClick(i + 1)}
                           />
                         ))}
@@ -174,7 +239,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         <img
                           class="shadow-md h-full w-full"
                           alt="imageprod"
-                          src={allImages[currentImageIndex].url}
+                          src={allImages[currentImageIndex]?.url || ""}
                         />
                         <div className="absolute top-40 left-0 flex justify-between w-full">
                           <div
@@ -212,7 +277,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   <img
                     class="shadow-md h-full "
                     alt={`Product Img main`}
-                    src={allImages[currentImageIndex].url}
+                    src={allImages[currentImageIndex]?.url || ""}
                     // onClick={() => handleImageClick(0)}
                   />
                   <div className="absolute top-40 left-0 flex justify-between w-full">
@@ -252,7 +317,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                             : ""
                         }`}
                         alt={`Product Img ${y + 1}`}
-                        src={url.url}
+                        src={url?.url || ""}
                         onClick={() => handleImageClick(y + 1)}
                       />
                     ))}
@@ -278,7 +343,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   {filteredProd?.description}
                 </p>
                 <p class="text-xl py-3 font-semibold px-2 text-[#59A0B8] mb-2">
-                  £{filteredProd?.basePrice * count}
+                  £{(filteredProd?.basePrice * count).toPrecision(4)}
                 </p>
                 <Container className="border-y py-3 mx-auto text-center p-0 m-0">
                   <Row className="flex  flex-wrap">
@@ -365,24 +430,13 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 <div class="flex flex-col justify-center items-center mt-3">
                   {/* <Link to="/cartView"> */}
                   <button
-                    onClick={(e) => {
+                    onClick={async (e) => {
                       e.preventDefault();
                       const bool = selectedVariants?.every(
                         (sVar) => sVar.chosenOption !== undefined
                       );
                       if (bool) {
-                        // setCart((c) => [...c, filteredProd._id]);
-
-                        set(filteredProd._id, {
-                          _id: filteredProd._id,
-                          price: filteredProd.basePrice,
-                          variants: selectedVariants,
-                          nm: filteredProd.name,
-                          image: filteredProd.coverImage.url,
-                          quantity: count,
-                          offer: filteredProd.offer,
-                        });
-                        nav("/cartView");
+                        await handleAddToCart();
                       } else {
                         alert("Select all variants before adding to cart!");
                       }
@@ -478,7 +532,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         >
                           <Link to={`/productDetails/${p._id}`}>
                           <img
-                            src={p.coverImage.url}
+                            src={p.coverImage?.url || ""}
                             alt={p.name}
                             class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
                           />

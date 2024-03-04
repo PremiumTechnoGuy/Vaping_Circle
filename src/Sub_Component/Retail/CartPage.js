@@ -7,17 +7,20 @@ import Fixed_Component from "./Fixed_Component";
 
 import { del, get, set, values } from "idb-keyval";
 
-function CartProduct({ product }) {
+function CartProduct({ product, getSavedCartProducts }) {
   const [count, setCount] = React.useState(product.quantity);
 
   function increment() {
     setCount((prev) => prev + 1);
-    get(product._id).then((obj) => {
+    get(product.uId).then((obj) => {
       const newObj = JSON.parse(JSON.stringify(obj));
       newObj.quantity = obj.quantity + 1;
       console.log(newObj);
-      set(product._id, newObj);
+      set(product.uId, newObj);
     });
+    setTimeout(() => {
+      getSavedCartProducts();
+    }, 200);
   }
 
   function decrement() {
@@ -30,12 +33,15 @@ function CartProduct({ product }) {
     });
 
     if (bool) {
-      get(product._id).then((obj) => {
+      get(product.uId).then((obj) => {
         const newObj = JSON.parse(JSON.stringify(obj));
         newObj.quantity = obj.quantity - 1;
         console.log(newObj);
-        set(product._id, newObj);
+        set(product.uId, newObj);
       });
+      setTimeout(() => {
+        getSavedCartProducts();
+      }, 200);
     }
   }
 
@@ -87,7 +93,7 @@ function CartProduct({ product }) {
                   {" "}
                   <div>
                     <p className=" py-3 md:hidden block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
-                      £{product.price * count}
+                      £{(product.price * count).toPrecision(4)}
                     </p>
                   </div>{" "}
                   <div className="flex justify-between items-center">
@@ -111,7 +117,7 @@ function CartProduct({ product }) {
                       <RiDeleteBin5Line
                         onClick={(e) => {
                           e.preventDefault();
-                          del(product._id);
+                          del(product.uId);
                           window.location.reload(false);
                         }}
                         className="text-[20px] mt-2 mx-3"
@@ -144,7 +150,7 @@ function CartProduct({ product }) {
                     <RiDeleteBin5Line
                       onClick={(e) => {
                         e.preventDefault();
-                        del(product._id);
+                        del(product.uId);
                         window.location.reload(false);
                       }}
                       className="text-[20px] mx-3 mt-2"
@@ -170,7 +176,7 @@ function CartProduct({ product }) {
           </span>
           <span>
             <div className="py-3 hidden md:block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
-              £{product.price * count}
+              £{(product.price * count).toPrecision(4)}
             </div>
           </span>
         </Col>
@@ -183,13 +189,18 @@ function CartProduct({ product }) {
 function CartPage({ categories, filters }) {
   const [cartArr, setCartArr] = React.useState([]);
 
-  React.useEffect(() => {
+  function getSavedCartProducts() {
     values()
       .then((res) => {
         // setCartArr(res.map((cId) => products.find((p) => p._id === cId)));
         setCartArr(res);
+        console.log(res);
       })
       .catch((err) => console.error(err));
+  }
+
+  React.useEffect(() => {
+    getSavedCartProducts();
   }, []);
 
   return (
@@ -204,7 +215,11 @@ function CartPage({ categories, filters }) {
             <Col xs={12} md={8}>
               <div className="bg-[#FFFFFF] rounded-lg m-2 md:mx-5 md:my-5">
                 {cartArr?.map((crt, i) => (
-                  <CartProduct key={i} product={crt} />
+                  <CartProduct
+                    key={i}
+                    product={crt}
+                    getSavedCartProducts={getSavedCartProducts}
+                  />
                 ))}
               </div>
             </Col>
@@ -217,7 +232,8 @@ function CartPage({ categories, filters }) {
                     £
                     {cartArr
                       .map((c) => c.price * c.quantity)
-                      .reduce((p, c) => p + c, 0)}
+                      .reduce((p, c) => p + c, 0)
+                      .toPrecision(4)}
                   </p>{" "}
                 </div>
                 <div class="px-4 flex justify-between">
@@ -235,7 +251,8 @@ function CartPage({ categories, filters }) {
                     £
                     {cartArr
                       .map((c) => c.price * c.quantity)
-                      .reduce((p, c) => p + c, 0)}
+                      .reduce((p, c) => p + c, 0)
+                      .toPrecision(4)}
                   </h3>
                 </div>
 
