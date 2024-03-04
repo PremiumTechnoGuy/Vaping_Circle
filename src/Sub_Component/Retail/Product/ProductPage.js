@@ -17,6 +17,95 @@ import { FaRegSquare } from "react-icons/fa";
 import Fixed_Component from "../Fixed_Component.js";
 import { apiUrl } from "../../../data/env.js";
 
+function BarFilter({ filter }) {
+  const [open1, setOpen1] = useState(false);
+  const [icon1, setIcon1] = useState(<BsChevronUp />);
+  const changeIcon1 = () => {
+    setIcon1(!icon1);
+    setOpen1(!open1);
+  };
+
+  return (
+    <div>
+      <div
+        className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
+        onClick={changeIcon1}
+      >
+        <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
+          {" "}
+          {filter.alternateName}
+        </p>
+        <p className="">
+          {icon1 ? (
+            <BsChevronDown class="text-[#707070] font-semibold" />
+          ) : (
+            <BsChevronUp class="text-[#707070] font-semibold" />
+          )}
+        </p>
+      </div>{" "}
+      {open1 ? (
+        <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
+          {filter.options?.map((opt, i) => {
+            return (
+              <li class="flex justify-start item-center " key={i}>
+                <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
+                  {" "}
+                  <FaRegSquare />
+                </p>
+                <p className="py-2">{opt}</p>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
+function BarFilterMobile({ filter }) {
+  const [open1, setOpen1] = useState(false);
+  const [icon1, setIcon1] = useState(<BsChevronUp />);
+  const changeIcon1 = () => {
+    setIcon1(!icon1);
+    setOpen1(!open1);
+  };
+
+  return (
+    <div>
+      <div
+        className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
+        onClick={changeIcon1}
+      >
+        <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
+          {filter.alternateName}
+        </p>
+        <p className="">
+          {icon1 ? (
+            <BsChevronDown class="text-[#707070] font-semibold" />
+          ) : (
+            <BsChevronUp class="text-[#707070] font-semibold" />
+          )}
+        </p>
+      </div>{" "}
+      {open1 ? (
+        <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
+          {filter.options?.map((opt, i) => {
+            return (
+              <li class="flex justify-start item-center " key={i}>
+                <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
+                  {" "}
+                  <FaRegSquare />
+                </p>
+                <p className="py-2">{opt}</p>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
+}
+
 function ProductPage({
   products,
   // currentCategory,
@@ -31,57 +120,13 @@ function ProductPage({
     (prod) => prod.category === categoryId
   );
 
+  const filteredBarFilters = [...filters].filter(
+    (fil) => fil.categoryId === categoryId && fil.showFilterbar
+  );
+
   // const filteredCategory = categories?.filter(cat => cat._id === currentCategory);
 
   // console.log("allllllll", products);
-
-  const [open1, setOpen1] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [open3, setOpen3] = useState(false);
-  const [open4, setOpen4] = useState(false);
-  const [open5, setOpen5] = useState(false);
-  const [open6, setOpen6] = useState(false);
-  const [icon1, setIcon1] = useState(<BsChevronUp />);
-  const [icon2, setIcon2] = useState(<BsChevronUp />);
-  const [icon3, setIcon3] = useState(<BsChevronUp />);
-  const [icon4, setIcon4] = useState(<BsChevronUp />);
-  const [icon5, setIcon5] = useState(<BsChevronUp />);
-  const [icon6, setIcon6] = useState(<BsChevronUp />);
-
-  const changeIcon1 = () => {
-    setIcon1(!icon1);
-    setOpen1(!open1);
-  };
-  const changeIcon2 = () => {
-    setIcon2(!icon2);
-    setOpen2(!open2);
-  };
-  const changeIcon3 = () => {
-    setIcon3(!icon3);
-    setOpen3(!open3);
-  };
-  const changeIcon4 = () => {
-    setIcon4(!icon4);
-    setOpen4(!open4);
-  };
-  const changeIcon5 = () => {
-    setIcon5(!icon5);
-    setOpen5(!open5);
-  };
-  const changeIcon6 = () => {
-    setIcon6(!icon6);
-    setOpen6(!open6);
-  };
-
-  const [buttonVisible, setButtonVisible] = useState(false);
-
-  const handleMouseEnter = () => {
-    setButtonVisible(true);
-  };
-
-  const handleMouseLeave = () => {
-    setButtonVisible(false);
-  };
 
   const settings = {
     dots: true,
@@ -155,971 +200,16 @@ function ProductPage({
             {" "}
             <div class="md:block hidden">
               <Slider {...settings}>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon1}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Type
-                    </p>
-                    <p className="">
-                      {icon1 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open1 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon2}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Flavor Type
-                    </p>
-                    <p className="">
-                      {icon2 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open2 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Fruits</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Deserts & Creams</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Drinks</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Cereal</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Menthol</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Sweet & Candy</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Tobacco</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon3}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Flavor
-                    </p>
-                    <p className="">
-                      {icon3 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open3 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon4}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Brand
-                    </p>
-                    <p className="">
-                      {icon4 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open4 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon5}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Size
-                    </p>
-                    <p className="">
-                      {icon5 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open5 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon6}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      PG/VG Ratio
-                    </p>
-                    <p className="">
-                      {icon6 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open6 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon1}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Type
-                    </p>
-                    <p className="">
-                      {icon1 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon1}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Type
-                    </p>
-                    <p className="">
-                      {icon1 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon1}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Type
-                    </p>
-                    <p className="">
-                      {icon1 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                </div>
+                {filteredBarFilters?.map((fil, i) => {
+                  return <BarFilter filter={fil} key={i} />;
+                })}
               </Slider>
             </div>
             <div class="block md:hidden">
-              {" "}
               <Slider {...settings1}>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon1}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Type
-                    </p>
-                    <p className="">
-                      {icon1 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open1 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon2}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Flavor Type
-                    </p>
-                    <p className="">
-                      {icon2 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open2 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Fruits</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Deserts & Creams</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Drinks</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Cereal</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Menthol</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Sweet & Candy</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Tobacco</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon3}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Flavor
-                    </p>
-                    <p className="">
-                      {icon3 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open3 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon4}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Brand
-                    </p>
-                    <p className="">
-                      {icon4 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open4 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon5}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Size
-                    </p>
-                    <p className="">
-                      {icon5 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open5 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon6}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      PG/VG Ratio
-                    </p>
-                    <p className="">
-                      {icon6 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                  {open6 ? (
-                    <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Freebase 10ml</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Pre-Filled Pod</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Shortfill</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Hybrid</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Shot</p>
-                      </li>
-                      <li class="flex justify-start item-center ">
-                        <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                          {" "}
-                          <FaRegSquare />
-                        </p>
-                        <p className="py-2">Nic Salt</p>
-                      </li>
-                    </ul>
-                  ) : null}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon1}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Type
-                    </p>
-                    <p className="">
-                      {icon1 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon1}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Type
-                    </p>
-                    <p className="">
-                      {icon1 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                </div>
-                <div>
-                  <div
-                    className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
-                    onClick={changeIcon1}
-                  >
-                    <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-                      {" "}
-                      Type
-                    </p>
-                    <p className="">
-                      {icon1 ? (
-                        <BsChevronDown class="text-[#707070] font-semibold" />
-                      ) : (
-                        <BsChevronUp class="text-[#707070] font-semibold" />
-                      )}
-                    </p>
-                  </div>{" "}
-                </div>
+                {filteredBarFilters?.map((fil, i) => {
+                  return <BarFilterMobile filter={fil} key={i} />;
+                })}
               </Slider>
             </div>
           </Col>
