@@ -17,7 +17,7 @@ import { FaRegSquare } from "react-icons/fa";
 import Fixed_Component from "../Fixed_Component.js";
 import { apiUrl } from "../../../data/env.js";
 
-function BarFilter({ filter }) {
+function BarFilter({ filter, handleSelectOpt }) {
   const [open1, setOpen1] = useState(false);
   const [icon1, setIcon1] = useState(<BsChevronUp />);
   const changeIcon1 = () => {
@@ -182,6 +182,15 @@ function ProductPage({
     ),
   };
 
+  function handleFilterProducts() {
+    const allOptions = document.querySelectorAll(".special-element");
+
+    const optionsArr = allOptions.map((el) =>
+      el.dataset.opt ? el.dataset.opt : null
+    );
+    console.log(optionsArr);
+  }
+
   return (
     <div class="mt-36 md:mt-52">
       <Fixed_Component categories={categories} filters={filters} />
@@ -201,14 +210,26 @@ function ProductPage({
             <div class="md:block hidden">
               <Slider {...settings}>
                 {filteredBarFilters?.map((fil, i) => {
-                  return <BarFilter filter={fil} key={i} />;
+                  return (
+                    <BarFilter
+                      filter={fil}
+                      handleSelectOpt={handleFilterProducts}
+                      key={i}
+                    />
+                  );
                 })}
               </Slider>
             </div>
             <div class="block md:hidden">
               <Slider {...settings1}>
                 {filteredBarFilters?.map((fil, i) => {
-                  return <BarFilterMobile filter={fil} key={i} />;
+                  return (
+                    <BarFilterMobile
+                      filter={fil}
+                      handleSelectOpt={handleFilterProducts}
+                      key={i}
+                    />
+                  );
                 })}
               </Slider>
             </div>

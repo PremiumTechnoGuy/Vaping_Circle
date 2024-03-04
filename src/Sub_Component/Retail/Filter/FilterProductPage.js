@@ -26,6 +26,8 @@ function FilterProductPage({ products, categories, filters }) {
   // Find the filter based on filId
   // const filter = filters.find((filter) => filter._id === filId);
 
+  const [options, setOptions] = useState([]);
+
   React.useEffect(() => {
     // filter products according to main filter
     if (chosenOption === "null") {
@@ -35,7 +37,7 @@ function FilterProductPage({ products, categories, filters }) {
         );
         return chosenFilter;
       });
-      console.log("filterProductOnly: ", filteredProductsByFilter);
+      // console.log("filterProductOnly: ", filteredProductsByFilter);
       setFilProds(filteredProductsByFilter);
     } else {
       // Filter products based on the chosen option for the filter
@@ -46,58 +48,19 @@ function FilterProductPage({ products, categories, filters }) {
         );
         return chosenFilter && chosenFilter.chosenOption === chosenOption;
       });
-      console.log(filteredProductsByOption);
+      // console.log(filteredProductsByOption);
       setFilProds(filteredProductsByOption);
     }
   }, []);
 
-  const [open1, setOpen1] = useState(false);
-  const [open2, setOpen2] = useState(false);
-  const [open3, setOpen3] = useState(false);
-  const [open4, setOpen4] = useState(false);
-  const [open5, setOpen5] = useState(false);
-  const [open6, setOpen6] = useState(false);
-  const [icon1, setIcon1] = useState(<BsChevronUp />);
-  const [icon2, setIcon2] = useState(<BsChevronUp />);
-  const [icon3, setIcon3] = useState(<BsChevronUp />);
-  const [icon4, setIcon4] = useState(<BsChevronUp />);
-  const [icon5, setIcon5] = useState(<BsChevronUp />);
-  const [icon6, setIcon6] = useState(<BsChevronUp />);
+  function handleFilterProducts() {
+    const allOptions = document.querySelectorAll(".special-element");
 
-  const changeIcon1 = () => {
-    setIcon1(!icon1);
-    setOpen1(!open1);
-  };
-  const changeIcon2 = () => {
-    setIcon2(!icon2);
-    setOpen2(!open2);
-  };
-  const changeIcon3 = () => {
-    setIcon3(!icon3);
-    setOpen3(!open3);
-  };
-  const changeIcon4 = () => {
-    setIcon4(!icon4);
-    setOpen4(!open4);
-  };
-  const changeIcon5 = () => {
-    setIcon5(!icon5);
-    setOpen5(!open5);
-  };
-  const changeIcon6 = () => {
-    setIcon6(!icon6);
-    setOpen6(!open6);
-  };
-
-  const [buttonVisible, setButtonVisible] = useState(false);
-
-  const handleMouseEnter = () => {
-    setButtonVisible(true);
-  };
-
-  const handleMouseLeave = () => {
-    setButtonVisible(false);
-  };
+    const optionsArr = allOptions.map((el) =>
+      el.dataset.opt ? el.dataset.opt : null
+    );
+    console.log(optionsArr);
+  }
 
   const settings = {
     dots: true,
