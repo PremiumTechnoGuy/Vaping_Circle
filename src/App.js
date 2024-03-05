@@ -197,7 +197,11 @@ const App = () => {
               />
               <Route
                 path="/checkout"
-                element={<Checkout categories={categories} filters={filters} />}
+                element={
+                  <RequireAuth>
+                    <Checkout categories={categories} filters={filters} />
+                  </RequireAuth>
+                }
               />
               <Route
                 path="/aboutus"
