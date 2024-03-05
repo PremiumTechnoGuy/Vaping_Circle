@@ -7,8 +7,33 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Footer from "./Footer";
 import Fixed_Component from "./Fixed_Component";
+import { values } from "idb-keyval";
+import { useAuth } from "../../utils/auth";
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function Checkout({ categories, filters }) {
+  const [cartArr, setCartArr] = React.useState([]);
+  const nav = useNavigate();
+
+  function getSavedCartProducts() {
+    values()
+      .then((res) => {
+        // setCartArr(res.map((cId) => products.find((p) => p._id === cId)));
+        setCartArr(res);
+        console.log(res);
+      })
+      .catch((err) => console.error(err));
+  }
+
+  React.useEffect(() => {
+    getSavedCartProducts();
+  }, []);
+
+  const auth = useAuth();
+
+  const handleCheckout = () => {};
+
   return (
     <div>
       <Fixed_Component categories={categories} filters={filters} />
@@ -55,14 +80,22 @@ function Checkout({ categories, filters }) {
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               First Name
                             </Form.Label>
-                            <Form.Control type="text" />
+                            <Form.Control
+                              type="text"
+                              disabled
+                              defaultValue={auth.user.firstName}
+                            />
                           </Form.Group>
 
                           <Form.Group as={Col} controlId="">
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               Last Name
                             </Form.Label>
-                            <Form.Control type="text" />
+                            <Form.Control
+                              type="text"
+                              disabled
+                              defaultValue={auth.user.lastName}
+                            />
                           </Form.Group>
                         </Row>
                         <Row className="mb-3">
@@ -70,14 +103,22 @@ function Checkout({ categories, filters }) {
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               Email
                             </Form.Label>
-                            <Form.Control type="email" />
+                            <Form.Control
+                              type="email"
+                              disabled
+                              defaultValue={auth.user.email}
+                            />
                           </Form.Group>
 
                           <Form.Group as={Col} controlId="" sm={6}>
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               Phone
                             </Form.Label>
-                            <Form.Control type="text" />
+                            <Form.Control
+                              type="text"
+                              disabled
+                              defaultValue={auth.user.phone || "N/A"}
+                            />
                           </Form.Group>
                         </Row>
                         <Row className="mb-3">
@@ -85,21 +126,22 @@ function Checkout({ categories, filters }) {
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
                               City
                             </Form.Label>
-                            <Form.Control />
+                            <Form.Control
+                              type="text"
+                              disabled
+                              defaultValue={auth.user.city || "N/A"}
+                            />
                           </Form.Group>
 
                           <Form.Group as={Col} controlId="">
                             <Form.Label class="text-[#59A0B8] font-semibold py-2">
-                              State
+                              Postcode
                             </Form.Label>
-                            <Form.Control />
-                          </Form.Group>
-
-                          <Form.Group as={Col} controlId="">
-                            <Form.Label class="text-[#59A0B8] font-semibold py-2">
-                              Zip Code
-                            </Form.Label>
-                            <Form.Control />
+                            <Form.Control
+                              type="text"
+                              disabled
+                              defaultValue={auth.user.postcode || "N/A"}
+                            />
                           </Form.Group>
                         </Row>
                         <Form.Group
@@ -109,7 +151,11 @@ function Checkout({ categories, filters }) {
                           <Form.Label class="text-[#59A0B8] font-semibold py-2">
                             Address
                           </Form.Label>
-                          <Form.Control />
+                          <Form.Control
+                            type="text"
+                            disabled
+                            defaultValue={auth.user.address || "N/A"}
+                          />
                         </Form.Group>
 
                         <Form.Group
@@ -127,6 +173,24 @@ function Checkout({ categories, filters }) {
                           <button
                             id="btn"
                             class="bg-[#59A0B8] text-white mt-5 px-5 lg:text-xl font-semibold  py-2 rounded-[50px] "
+                            onClick={(e) => {
+                              e.preventDefault();
+                              if (
+                                auth.user.phone &&
+                                auth.user.address &&
+                                auth.user.city &&
+                                auth.user.postcode
+                              )
+                                handleCheckout();
+                              else {
+                                toast.error(
+                                  "First complete your info in profile settings"
+                                );
+                                setTimeout(() => {
+                                  nav("/profilePage");
+                                }, 500);
+                              }
+                            }}
                           >
                             Proceed to Payment
                           </button>
@@ -139,31 +203,37 @@ function Checkout({ categories, filters }) {
             </Col>
             <Col xs={12} md={4}>
               <div class="bg-[#FFFFFF] rounded-lg mx-5 my-3">
-                <div class="flex px-4 py-5 justify-between">
-                  <img
-                    src="https://ik.imagekit.io/2nuimwatr/ELFAPodKitbyElfBarBlack.png?updatedAt=1704572966669"
-                    alt=""
-                    class="w-[70px] h-[70px]"
-                  />
-                  <p class="text-[#707070]" style={{ fontSize: 12 }}>
-                    Elf Bar Disposable Vape
-                  </p>
+                {cartArr?.map((crt, i) => {
+                  return (
+                    <div key={i} class="flex px-4 py-5 justify-between">
+                      <img src={crt.image} alt="" class="w-[70px] h-[70px]" />
+                      <p class="text-[#707070]" style={{ fontSize: 12 }}>
+                        {crt.nm}
+                      </p>
 
-                  <div class="border flex  w-16 h-5 border-black ">
-                    <p class="text-[#59A0B8]  ml-2">-</p>
-                    <p class="text-[#59A0B8] ml-2">01</p>
-                    <p class="text-[#59A0B8] ml-2 ">+</p>
-                  </div>
-                </div>
+                      {/* <div class="border flex  w-16 h-5 border-black "> */}
+                      <p class="text-[#59A0B8] ml-2">
+                        Qty.&nbsp;{crt.quantity}
+                      </p>
+                      {/* </div> */}
+                    </div>
+                  );
+                })}
 
                 <hr class="mx-4" />
                 <div class="px-4 pt-4 flex justify-between">
                   <p>Subtotal</p>
-                  <p>£7.95</p>{" "}
+                  <p>
+                    £
+                    {cartArr
+                      .map((c) => c.price * c.quantity)
+                      .reduce((p, c) => p + c, 0)
+                      .toFixed(2)}
+                  </p>
                 </div>
                 <div class="px-4 pt-3 flex justify-between">
                   <p>Shipping</p>
-                  <p>-</p>{" "}
+                  <p>£{0}</p>
                 </div>
                 <div class="px-4 pt-3 pb-2 flex justify-between">
                   <p>Tax</p>
@@ -172,7 +242,13 @@ function Checkout({ categories, filters }) {
                 <hr class="mx-4" />
                 <div class="px-4 flex justify-between pt-3 pb-4">
                   <h2 class="text-xl font-bold">Estimated Total</h2>
-                  <h2 class="text-xl font-bold">£7.95</h2>
+                  <h2 class="text-xl font-bold">
+                    £
+                    {cartArr
+                      .map((c) => c.price * c.quantity)
+                      .reduce((p, c) => p + c, 0)
+                      .toFixed(2)}
+                  </h2>
                 </div>
               </div>
             </Col>
@@ -181,6 +257,7 @@ function Checkout({ categories, filters }) {
 
         <Footer categories={categories} />
       </div>
+      <Toaster />
     </div>
   );
 }
