@@ -9,6 +9,8 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { useAuth } from "../../utils/auth";
+import { cityArray } from "../../utils/data";
+import { ToastContainer, toast } from "react-toastify";
 
 function Register({ categories }) {
   const [password, setPassword] = useState("");
@@ -25,7 +27,12 @@ function Register({ categories }) {
   };
 
   const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [city, setCity] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
@@ -33,14 +40,45 @@ function Register({ categories }) {
   const redirectPath = location.state?.path || "/";
 
   const handleSignup = () => {
-    auth.login({
-      fullName,
-      email,
-      address: "knsjha876ts",
-      phone: "8271yd",
-      postcode: "djsd",
-    });
-    navigate(redirectPath, { replace: true });
+    // const id = toast.loading("Signing Up...");
+    if (
+      firstName &&
+      lastName &&
+      email &&
+      phone &&
+      city &&
+      postcode &&
+      address
+    ) {
+      setTimeout(() => {
+        // toast.update(id, {
+        //   render: "Log In Successfull",
+        //   type: "success",
+        //   isLoading: false,
+        //   autoClose: 2000,
+        // });
+      }, 2300);
+      auth.login({
+        firstName,
+        lastName,
+        email,
+        phone,
+        city,
+        postcode,
+        address,
+      });
+      setTimeout(() => {
+        navigate(redirectPath, { replace: true });
+      }, 230);
+    } else {
+      alert("Unsuccessful");
+      // toast.update(id, {
+      //   render: "Registeration Unsuccessfull!",
+      //   type: "error",
+      //   isLoading: false,
+      //   autoClose: 2000,
+      // });
+    }
   };
   return (
     <div class=" ">
@@ -92,9 +130,61 @@ function Register({ categories }) {
                   <Form.Group as={Col} controlId="">
                     <Form.Control
                       type="text"
-                      placeholder="Full Name"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="First Name"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="">
+                    <Form.Control
+                      type="text"
+                      placeholder="Last Name"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </Form.Group>
+                </Row>
+
+                <Form.Group className="mb-3" controlId="">
+                  <Form.Control
+                    type="tel"
+                    placeholder="Phone (e.g., +44 7123 456789)"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="">
+                  <Form.Control
+                    type="text"
+                    placeholder="Address Line 1"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="">
+                    <Form.Select
+                      defaultValue="Select City"
+                      onChange={(e) => setCity(e.target.value)}
+                    >
+                      <option selected hidden>
+                        Select City
+                      </option>
+                      {cityArray?.map((city) => (
+                        <option key={city}>{city}</option>
+                      ))}
+                    </Form.Select>
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="">
+                    <Form.Control
+                      type="text"
+                      placeholder="Post Code"
+                      value={postcode}
+                      onChange={(e) => setPostcode(e.target.value)}
                     />
                   </Form.Group>
                 </Row>
@@ -104,88 +194,47 @@ function Register({ categories }) {
                     type="email"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setEmail(e.targetvalue)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="">
-                  <Form.Select defaultValue="Select City">
-                    <option selected hidden>
-                      Select City
-                    </option>
-                    <option>...</option>
-                    <option>...</option>
-                  </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="">
-                  <Form.Control type="text" placeholder="Post Code" />
-                </Form.Group>
-
-                <div className="flex mb-3 border rounded-md px-2 py-2 w-full  bg-nonfocus-within:outline-gray-700">
-                  <input
+                <Form.Group className="mb-3 d-flex" controlId="">
+                  <Form.Control
                     type={showPassword ? "text" : "password"}
-                    id="password"
-                    name="password"
                     placeholder="Password"
-                    className="  w-full  border-none outline-none "
                     value={password}
-                    required
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <span
                     className="flex text-xl cursor-pointer"
                     onClick={handleShowPassword}
+                    style={{
+                      width: "5%",
+                      marginTop: "9px",
+                      marginLeft: "9px",
+                    }}
                   >
                     {showPassword ? <BiShow /> : <BiHide />}
                   </span>
-                </div>
-
-                <div className="flex mb-3  border rounded-md px-2 py-2 w-full  bg-nonfocus-within:outline-gray-700">
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    value={confirmPassword}
-                    placeholder="Confirm Password"
-                    className="  w-full  border-none outline-none "
-                    required
-                  />
-                  <span
-                    className="flex text-xl cursor-pointer"
-                    onClick={handleShowConfirmPassword}
-                  >
-                    {showConfirmPassword ? <BiShow /> : <BiHide />}
-                  </span>
-                </div>
-
-                <div class="flex mb-3">
-                  <input
-                    placeholder="DD"
-                    className="flex mt-2 me-3  border rounded-md px-2 py-2 w-[70px]  bg-nonfocus-within:outline-gray-700"
-                  />
-                  <input
-                    placeholder="MM"
-                    className="flex mt-2 me-3  border rounded-md px-2 py-2 w-[70px]  bg-nonfocus-within:outline-gray-700"
-                  />
-                  <input
-                    placeholder="YYYY"
-                    className="flex mt-2 me-3  border rounded-md px-2 py-2 w-[70px]  bg-nonfocus-within:outline-gray-700"
-                  />
-                </div>
+                </Form.Group>
 
                 <div class="flex flex-col justify-center items-center mt-5">
-                  <button class="bg-[#59A0B8] text-white px-5  py-2 rounded-[24px]">
+                  <button
+                    class="bg-[#59A0B8] text-white px-5  py-2 rounded-[24px]"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleSignup();
+                    }}
+                  >
                     Create Account
                   </button>
                   <p class="text-[#000000]  p-2">
-                    Already have an account {/* <Link to="/login"> */}
-                    <span
-                      class="text-[#8dc9cf] px-1 font-bold underline underline-offset-2"
-                      onClick={handleSignup}
-                    >
-                      Register
-                    </span>
-                    {/* </Link> */}
+                    Already have an account
+                    <Link to="/login">
+                      <span class="text-[#8dc9cf] px-1 font-bold underline underline-offset-2">
+                        Login
+                      </span>
+                    </Link>
                   </p>
                 </div>
               </Form>

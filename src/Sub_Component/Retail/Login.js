@@ -91,23 +91,25 @@ function Login({ categories }) {
                   <Form.Control type="email" placeholder="Email" />
                 </Form.Group>
 
-                <div className="flex mb-3 border rounded-md px-2 py-2 w-full  bg-nonfocus-within:outline-gray-700">
-                  <input
+                <Form.Group className="mb-3 d-flex" controlId="">
+                  <Form.Control
                     type={showPassword ? "text" : "password"}
-                    id="password"
-                    name="password"
                     placeholder="Password"
-                    className="  w-full  border-none outline-none "
                     value={password}
-                    required
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <span
                     className="flex text-xl cursor-pointer"
                     onClick={handleShowPassword}
+                    style={{
+                      width: "5%",
+                      marginTop: "9px",
+                      marginLeft: "9px",
+                    }}
                   >
                     {showPassword ? <BiShow /> : <BiHide />}
                   </span>
-                </div>
+                </Form.Group>
 
                 <div class="flex flex-col justify-center items-center mt-5">
                   {/* <Link to="/"> */}
@@ -122,7 +124,7 @@ function Login({ categories }) {
                     Create an account
                     <Link to="/register">
                       <span class="text-[#8dc9cf] px-1 font-bold underline underline-offset-2">
-                        Sign In
+                        Sign Up
                       </span>
                     </Link>
                   </p>
