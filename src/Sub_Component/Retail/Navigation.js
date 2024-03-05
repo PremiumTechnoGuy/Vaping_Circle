@@ -14,6 +14,7 @@ import "./SwitchBtn.css";
 import Modal from "react-bootstrap/Modal";
 // import { GoSignIn } from "react-icons/go";
 import { GoSignOut } from "react-icons/go";
+import { useAuth } from "../../utils/auth";
 
 // import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -30,6 +31,8 @@ function Navigation({ categories, filters }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const auth = useAuth();
 
   return (
     <div style={{ zIndex: "1000" }}>
@@ -95,36 +98,59 @@ function Navigation({ categories, filters }) {
                     />
                   </span>
 
-                  <Link to="/cartView">
-                    <span class="px-1">
-                      <img
-                        id="cart"
-                        height="29px"
-                        width="32px"
-                        alt=""
-                        // style={{ marginTop: 3 }}
-                        src="https://ik.imagekit.io/p2slevyg1/shopping-cart%20(3).png?updatedAt=1704101372255"
-                      />
-                    </span>
-                  </Link>
+                  {auth.loggedIn ? (
+                    <>
+                      <Link to="/cartView">
+                        <span class="px-1">
+                          <img
+                            id="cart"
+                            height="29px"
+                            width="32px"
+                            alt=""
+                            // style={{ marginTop: 3 }}
+                            src="https://ik.imagekit.io/p2slevyg1/shopping-cart%20(3).png?updatedAt=1704101372255"
+                          />
+                        </span>
+                      </Link>
 
-                  <span class="px-1">
-                    {/* <Link to="/register"> */}
-                    <img
-                      height="30px"
-                      width="32px"
-                      alt=""
-                      class="cursor-pointer"
-                      onClick={changeIcon1}
-                      src="https://ik.imagekit.io/p2slevyg1/profile%20(1).png?updatedAt=1704099476479"
-                    />
-                    {/* </Link> */}
-                  </span>
-                  <span class="px-1">
-                    <Link to="/login" class="hover:text-[#59a0b8] text-black">
-                      <p>LogIn</p>
-                    </Link>
-                  </span>
+                      <span class="px-1">
+                        {/* <Link to="/register"> */}
+                        <img
+                          height="30px"
+                          width="32px"
+                          alt=""
+                          class="cursor-pointer"
+                          onClick={changeIcon1}
+                          src="https://ik.imagekit.io/p2slevyg1/profile%20(1).png?updatedAt=1704099476479"
+                        />
+                        {/* </Link> */}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span class="px-1">
+                        <span
+                          onClick={() => nav("/login")}
+                          class="hover:text-[#59a0b8] text-black cursor-pointer"
+                        >
+                          <p>Login</p>
+                        </span>
+                      </span>
+                      <span class="px-1">
+                        <span class="hover:text-[#59a0b8] text-black">
+                          <p>/</p>
+                        </span>
+                      </span>
+                      <span class="px-1">
+                        <span
+                          onClick={() => nav("/login")}
+                          class="hover:text-[#59a0b8] text-black cursor-pointer"
+                        >
+                          <p>Signup</p>
+                        </span>
+                      </span>{" "}
+                    </>
+                  )}
                 </div>
               </div>
               <Navbar.Toggle
@@ -162,7 +188,7 @@ function Navigation({ categories, filters }) {
             {open1 ? (
               <ul
                 id="talkbubble"
-                className="flex flex-col justify-start item-center right-[8rem] md:right-[75px] top-[8rem] z-[100] fixed px-2 border-[#59a0b8] shadow-md rounded-md border mx-2 items-baseline "
+                className="flex flex-col justify-start item-center right-[4.5rem] md:right-[20px] top-[8rem] z-[100] fixed px-2 border-[#59a0b8] shadow-md rounded-md border mx-2 items-baseline "
                 style={{ zIndex: "100" }}
               >
                 <li class="flex justify-start item-center ">
