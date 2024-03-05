@@ -343,7 +343,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   {filteredProd?.description}
                 </p>
                 <p class="text-xl py-3 font-semibold px-2 text-[#59A0B8] mb-2">
-                  £{(filteredProd?.basePrice * count).toPrecision(4)}
+                  £{(filteredProd?.basePrice * count).toFixed(2)}
                 </p>
                 <Container className="border-y py-3 mx-auto text-center p-0 m-0">
                   <Row className="flex  flex-wrap">
@@ -531,22 +531,22 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           // }}
                         >
                           <Link to={`/productDetails/${p._id}`}>
-                          <img
-                            src={p.coverImage?.url || ""}
-                            alt={p.name}
-                            class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                          />
-                          <div class="flex justify-between">
-                            {" "}
-                            <div>
-                              <p class="text-black font-semibold text-[15px] px-3">
-                                {p.name}
-                              </p>
-                              <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
-                                £{p.basePrice}
-                              </p>
+                            <img
+                              src={p.coverImage?.url || ""}
+                              alt={p.name}
+                              class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
+                            />
+                            <div class="flex justify-between">
+                              {" "}
+                              <div>
+                                <p class="text-black font-semibold text-[15px] px-3">
+                                  {p.name}
+                                </p>
+                                <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
+                                  £{p.basePrice}
+                                </p>
+                              </div>
                             </div>
-                          </div>
                           </Link>
                         </div>
                       </Col>
