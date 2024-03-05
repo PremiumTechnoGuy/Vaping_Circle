@@ -143,7 +143,7 @@ function Navigation({ categories, filters }) {
                       </span>
                       <span class="px-1">
                         <span
-                          onClick={() => nav("/login")}
+                          onClick={() => nav("/register")}
                           class="hover:text-[#59a0b8] text-black cursor-pointer"
                         >
                           <p>Signup</p>
@@ -168,8 +168,26 @@ function Navigation({ categories, filters }) {
                     id={`offcanvasNavbarLabel-expand-${expand}`}
                     class="flex items-center "
                   >
-                    <GoSignOut class="text-2xl me-2" />
-                    <span class="text-[20px] font-semibold">Sign in</span>
+                    {auth.loggedIn ? (
+                      <>
+                        <GoSignOut
+                          class="text-2xl me-2"
+                          onClick={() => {
+                            auth.logout();
+                            window.location.reload();
+                          }}
+                        />
+                        <span
+                          class="text-[20px] font-semibold"
+                          onClick={() => {
+                            auth.logout();
+                            window.location.reload();
+                          }}
+                        >
+                          Sign Out
+                        </span>
+                      </>
+                    ) : null}
                   </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body class="p-0">
