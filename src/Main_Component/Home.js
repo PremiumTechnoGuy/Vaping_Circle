@@ -16,6 +16,7 @@ import Term_Conditions from "../Sub_Component/Retail/StaticPages/Term_Conditions
 import Fixed_Component from "../Sub_Component/Retail/Fixed_Component.js";
 import axios from "axios";
 import { apiUrl } from "../data/env.js";
+import { useAuth } from "../utils/auth.js";
 
 function Home({
   setCurrentCategory,
@@ -24,6 +25,27 @@ function Home({
   filters,
   products,
 }) {
+  const auth = useAuth();
+
+  const token = localStorage.getItem("token");
+
+  React.useEffect(() => {
+    if (token) {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+      axios
+        .get(`${apiUrl}/api/v1/customer/verifyToken`, config)
+        .then((res) => {
+          console.log(res.data);
+          auth.login(token, res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
+
   return (
     <div class="absolute">
       <div>
@@ -41,8 +63,7 @@ function Home({
         <News_Letter />
         <About />
         <Guides />
-        <Footer categories={categories}
-           />
+        <Footer categories={categories} />
       </div>
       <Outlet />
     </div>
