@@ -28,6 +28,9 @@ function ProfilePage({ filters, categories }) {
   const [postcode, setPostcode] = React.useState(auth.user.postcode || "");
   const [address, setAddress] = React.useState(auth.user.address || "");
 
+  const [currPass, setCurrPass] = React.useState("");
+  const [newPass, setNewPass] = React.useState("");
+
   const handleChangeDetails = () => {
     const payload = {};
     if (phone) payload.phone = phone;
@@ -54,6 +57,40 @@ function ProfilePage({ filters, categories }) {
         toast.error(err.response?.data?.message || "Could Not Update Info", {
           id,
         });
+      });
+  };
+
+  const handleChangePassword = () => {
+    const payload = {
+      currentPassword: currPass,
+      newPassword: newPass,
+      confirmNewPassword: newPass,
+    };
+
+    const id = toast.loading("Updating Password...");
+
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    };
+
+    axios
+      .patch(`${apiUrl}/api/v1/customer/updatePassword`, payload, config)
+      .then((res) => {
+        // console.log(res.data);
+        toast.success("Updated Password Successfully", {
+          id,
+        });
+        setCurrPass("");
+        setNewPass("");
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(
+          err.response?.data?.message || "Could Not Update Password",
+          {
+            id,
+          }
+        );
       });
   };
 
@@ -168,25 +205,34 @@ function ProfilePage({ filters, categories }) {
                 <p className="font-bold text-xl mt-4">Password</p>
                 <div className="mt-8">
                   <TextField
-                    disabled
                     id="outlined-disabled"
                     label="Current Password"
-                    defaultValue="........."
+                    placeholder="........."
+                    value={currPass}
+                    onChange={(e) => setCurrPass(e.target.value)}
                     style={{ width: "381px", height: "10px" }}
                   />
                 </div>
 
                 <div className="mt-12">
                   <TextField
-                    disabled
                     id="outlined-disabled"
                     label="New Password"
-                    defaultValue="     "
+                    placeholder="........."
+                    value={newPass}
+                    onChange={(e) => setNewPass(e.target.value)}
                     style={{ width: "381px", height: "10px" }}
                   />
                 </div>
               </div>
-              <Button className="mt-16 border-0 mb-5 rounded-full bg-[#59A0B8]  hover:bg-[#0b428b] text-white px-14 py-2 font-semibold text-sm">
+              <Button
+                className="mt-16 border-0 mb-5 rounded-full bg-[#59A0B8]  hover:bg-[#0b428b] text-white px-14 py-2 font-semibold text-sm"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (currPass && newPass) handleChangePassword();
+                  else toast.error("Enter all info!");
+                }}
+              >
                 Save
               </Button>
             </Box>
