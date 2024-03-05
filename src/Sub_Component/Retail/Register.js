@@ -10,20 +10,16 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { useAuth } from "../../utils/auth";
 import { cityArray } from "../../utils/data";
-import { ToastContainer, toast } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import { apiUrl } from "../../data/env";
 
-function Register({ categories }) {
+function Register() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
-  };
-
-  const handleShowConfirmPassword = () => {
-    setShowConfirmPassword((preve) => !preve);
   };
 
   const [email, setEmail] = useState("");
@@ -32,7 +28,8 @@ function Register({ categories }) {
   const [city, setCity] = useState("");
   const [postcode, setPostcode] = useState("");
   const [address, setAddress] = useState("");
-  const [phone, setPhone] = useState(null);
+  const [phone, setPhone] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
@@ -40,46 +37,43 @@ function Register({ categories }) {
   const redirectPath = location.state?.path || "/";
 
   const handleSignup = () => {
-    // const id = toast.loading("Signing Up...");
-    if (
-      firstName &&
-      lastName &&
-      email &&
-      phone &&
-      city &&
-      postcode &&
-      address
-    ) {
-      setTimeout(() => {
-        // toast.update(id, {
-        //   render: "Log In Successfull",
-        //   type: "success",
-        //   isLoading: false,
-        //   autoClose: 2000,
-        // });
-      }, 2300);
-      auth.login({
-        firstName,
-        lastName,
-        email,
-        phone,
-        city,
-        postcode,
-        address,
+    const id = toast.loading("Signing Up...");
+
+    const payload = {
+      firstName,
+      lastName,
+      email,
+      password,
+      passwordConfirm: password,
+    };
+    if (postcode) payload.postcode = postcode;
+    if (city) payload.city = city;
+    if (address) payload.address = address;
+    if (phone) payload.phone = phone;
+
+    console.log(payload);
+
+    axios
+      .post(`${apiUrl}/api/v1/customer/signup`, payload)
+      .then((res) => {
+        // console.log(res.data);
+        toast.success("Registered Successfully", {
+          id,
+        });
+
+        setTimeout(() => {
+          auth.login(res.data.token, res.data.data);
+          navigate(redirectPath, { replace: true });
+        }, 500);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response?.data?.message || "Could Not Sign Up", {
+          id,
+        });
       });
-      setTimeout(() => {
-        navigate(redirectPath, { replace: true });
-      }, 230);
-    } else {
-      alert("Unsuccessful");
-      // toast.update(id, {
-      //   render: "Registeration Unsuccessfull!",
-      //   type: "error",
-      //   isLoading: false,
-      //   autoClose: 2000,
-      // });
-    }
   };
+
   return (
     <div class=" ">
       {/* About Start */}
@@ -149,7 +143,7 @@ function Register({ categories }) {
                 <Form.Group className="mb-3" controlId="">
                   <Form.Control
                     type="tel"
-                    placeholder="Phone (e.g., +44 7123 456789)"
+                    placeholder="Phone (optional)"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                   />
@@ -158,7 +152,7 @@ function Register({ categories }) {
                 <Form.Group className="mb-3" controlId="">
                   <Form.Control
                     type="text"
-                    placeholder="Address Line 1"
+                    placeholder="Address (optional)"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
                   />
@@ -167,7 +161,7 @@ function Register({ categories }) {
                 <Row className="mb-3">
                   <Form.Group as={Col} controlId="">
                     <Form.Select
-                      defaultValue="Select City"
+                      defaultValue="Select City (optional)"
                       onChange={(e) => setCity(e.target.value)}
                     >
                       <option selected hidden>
@@ -182,7 +176,7 @@ function Register({ categories }) {
                   <Form.Group as={Col} controlId="">
                     <Form.Control
                       type="text"
-                      placeholder="Post Code"
+                      placeholder="Post Code (optional)"
                       value={postcode}
                       onChange={(e) => setPostcode(e.target.value)}
                     />
@@ -223,7 +217,9 @@ function Register({ categories }) {
                     class="bg-[#59A0B8] text-white px-5  py-2 rounded-[24px]"
                     onClick={(e) => {
                       e.preventDefault();
-                      handleSignup();
+                      if (firstName && lastName && password && email)
+                        handleSignup();
+                      else toast.error("Please enter the necessary info!");
                     }}
                   >
                     Create Account
@@ -245,6 +241,7 @@ function Register({ categories }) {
       {/* About End */}
 
       {/* <Footer categories={categories} /> */}
+      <Toaster />
     </div>
   );
 }
