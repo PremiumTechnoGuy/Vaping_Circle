@@ -9,37 +9,78 @@ import { BiShow, BiHide } from "react-icons/bi";
 import Footer from "./Footer";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/auth";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import { apiUrl } from "../../data/env";
 
 function Login({ categories }) {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
   };
 
-  const handleShowConfirmPassword = () => {
-    setShowConfirmPassword((preve) => !preve);
-  };
+  const token = localStorage.getItem("token");
 
-  const [email, setEmail] = useState("");
+  React.useEffect(() => {
+    if (token) {
+      const id = toast.loading("Trying to log in...");
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+      axios
+        .get(`${apiUrl}/api/v1/customer/verifyToken`, config)
+        .then((res) => {
+          toast.success("Logged In Successfully", {
+            id,
+          });
+          // console.log(res.data);
+          setTimeout(() => {
+            auth.login(token, res.data.data);
+            navigate(redirectPath, { replace: true });
+          }, 500);
+        })
+        .catch((err) => {
+          toast.error(err.response?.data?.message || "Could Not Log In", {
+            id,
+          });
+          console.log(err);
+        });
+    }
+  }, []);
+
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
 
   const redirectPath = location.state?.path || "/";
 
-  const handleLogin = () => {
-    auth.login({
-      fullName: "test name",
-      email,
-      address: "knsjha876ts",
-      phone: "8271yd",
-      postcode: "djsd",
-    });
-    navigate(redirectPath, { replace: true });
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    const id = toast.loading("Logging In...");
+
+    axios
+      .post(`${apiUrl}/api/v1/customer/login`, { email, password })
+      .then((res) => {
+        // console.log(res.data);
+        toast.success("Logged In Successfully", {
+          id,
+        });
+
+        setTimeout(() => {
+          auth.login(res.data.token, res.data.data);
+          navigate(redirectPath, { replace: true });
+        }, 500);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response?.data?.message || "Could Not Log In", {
+          id,
+        });
+      });
   };
   return (
     <div class="mt-0 ">
@@ -88,7 +129,12 @@ function Login({ categories }) {
             <div class="pl-2 md:pl-[13%]">
               <Form>
                 <Form.Group className="mb-3" controlId="">
-                  <Form.Control type="email" placeholder="Email" />
+                  <Form.Control
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </Form.Group>
 
                 <Form.Group className="mb-3 d-flex" controlId="">
@@ -137,6 +183,7 @@ function Login({ categories }) {
       {/* About End */}
 
       {/* <Footer categories={categories} /> */}
+      <Toaster />
     </div>
   );
 }
