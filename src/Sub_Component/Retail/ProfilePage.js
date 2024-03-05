@@ -9,6 +9,11 @@ import Footer from "./Footer";
 import Fixed_Component from "./Fixed_Component";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../utils/auth";
+import { Form } from "react-bootstrap";
+import { cityArray } from "../../utils/data";
+import axios from "axios";
+import { apiUrl } from "../../data/env";
+import toast, { Toaster } from "react-hot-toast";
 
 function ProfilePage({ filters, categories }) {
   const navigate = useNavigate();
@@ -17,6 +22,41 @@ function ProfilePage({ filters, categories }) {
     auth.logout();
     navigate("/");
   };
+
+  const [phone, setPhone] = React.useState(auth.user.phone || "");
+  const [city, setCity] = React.useState(auth.user.city || "");
+  const [postcode, setPostcode] = React.useState(auth.user.postcode || "");
+  const [address, setAddress] = React.useState(auth.user.address || "");
+
+  const handleChangeDetails = () => {
+    const payload = {};
+    if (phone) payload.phone = phone;
+    if (city) payload.city = city;
+    if (postcode) payload.postcode = postcode;
+    if (address) payload.address = address;
+
+    const id = toast.loading("Updating Info...");
+
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    };
+
+    axios
+      .patch(`${apiUrl}/api/v1/customer/updateMe`, payload, config)
+      .then((res) => {
+        // console.log(res.data);
+        toast.success("Updated Info Successfully", {
+          id,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response?.data?.message || "Could Not Update Info", {
+          id,
+        });
+      });
+  };
+
   return (
     <div class="mt-36 md:mt-52 ">
       <Fixed_Component categories={categories} filters={filters} />
@@ -37,7 +77,10 @@ function ProfilePage({ filters, categories }) {
                 <TextField
                   id="standard-read-only-input"
                   label="Full Name"
-                  defaultValue={auth.user.fullName || "N/A"}
+                  disabled
+                  defaultValue={
+                    `${auth.user.firstName} ${auth.user.lastName}` || "N/A"
+                  }
                   InputProps={{
                     readOnly: true,
                   }}
@@ -49,6 +92,7 @@ function ProfilePage({ filters, categories }) {
                   id="standard-read-only-input"
                   label="Email"
                   defaultValue={auth.user.email || "N/A"}
+                  disabled
                   InputProps={{
                     readOnly: true,
                   }}
@@ -60,20 +104,45 @@ function ProfilePage({ filters, categories }) {
                   id="standard-read-only-input"
                   label="Phone Number"
                   defaultValue={auth.user.phone || "N/A"}
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  style={{ width: "381px" }}
+                />
+              </div>
+              <div>
+                {/* <TextField
+                  id="standard-read-only-input"
+                  label="City"
+                  defaultValue={auth.user.city || "N/A"}
                   InputProps={{
                     readOnly: true,
                   }}
                   style={{ width: "381px" }}
-                />
+                /> */}
+                <Form.Group
+                  as={Col}
+                  controlId=""
+                  style={{ width: "381px", marginLeft: "8px" }}
+                >
+                  {/* <Form.Label>City</Form.Label> */}
+                  <Form.Select
+                    defaultValue={auth.user.city || "Select City"}
+                    onChange={(e) => setCity(e.target.value)}
+                    value={city || "Select City"}
+                  >
+                    {cityArray?.map((city) => (
+                      <option key={city}>{city}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
               </div>
               <div>
                 <TextField
                   id="standard-read-only-input"
                   label="Address"
-                  defaultValue={auth.user.address || "N/A"}
-                  InputProps={{
-                    readOnly: true,
-                  }}
+                  defaultValue={auth.user.address || "Choose Address"}
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
                   style={{ width: "381px" }}
                 />
               </div>
@@ -81,24 +150,16 @@ function ProfilePage({ filters, categories }) {
                 <TextField
                   id="standard-read-only-input"
                   label="Postcode"
-                  defaultValue={auth.user.postcode || "N/A"}
-                  InputProps={{
-                    readOnly: true,
-                  }}
+                  defaultValue={auth.user.postcode || "Choose Postcode"}
+                  value={postcode}
+                  onChange={(e) => setPostcode(e.target.value)}
                   style={{ width: "381px" }}
                 />
               </div>
-              {/* <div>
-                <TextField
-                  id="standard-read-only-input"
-                  label="Date"
-                  defaultValue="21/02/2023"
-                  InputProps={{
-                    readOnly: true,
-                  }}
-                />
-              </div> */}
-              <Button className="mt-6 border-0 rounded-full bg-[#59A0B8] hover:bg-[#0b428b]  text-white px-14 py-2 font-semibold text-sm">
+              <Button
+                className="mt-6 border-0 rounded-full bg-[#59A0B8] hover:bg-[#0b428b]  text-white px-14 py-2 font-semibold text-sm"
+                onClick={handleChangeDetails}
+              >
                 Save
               </Button>
 
@@ -134,6 +195,7 @@ function ProfilePage({ filters, categories }) {
       </Container>
 
       <Footer categories={categories} />
+      <Toaster />
     </div>
   );
 }
