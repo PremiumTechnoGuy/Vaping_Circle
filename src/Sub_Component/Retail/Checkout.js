@@ -70,6 +70,8 @@ function Checkout({ categories, filters }) {
           id,
         });
 
+        auth.login(auth.token, res.data.user);
+
         setPostcode(res.data.user.postcode);
         setCity(res.data.user.city);
         setAddress(res.data.user.address);
