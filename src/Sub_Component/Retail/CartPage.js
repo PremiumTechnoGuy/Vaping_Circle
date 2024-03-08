@@ -9,6 +9,7 @@ import { del, get, set, values } from "idb-keyval";
 
 function CartProduct({ product, getSavedCartProducts }) {
   const [count, setCount] = React.useState(product.quantity);
+  // const [newPrice, setNewPrice] = React.useState(0);
 
   function increment() {
     setCount((prev) => prev + 1);
@@ -23,6 +24,9 @@ function CartProduct({ product, getSavedCartProducts }) {
         setTimeout(() => {
           getSavedCartProducts();
         }, 200);
+      })
+      .then(() => {
+        checkOffer();
       });
   }
 
@@ -47,9 +51,33 @@ function CartProduct({ product, getSavedCartProducts }) {
           setTimeout(() => {
             getSavedCartProducts();
           }, 200);
+        })
+        .then(() => {
+          checkOffer();
         });
     }
   }
+
+  const checkOffer = () => {
+    if (
+      product.offer &&
+      product.offer.isOffer &&
+      count >= product.offer.offerQuantity
+    ) {
+      const offerQuantity = Math.floor(count / product.offer.offerQuantity);
+      const offerPrice = product.offer.offerPrice;
+      const discountedPrice = offerPrice * offerQuantity;
+
+      const normalQuantity =
+        count - offerQuantity * product.offer.offerQuantity;
+      const normalPrice = product.price * normalQuantity;
+      console.log("normal: ", normalPrice);
+      console.log("special: ", discountedPrice);
+      return discountedPrice + normalPrice;
+    } else {
+      return product.price * count;
+    }
+  };
 
   return (
     <div>
