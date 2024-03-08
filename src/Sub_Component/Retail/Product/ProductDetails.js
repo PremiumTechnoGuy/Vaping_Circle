@@ -146,7 +146,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
 
   async function handleAddToCart() {
     const productToAdd = {
-      _id: filteredProd._id,
+      pId: filteredProd._id,
       price: filteredProd.basePrice,
       variants: selectedVariants,
       nm: filteredProd.name,
@@ -165,7 +165,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
     // Function to add product to cart
     function addToCart(productToAdd) {
       const existingProductIndex = cart.findIndex(
-        (product) => product._id === productToAdd._id
+        (product) => product.pId === productToAdd.pId
       );
       if (existingProductIndex !== -1) {
         // Product exists in cart

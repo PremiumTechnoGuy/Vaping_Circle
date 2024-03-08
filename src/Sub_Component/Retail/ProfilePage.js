@@ -47,10 +47,11 @@ function ProfilePage({ filters, categories }) {
     axios
       .patch(`${apiUrl}/api/v1/customer/updateMe`, payload, config)
       .then((res) => {
-        // console.log(res.data);
+        console.log(res.data);
         toast.success("Updated Info Successfully", {
           id,
         });
+        auth.login(auth.token, res.data.user);
       })
       .catch((err) => {
         console.log(err);
