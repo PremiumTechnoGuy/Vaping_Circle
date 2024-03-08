@@ -43,10 +43,47 @@ function Checkout({ categories, filters }) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [phone, setPhone] = React.useState(auth.user.phone || "");
-  const [city, setCity] = React.useState(auth.user.city || "");
-  const [postcode, setPostcode] = React.useState(auth.user.postcode || "");
-  const [address, setAddress] = React.useState(auth.user.address || "");
+  const [phone, setPhone] = React.useState(auth.user.phone);
+  const [city, setCity] = React.useState(auth.user.city);
+  const [postcode, setPostcode] = React.useState(auth.user.postcode);
+  const [address, setAddress] = React.useState(auth.user.address);
+
+  const handleChangeDetails = () => {
+    const payload = {
+      phone,
+      city,
+      postcode,
+      address,
+    };
+
+    const id = toast.loading("Updating Info...");
+
+    const config = {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    };
+
+    axios
+      .patch(`${apiUrl}/api/v1/customer/updateMe`, payload, config)
+      .then((res) => {
+        console.log(res.data);
+        toast.success("Updated Info Successfully", {
+          id,
+        });
+
+        setPostcode(res.data.user.postcode);
+        setCity(res.data.user.city);
+        setAddress(res.data.user.address);
+        setPhone(res.data.user.phone);
+
+        handleClose();
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response?.data?.message || "Could Not Update Info", {
+          id,
+        });
+      });
+  };
 
   return (
     <div>
@@ -131,7 +168,7 @@ function Checkout({ categories, filters }) {
                             <Form.Control
                               type="text"
                               disabled
-                              defaultValue={auth.user.phone || "N/A"}
+                              placeholder={phone || "N/A"}
                             />
                           </Form.Group>
                         </Row>
@@ -143,7 +180,7 @@ function Checkout({ categories, filters }) {
                             <Form.Control
                               type="text"
                               disabled
-                              defaultValue={auth.user.city || "N/A"}
+                              placeholder={city || "N/A"}
                             />
                           </Form.Group>
 
@@ -154,7 +191,7 @@ function Checkout({ categories, filters }) {
                             <Form.Control
                               type="text"
                               disabled
-                              defaultValue={auth.user.postcode || "N/A"}
+                              placeholder={postcode || "N/A"}
                             />
                           </Form.Group>
                         </Row>
@@ -168,7 +205,7 @@ function Checkout({ categories, filters }) {
                           <Form.Control
                             type="text"
                             disabled
-                            defaultValue={auth.user.address || "N/A"}
+                            placeholder={address || "N/A"}
                           />
                         </Form.Group>
 
@@ -318,6 +355,8 @@ function Checkout({ categories, filters }) {
           <Button
             onClick={(e) => {
               e.preventDefault();
+              if (phone && city && postcode && address) handleChangeDetails();
+              else toast.error("Fill all info!");
             }}
             variant="info"
             class="rounded-1 py-2 px-2 bg-[#1B94A0] text-white hover:bg-[#1B94A0] hover:text-white"
