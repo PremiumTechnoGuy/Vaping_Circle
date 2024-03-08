@@ -15,6 +15,7 @@ import Modal from "react-bootstrap/Modal";
 // import { GoSignIn } from "react-icons/go";
 import { GoSignOut } from "react-icons/go";
 import { useAuth } from "../../utils/auth";
+import toast, { Toaster } from "react-hot-toast";
 
 // import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -226,9 +227,19 @@ function Navigation({ categories, filters }) {
                 </li>
                 <li class="flex justify-start item-center ">
                   <p className="py-2">
-                    <Link to="/setting" class="hover:text-white">
-                      Setting
-                    </Link>
+                    <span
+                      class="hover:text-white cursor-pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        auth.logout();
+                        toast.loading("Logging Out...");
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 500);
+                      }}
+                    >
+                      Logout
+                    </span>
                   </p>
                 </li>
               </ul>
@@ -256,6 +267,7 @@ function Navigation({ categories, filters }) {
         </Modal.Header>
       </Modal>
       <Outlet />
+      <Toaster />
     </div>
   );
 }
