@@ -12,15 +12,18 @@ function CartProduct({ product, getSavedCartProducts }) {
 
   function increment() {
     setCount((prev) => prev + 1);
-    get(product.uId).then((obj) => {
-      const newObj = JSON.parse(JSON.stringify(obj));
-      newObj.quantity = obj.quantity + 1;
-      console.log(newObj);
-      set(product.uId, newObj);
-    });
-    setTimeout(() => {
-      getSavedCartProducts();
-    }, 200);
+    get(product.uId)
+      .then((obj) => {
+        const newObj = JSON.parse(JSON.stringify(obj));
+        newObj.quantity = obj.quantity + 1;
+        console.log(newObj);
+        set(product.uId, newObj);
+      })
+      .then(() => {
+        setTimeout(() => {
+          getSavedCartProducts();
+        }, 200);
+      });
   }
 
   function decrement() {
@@ -33,15 +36,18 @@ function CartProduct({ product, getSavedCartProducts }) {
     });
 
     if (bool) {
-      get(product.uId).then((obj) => {
-        const newObj = JSON.parse(JSON.stringify(obj));
-        newObj.quantity = obj.quantity - 1;
-        console.log(newObj);
-        set(product.uId, newObj);
-      });
-      setTimeout(() => {
-        getSavedCartProducts();
-      }, 200);
+      get(product.uId)
+        .then((obj) => {
+          const newObj = JSON.parse(JSON.stringify(obj));
+          newObj.quantity = obj.quantity - 1;
+          console.log(newObj);
+          set(product.uId, newObj);
+        })
+        .then(() => {
+          setTimeout(() => {
+            getSavedCartProducts();
+          }, 200);
+        });
     }
   }
 
