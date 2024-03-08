@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaCircle } from "react-icons/fa";
 import { FaRegCircle } from "react-icons/fa";
@@ -11,6 +11,9 @@ import { values } from "idb-keyval";
 import { useAuth } from "../../utils/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { apiUrl } from "../../data/env";
+import { cityArray } from "../../utils/data";
 
 function Checkout({ categories, filters }) {
   const [cartArr, setCartArr] = React.useState([]);
@@ -33,6 +36,17 @@ function Checkout({ categories, filters }) {
   const auth = useAuth();
 
   const handleCheckout = () => {};
+
+  // Modal states
+  const [show, setShow] = React.useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const [phone, setPhone] = React.useState(auth.user.phone || "");
+  const [city, setCity] = React.useState(auth.user.city || "");
+  const [postcode, setPostcode] = React.useState(auth.user.postcode || "");
+  const [address, setAddress] = React.useState(auth.user.address || "");
 
   return (
     <div>
@@ -183,12 +197,8 @@ function Checkout({ categories, filters }) {
                               )
                                 handleCheckout();
                               else {
-                                toast.error(
-                                  "First complete your info in profile settings"
-                                );
-                                setTimeout(() => {
-                                  nav("/profilePage");
-                                }, 500);
+                                toast.error("Complete your information");
+                                handleShow();
                               }
                             }}
                           >
@@ -257,6 +267,65 @@ function Checkout({ categories, filters }) {
 
         <Footer categories={categories} />
       </div>
+      <Modal show={show} onHide={handleClose} className="mt-5">
+        <Modal.Body>
+          <Form.Group className="mb-3 d-flex gap-2 justify-center items-center">
+            <Form.Label class="font-semibold w-20">Phone:</Form.Label>
+            <Form.Control
+              placeholder="Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="w-70"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3 d-flex gap-2 justify-center items-center">
+            <Form.Label class="font-semibold w-20">Address:</Form.Label>
+            <Form.Control
+              placeholder="Address Line"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="w-70"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3 d-flex gap-2 justify-center items-center">
+            <Form.Label class="font-semibold w-20">Postcode:</Form.Label>
+            <Form.Control
+              placeholder="Postcode"
+              value={postcode}
+              onChange={(e) => setPostcode(e.target.value)}
+              className="w-70"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3 d-flex gap-2 justify-center items-center">
+            <Form.Label class="font-semibold w-20">City:</Form.Label>
+            <Form.Select
+              placeholder="City"
+              defaultValue={auth.user.city || "Select City"}
+              onChange={(e) => setCity(e.target.value)}
+              value={city}
+              className="w-70"
+            >
+              <option selected hidden>
+                Select City
+              </option>
+              {cityArray?.map((city) => (
+                <option key={city}>{city}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+            }}
+            variant="info"
+            class="rounded-1 py-2 px-2 bg-[#1B94A0] text-white hover:bg-[#1B94A0] hover:text-white"
+          >
+            Save & Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <Toaster />
     </div>
   );
