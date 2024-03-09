@@ -35,7 +35,40 @@ function Checkout({ categories, filters }) {
 
   const auth = useAuth();
 
-  const handleCheckout = () => {};
+  const handleCheckout = () => {
+    const id = toast.loading("Redirecting to Payment Link...");
+    values()
+      .then((res) => {
+        const config = {
+          headers: { Authorization: `Bearer ${auth.token}` },
+        };
+
+        axios
+          .post(`${apiUrl}/api/v1/order`, { commodities: res }, config)
+          .then((res) => {
+            console.log(res.data);
+            toast.success("Created Link Successfully", {
+              id,
+            });
+            setTimeout(() => {
+              window.location.replace(res.data.redirectUrl);
+            }, 1000);
+          })
+          .catch((err) => {
+            console.log(err);
+            toast.error(
+              err.response?.data?.message || "Could Not Generate Link",
+              {
+                id,
+              }
+            );
+          });
+      })
+      .catch((err) => {
+        toast.error("Error occured getting cart. Delete cart & order again");
+        console.log(err);
+      });
+  };
 
   // Modal states
   const [show, setShow] = React.useState(false);
