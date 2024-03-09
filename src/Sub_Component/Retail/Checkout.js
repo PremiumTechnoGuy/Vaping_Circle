@@ -3,6 +3,7 @@ import { Container, Row, Col, Modal } from "react-bootstrap";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaCircle } from "react-icons/fa";
 import { FaRegCircle } from "react-icons/fa";
+import { HiOutlinePencilAlt } from "react-icons/hi";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Footer from "./Footer";
@@ -144,8 +145,25 @@ function Checkout({ categories, filters }) {
                         <FaRegCircle class="relative text-[#59A0B8] text-lg" />
                         <FaCircle class="z-5 absolute text-[#59A0B8] px-1" />
 
-                        <div class="absolute top-0  text-center mt-10 -ml-[13px] text-xs font-medium  text-gray-500">
-                          Information
+                        <div
+                          class="absolute top-0  text-center mt-10 -ml-[20px] text-xs font-medium  text-gray-500 d-flex flex-column gap-2"
+                          style={{ alignItems: "center" }}
+                        >
+                          <span>Information</span>
+                          <span>
+                            <button
+                              class="bg-[#59A0B8] text-white p-1 text-xs rounded d-flex"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleShow();
+                              }}
+                            >
+                              <span className="w-max">Edit Info</span>
+                              <span>
+                                <HiOutlinePencilAlt className="relative text-white text-sm align-centre" />
+                              </span>
+                            </button>
+                          </span>
                         </div>
                       </div>
                       <div class="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300"></div>
@@ -158,7 +176,7 @@ function Checkout({ categories, filters }) {
                     </div>
                   </div>
 
-                  <div class="mt-8 p-4">
+                  <div class="mt-12 p-4">
                     <div>
                       <Form sm={12}>
                         <Row className="mb-3">
