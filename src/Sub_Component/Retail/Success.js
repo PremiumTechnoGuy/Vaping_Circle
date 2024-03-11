@@ -2,6 +2,7 @@ import React from "react";
 import { useAuth } from "../../utils/auth";
 import axios from "axios";
 import { apiUrl } from "../../data/env";
+import "./Failure.css";
 import Loader from "../Loader/loader";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -36,7 +37,7 @@ function Success() {
           auth.login(token, res.data.data);
           // toast.success("Fetched Data!");
 
-          if (!tId) {
+          if (!tId || eventId !== 0) {
             toast.error("error verifying payment (id not present)!");
             setTimeout(() => {
               nav("/myOrder");
@@ -60,12 +61,9 @@ function Success() {
               }, 5000);
             } else {
               orderDocId = orderObj.orderId;
+              handleUpdateOrder(orderDocId, orderId, tId, eci, eventId);
             }
           }
-
-          if (eventId !== 0) toast.error("error occured in transaction");
-
-          handleUpdateOrder(orderDocId, orderId, tId, eci, eventId);
         })
         .catch((err) => {
           setIsLoading(false);
@@ -73,7 +71,7 @@ function Success() {
           toast.error("Could not verify user!");
         });
     } else {
-      toast.error("Could not verify login!");
+      toast.error("Could not verify login. Contact Support!");
       setIsLoading(false);
     }
   }, []);
@@ -109,7 +107,19 @@ function Success() {
       {isLoading ? (
         <Loader />
       ) : (
-        <div>Perfectly Loaded, like all things should!</div>
+        <div className="redirect-message">
+          Click{" "}
+          <a
+            href
+            onClick={(e) => {
+              e.preventDefault();
+              nav("/myOrder");
+            }}
+          >
+            Here
+          </a>{" "}
+          if you are not redirected.
+        </div>
       )}
       <Toaster />
     </>
