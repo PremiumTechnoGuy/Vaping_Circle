@@ -26,7 +26,10 @@ function MyOrder({ categories, filters }) {
         headers: { Authorization: `Bearer ${token}` },
       };
       axios
-        .get(`${apiUrl}/api/v1/order?customerId=${auth.user._id}`, config)
+        .get(
+          `${apiUrl}/api/v1/order?customerId=${auth.user._id}&sort=-updatedAt`,
+          config
+        )
         .then((res) => {
           setAllOrders(res.data.data);
           console.log(res.data.data);
