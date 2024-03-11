@@ -5,6 +5,7 @@ import { apiUrl } from "../../data/env";
 import "./Failure.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import Loader from "../Loader/loader";
 
 function Failure() {
   const [isLoading, setIsLoading] = React.useState(true);
@@ -91,19 +92,23 @@ function Failure() {
 
   return (
     <>
-      <div className="redirect-message">
-        Click{" "}
-        <a
-          href
-          onClick={(e) => {
-            e.preventDefault();
-            nav("/myOrder");
-          }}
-        >
-          Here
-        </a>{" "}
-        if you are not redirected.
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className="redirect-message">
+          Click{" "}
+          <a
+            href
+            onClick={(e) => {
+              e.preventDefault();
+              nav("/myOrder");
+            }}
+          >
+            Here
+          </a>{" "}
+          if you are not redirected.
+        </div>
+      )}
       <Toaster />
     </>
   );
