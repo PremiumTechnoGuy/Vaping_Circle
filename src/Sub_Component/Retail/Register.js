@@ -30,6 +30,9 @@ function Register() {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
+  const [focusedValue, setFocusedValue] = useState("");
+  const [distanceFromOrigin, setDistanceFromOrigin] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
@@ -50,6 +53,7 @@ function Register() {
     if (city) payload.city = city;
     if (address) payload.address = address;
     if (phone) payload.phone = phone;
+    if (distanceFromOrigin) payload.distanceFromOrigin = distanceFromOrigin;
 
     console.log(payload);
 
@@ -73,6 +77,53 @@ function Register() {
         });
       });
   };
+
+  const handleGetLocation = (pstcd) => {
+    const id = toast.loading("Verifying Postcode...");
+    axios
+      .get(`https://api.postcodes.io/postcodes/${pstcd}`)
+      .then((res) => {
+        const destLat = res.data.result.latitude;
+        const destLon = res.data.result.longitude;
+        toast.success("Verified!", { id });
+
+        axios
+          .get(
+            `https://api-v2.distancematrix.ai/maps/api/distancematrix/json?origins=52.921418,-1.4829216&destinations=${destLat},${destLon}&key=PQm5fiw255huOOBN3KDbSlnPitHkOQrHZS7JbfitnuNKR6wN4fm18rK6elfDJ7AP`
+          )
+          .then((res) => {
+            setDistanceFromOrigin(res.data.rows[0].elements[0].distance.text);
+          })
+          .catch((err) => {
+            console.log("error calculating distance between coords: ", err);
+            setDistanceFromOrigin(
+              `${calculateDistance(destLat, destLon).toFixed(3)} km`
+            );
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(
+          err.response?.data?.error || "Postcode could not be verified!",
+          { id }
+        );
+      });
+  };
+
+  function calculateDistance(lat2, lon2) {
+    const R = 6371; // Radius of the Earth in kilometers
+    const dLat = ((lat2 - 52.921418) * Math.PI) / 180;
+    const dLon = ((lon2 - -1.4829216) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((52.921418 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in kilometers
+    return distance;
+  }
 
   return (
     <div class=" ">
@@ -179,6 +230,11 @@ function Register() {
                       placeholder="Post Code (optional)"
                       value={postcode}
                       onChange={(e) => setPostcode(e.target.value)}
+                      onFocus={(e) => setFocusedValue(e.target.value)}
+                      onBlur={(e) => {
+                        if (e.target.value !== focusedValue)
+                          handleGetLocation(e.target.value);
+                      }}
                     />
                   </Form.Group>
                 </Row>
