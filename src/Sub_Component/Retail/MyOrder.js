@@ -69,17 +69,19 @@ function MyOrder({ categories, filters }) {
                   </span>{" "}
                   <span>Status: '{order.status}'</span>
                 </h2>
-                <h2 class="fs-6 mb-2 font-bold py-2 pl-5 text-left d-flex gap-2">
-                  <span>
-                    <MdOutlinePinDrop />
-                  </span>{" "}
-                  <span>
-                    Date: {new Date(order.createdAt).getDate()}{" "}
-                    {shortMonthName(new Date(order.createdAt))} (
-                    {order.delivery || "Standard"} Delivery -{" "}
-                    {order.deliveryTime || "2 - 3 Days"})
-                  </span>
-                </h2>
+                {order.status === "cancelled" ? null : (
+                  <h2 class="fs-6 mb-2 font-bold py-2 pl-5 text-left d-flex gap-2">
+                    <span>
+                      <MdOutlinePinDrop />
+                    </span>{" "}
+                    <span>
+                      Date: {new Date(order.createdAt).getDate()}{" "}
+                      {shortMonthName(new Date(order.createdAt))} (
+                      {order.delivery?.type || "Standard"} Delivery -{" "}
+                      {order.delivery?.time || "2 - 3 Days"})
+                    </span>
+                  </h2>
+                )}
               </div>
               <Row class="shadow-md mb-3">
                 {order.commodities.map((commodity) => {
