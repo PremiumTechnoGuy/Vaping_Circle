@@ -95,7 +95,7 @@ function CartProduct({ product, getSavedCartProducts }) {
               src={product.image || ""}
               alt={product.nm}
               style={{ maxWidth: "none" }}
-              className="sm:p-1 xs:m-0 md:px-12 md:py-3 sm:w-[7rem] mt-2  md:w-[16rem] "
+              className="sm:p-1 xs:m-0 md:px-12 md:py-3 w-[7rem] mt-2  md:w-[16rem] "
             />
           </span>
           <span>
@@ -107,7 +107,7 @@ function CartProduct({ product, getSavedCartProducts }) {
               }}
             >
               <div className="px-2 py-3 mt-1 mb-3">
-                <p className="text-[#000000] font-bold text-lg">{product.nm}</p>
+                <p className="text-[#000000] font-bold text-md">{product.nm}</p>
                 <ul className="text-xs">
                   {product.variants?.map((vr) => {
                     return (
