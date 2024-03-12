@@ -13,9 +13,12 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./SwitchBtn.css";
 import Modal from "react-bootstrap/Modal";
 // import { GoSignIn } from "react-icons/go";
-import { GoSignOut } from "react-icons/go";
+import { GoPerson, GoSignOut } from "react-icons/go";
 import { useAuth } from "../../utils/auth";
 import toast, { Toaster } from "react-hot-toast";
+import { FiShoppingCart } from "react-icons/fi";
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { keys } from "idb-keyval";
 
 // import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -34,6 +37,10 @@ function Navigation({ categories, filters }) {
   const handleShow = () => setShow(true);
 
   const auth = useAuth();
+
+  const [cartLength, setCartLength] = useState(0);
+
+  keys().then((keys) => setCartLength(keys.length));
 
   return (
     <div style={{ zIndex: "1000" }}>
@@ -103,27 +110,47 @@ function Navigation({ categories, filters }) {
                     <>
                       <Link to="/cartView">
                         <span class="px-1">
-                          <img
+                          <div className="relative">
+                            {cartLength === 0 ? null : (
+                              <span
+                                className="absolute -right-2 -top-2 text-center text-white font-bold text-sm bg-primaryColor rounded-[50%] py-[1px] px-[5px] "
+                                style={{ backgroundColor: "black" }}
+                              >
+                                {cartLength}
+                              </span>
+                            )}
+                            <FiShoppingCart className=" text-3xl text-primaryColor" />
+                          </div>
+                          {/* <img
                             id="cart"
                             height="29px"
                             width="32px"
                             alt=""
                             // style={{ marginTop: 3 }}
                             src="https://ik.imagekit.io/p2slevyg1/shopping-cart%20(3).png?updatedAt=1704101372255"
-                          />
+                          /> */}
                         </span>
                       </Link>
 
                       <span class="px-1">
                         {/* <Link to="/register"> */}
-                        <img
+                        <IoPersonCircleOutline
+                          className="cursor-pointer"
+                          style={{ height: "30px", width: "32px" }}
+                          onClick={changeIcon1}
+                        />
+                        {/* <GoPerson
+                          className=" text-3xl text-primaryColor cursor-pointer"
+                          onClick={changeIcon1}
+                        /> */}
+                        {/* <img
                           height="30px"
                           width="32px"
                           alt=""
                           class="cursor-pointer"
                           onClick={changeIcon1}
                           src="https://ik.imagekit.io/p2slevyg1/profile%20(1).png?updatedAt=1704099476479"
-                        />
+                        /> */}
                         {/* </Link> */}
                       </span>
                     </>
