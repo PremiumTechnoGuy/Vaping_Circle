@@ -92,7 +92,9 @@ function Checkout({ categories, filters }) {
       city,
       postcode,
       address,
+      distanceFromOrigin,
     };
+    console.log("payload: ", payload);
 
     const id = toast.loading("Updating Info...");
 
@@ -134,6 +136,10 @@ function Checkout({ categories, filters }) {
     deliveryPrice: "5.00",
   });
 
+  // postcodes
+  const [focusedValue, setFocusedValue] = React.useState("");
+  const [distanceFromOrigin, setDistanceFromOrigin] = React.useState("");
+
   const handleDeliveryOptionChange = (option) => {
     setDeliveryOption(option);
   };
@@ -142,6 +148,53 @@ function Checkout({ categories, filters }) {
   let notEligibleForExpress = true;
   if (kmsFromOrigin !== 0 && kmsFromOrigin <= 8.05) {
     notEligibleForExpress = false;
+  }
+
+  const handleGetLocation = (pstcd) => {
+    const id = toast.loading("Verifying Postcode...");
+    axios
+      .get(`https://api.postcodes.io/postcodes/${pstcd}`)
+      .then((res) => {
+        const destLat = res.data.result.latitude;
+        const destLon = res.data.result.longitude;
+        toast.success("Verified!", { id });
+
+        axios
+          .get(
+            `https://api-v2.distancematrix.ai/maps/api/distancematrix/json?origins=52.921418,-1.4829216&destinations=${destLat},${destLon}&key=PQm5fiw255huOOBN3KDbSlnPitHkOQrHZS7JbfitnuNKR6wN4fm18rK6elfDJ7AP`
+          )
+          .then((res) => {
+            setDistanceFromOrigin(res.data.rows[0].elements[0].distance.text);
+          })
+          .catch((err) => {
+            console.log("error calculating distance between coords: ", err);
+            setDistanceFromOrigin(
+              `${calculateDistance(destLat, destLon).toFixed(3)} km`
+            );
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(
+          err.response?.data?.error || "Postcode could not be verified!",
+          { id }
+        );
+      });
+  };
+
+  function calculateDistance(lat2, lon2) {
+    const R = 6371; // Radius of the Earth in kilometers
+    const dLat = ((lat2 - 52.921418) * Math.PI) / 180;
+    const dLon = ((lon2 - -1.4829216) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((52.921418 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in kilometers
+    return distance;
   }
 
   return (
@@ -485,6 +538,11 @@ function Checkout({ categories, filters }) {
               placeholder="Postcode"
               value={postcode}
               onChange={(e) => setPostcode(e.target.value)}
+              onFocus={(e) => setFocusedValue(e.target.value)}
+              onBlur={(e) => {
+                if (e.target.value !== focusedValue)
+                  handleGetLocation(e.target.value);
+              }}
               className="w-70"
             />
           </Form.Group>
