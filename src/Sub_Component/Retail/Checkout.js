@@ -45,7 +45,11 @@ function Checkout({ categories, filters }) {
         };
 
         axios
-          .post(`${apiUrl}/api/v1/order`, { commodities: res }, config)
+          .post(
+            `${apiUrl}/api/v1/order`,
+            { commodities: res, delivery: deliveryObj },
+            config
+          )
           .then((res) => {
             console.log(res.data);
             toast.success("Created Link Successfully", {
@@ -120,6 +124,25 @@ function Checkout({ categories, filters }) {
         });
       });
   };
+
+  // delivery
+  const [deliveryOption, setDeliveryOption] =
+    React.useState("standardDelivery");
+  const [deliveryObj, setDeliveryObj] = React.useState({
+    deliveryType: "Standard",
+    deliveryTime: "Next Day",
+    deliveryPrice: "5.00",
+  });
+
+  const handleDeliveryOptionChange = (option) => {
+    setDeliveryOption(option);
+  };
+
+  const kmsFromOrigin = +auth.user?.distanceFromOrigin?.split(" ")[0] || 0;
+  let notEligibleForExpress = true;
+  if (kmsFromOrigin !== 0 && kmsFromOrigin <= 8.05) {
+    notEligibleForExpress = false;
+  }
 
   return (
     <div>
@@ -321,6 +344,83 @@ function Checkout({ categories, filters }) {
                 })}
 
                 <hr class="mx-4" />
+                <Form.Group className="px-4 pt-3">
+                  <Form.Label>Delivery Options</Form.Label>
+                  <Col>
+                    <Row>
+                      <Form.Check
+                        type="radio"
+                        disabled={notEligibleForExpress}
+                        label="Express (Same Day)"
+                        name="deliveryOption"
+                        id="expressDelivery"
+                        checked={deliveryOption === "expressDelivery"}
+                        onChange={() => {
+                          handleDeliveryOptionChange("expressDelivery");
+                          setDeliveryObj({
+                            deliveryType: "Express",
+                            deliveryTime: "Same Day",
+                            deliveryPrice: "3.50",
+                          });
+                        }}
+                        style={
+                          deliveryOption === "expressDelivery"
+                            ? { fontWeight: "Bold" }
+                            : {}
+                        }
+                        className="p-0"
+                      />
+                    </Row>
+                    <Row>
+                      <Form.Check
+                        type="radio"
+                        label="Standard (Next Day)"
+                        name="deliveryOption"
+                        id="standardDelivery"
+                        checked={deliveryOption === "standardDelivery"}
+                        onChange={() => {
+                          handleDeliveryOptionChange("standardDelivery");
+                          setDeliveryObj({
+                            deliveryType: "Standard",
+                            deliveryTime: "Next Day",
+                            deliveryPrice: "5.00",
+                          });
+                        }}
+                        style={
+                          deliveryOption === "standardDelivery"
+                            ? { fontWeight: "Bold" }
+                            : {}
+                        }
+                        className="p-0"
+                      />
+                    </Row>
+                    <Row>
+                      <Form.Check
+                        type="radio"
+                        label="Economy (3-4 Days)"
+                        name="deliveryOption"
+                        id="economyDelivery"
+                        checked={deliveryOption === "economyDelivery"}
+                        onChange={() => {
+                          handleDeliveryOptionChange("economyDelivery");
+                          setDeliveryObj({
+                            deliveryType: "Economy",
+                            deliveryTime: "3-4 Days",
+                            deliveryPrice: "4.00",
+                          });
+                        }}
+                        style={
+                          deliveryOption === "economyDelivery"
+                            ? { fontWeight: "Bold" }
+                            : {}
+                        }
+                        className="p-0"
+                      />
+                    </Row>
+                  </Col>
+                </Form.Group>
+
+                <hr class="mx-4" />
                 <div class="px-4 pt-4 flex justify-between">
                   <p>Subtotal</p>
                   <p>
@@ -333,7 +433,7 @@ function Checkout({ categories, filters }) {
                 </div>
                 <div class="px-4 pt-3 flex justify-between">
                   <p>Shipping</p>
-                  <p>£{0}</p>
+                  <p>£{deliveryObj.deliveryPrice}</p>
                 </div>
                 <div class="px-4 pt-3 pb-2 flex justify-between">
                   <p>Tax</p>
@@ -344,10 +444,12 @@ function Checkout({ categories, filters }) {
                   <h2 class="text-xl font-bold">Estimated Total</h2>
                   <h2 class="text-xl font-bold">
                     £
-                    {cartArr
-                      .map((c) => c.price * c.quantity)
-                      .reduce((p, c) => p + c, 0)
-                      .toFixed(2)}
+                    {(
+                      cartArr
+                        .map((c) => c.price * c.quantity)
+                        .reduce((p, c) => p + c, 0) +
+                      Number(deliveryObj.deliveryPrice)
+                    ).toFixed(2)}
                   </h2>
                 </div>
               </div>
