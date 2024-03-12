@@ -48,7 +48,7 @@ function MyOrder({ categories, filters }) {
     <div class="mt-36 md:mt-52 ">
       <Fixed_Component categories={categories} filters={filters} />
       <h1 class="fs-2 font-bold py-5 text-center">My Orders</h1>
-      <Container>
+      <Container className="md:w-50 bg-light rounded-[50px]">
         <hr class="mx-4 mb-2 " />
         {allOrders?.map((order) => {
           return (
