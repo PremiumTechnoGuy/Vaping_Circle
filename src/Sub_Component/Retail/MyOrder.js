@@ -66,10 +66,10 @@ function MyOrder({ categories, filters }) {
 
                 {order.status === "cancelled" ? null : (
                   <h2 class="fs-6 mb-2 font-bold py-2 pl-5 text-left  d-flex gap-2">
-                    <span>
+                    <span className="mt-3">
                       <MdOutlinePinDrop />
                     </span>{" "}
-                    <span>
+                    <span className="mt-3">
                       Date: {new Date(order.createdAt).getDate()}{" "}
                       {shortMonthName(new Date(order.createdAt))} (
                       {order.delivery?.deliveryType || "Standard"} Delivery -{" "}
@@ -78,7 +78,7 @@ function MyOrder({ categories, filters }) {
                   </h2>
                 )}
               </div>
-              <Row class="shadow-md mb-3 ">
+              <Row class="shadow-md mb-4 ">
                 <ol type="1">
                   <li>
                     {order.commodities.map((commodity) => {
@@ -93,7 +93,7 @@ function MyOrder({ categories, filters }) {
                           }}
                         >
                           {" "}
-                          <span>
+                          <span className="mt-2">
                             <img
                               src={
                                 commodity.image ||
@@ -101,7 +101,7 @@ function MyOrder({ categories, filters }) {
                               }
                               alt={commodity.nm}
                               style={{ maxWidth: "none" }}
-                              class="p-1 xs:m-0 md:px-12 md:py-3 w-[7rem] md:w-[10rem] "
+                              class="p-1 xs:m-0 md:px-12 md:py-3 w-[7rem]  md:w-[10rem] "
                             />{" "}
                           </span>
                           <span>
@@ -159,7 +159,7 @@ function MyOrder({ categories, filters }) {
                                 class="flex hidden md:block px-2 justify-between items-center"
                                 style={{ display: "flex", marginTop: -54 }}
                               >
-                                <span class="hidden md:block">
+                                <span class="hidden mb-4 md:block">
                                   Quantity :<span className="text-[#59A0B8]"> {commodity.quantity}</span>
                                 </span>
                                 <span class="hidden md:block">
