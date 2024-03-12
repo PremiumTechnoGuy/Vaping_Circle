@@ -77,8 +77,8 @@ function MyOrder({ categories, filters }) {
                     <span>
                       Date: {new Date(order.createdAt).getDate()}{" "}
                       {shortMonthName(new Date(order.createdAt))} (
-                      {order.delivery?.type || "Standard"} Delivery -{" "}
-                      {order.delivery?.time || "2 - 3 Days"})
+                      {order.delivery?.deliveryType || "Standard"} Delivery -{" "}
+                      {order.delivery?.deliveryTime || "2 - 3 Days"})
                     </span>
                   </h2>
                 )}
