@@ -332,7 +332,7 @@ function Checkout({ categories, filters }) {
                         >
                           <Form.Check
                             type="checkbox"
-                            label="By making a purchase with Vape Superstore, you confirm to be Age Verified via 1Account and agree to our terms & conditions. Please tick to confirm."
+                            label="By making a purchase with Vaping Circle, you confirm to be Age Verified via 1Account and agree to our terms & conditions. Please tick to confirm."
                           />
                         </Form.Group>
                         <span>
@@ -398,7 +398,7 @@ function Checkout({ categories, filters }) {
 
                 <hr class="mx-4" />
                 <Form.Group className="px-4 pt-3">
-                  <Form.Label>Delivery Options</Form.Label>
+                  <Form.Label><span className="font-semibold text-[#59A0B8]" style={{ textDecoration: 'underline' }}>Delivery Options:</span></Form.Label>
                   <Col>
                     <Row>
                       <Form.Check
@@ -495,7 +495,7 @@ function Checkout({ categories, filters }) {
                 <hr class="mx-4" />
                 <div class="px-4 flex justify-between pt-3 pb-4">
                   <h2 class="text-xl font-bold">Estimated Total</h2>
-                  <h2 class="text-xl font-bold">
+                  <h2 class="text-xl font-bold text-[#59A0B8]">
                     £
                     {(
                       cartArr
