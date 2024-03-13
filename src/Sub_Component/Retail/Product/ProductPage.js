@@ -28,30 +28,27 @@ function BarFilter({ filter, handleSelectOpt }) {
   return (
     <div>
       <div
-        className="flex justify-center item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline "
+        className="flex justify-center item-center px-2 border-gray-300 rounded-md border mx-2 items-baseline"
         onClick={changeIcon1}
+        style={{ overflowY: filter.options && filter.options.length > 5 ? 'scroll' : 'auto' }}
       >
-        <p className=" text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base  font-semibold flex">
-          {" "}
+        <p className="text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base font-semibold flex">
           {filter.alternateName}
         </p>
-        <p className="">
+        <p>
           {icon1 ? (
-            <BsChevronDown class="text-[#707070] font-semibold" />
+            <BsChevronDown className="text-[#707070] font-semibold" />
           ) : (
-            <BsChevronUp class="text-[#707070] font-semibold" />
+            <BsChevronUp className="text-[#707070] font-semibold" />
           )}
         </p>
       </div>{" "}
       {open1 ? (
-        <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
+        <ul className="flex flex-col justify-start item-center px-2 border-gray-300 rounded-md border mx-2 items-baseline" style={{ maxHeight: filter.options && filter.options.length > 5 ? '200px' : 'auto', overflowY: 'auto' }}>
           {filter.options?.map((opt, i) => {
             return (
-              <li class="flex justify-start item-center " key={i}>
-                <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                  {" "}
-                  <FaRegSquare />
-                </p>
+              <li className="flex justify-start item-center" key={i}>
+                <input type="checkbox" className="text-[#707070] text-[15px] px-2 py-2 text-base font-semibold flex" />
                 <p className="py-2">{opt}</p>
               </li>
             );
@@ -59,6 +56,7 @@ function BarFilter({ filter, handleSelectOpt }) {
         </ul>
       ) : null}
     </div>
+
   );
 }
 
@@ -86,7 +84,7 @@ function BarFilterMobile({ filter }) {
             <BsChevronUp class="text-[#707070] font-semibold" />
           )}
         </p>
-      </div>{" "}
+      </div>
       {open1 ? (
         <ul className="flex flex-col justify-start item-center  px-2 border-gray-300 rounded-md border mx-2 items-baseline ">
           {filter.options?.map((opt, i) => {
