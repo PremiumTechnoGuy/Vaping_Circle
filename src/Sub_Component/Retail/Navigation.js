@@ -113,8 +113,8 @@ function Navigation({ categories, filters }) {
                           <div className="relative">
                             {cartLength === 0 ? null : (
                               <span
-                                className="absolute -right-2 -top-2 text-center text-white font-bold text-sm bg-primaryColor rounded-[50%] py-[1px] px-[5px] "
-                                style={{ backgroundColor: "black" }}
+                                className="absolute -right-2 -top-2 text-center text-white font-bold text-sm bg-[#59A0B8] rounded-[50%] py-[1px] px-[5px] "
+                                style={{ backgroundColor: "#559A0B8" }}
                               >
                                 {cartLength}
                               </span>

@@ -189,9 +189,9 @@ function Checkout({ categories, filters }) {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((52.921418 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c; // Distance in kilometers
     return distance;
@@ -226,20 +226,7 @@ function Checkout({ categories, filters }) {
                           style={{ alignItems: "center" }}
                         >
                           <span>Information</span>
-                          <span>
-                            <button
-                              class="bg-[#59A0B8] text-white p-1 text-xs rounded d-flex"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleShow();
-                              }}
-                            >
-                              <span className="w-max">Edit Info</span>
-                              <span>
-                                <HiOutlinePencilAlt className="relative text-white text-sm align-centre" />
-                              </span>
-                            </button>
-                          </span>
+
                         </div>
                       </div>
                       <div class="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300"></div>
@@ -348,7 +335,20 @@ function Checkout({ categories, filters }) {
                             label="By making a purchase with Vape Superstore, you confirm to be Age Verified via 1Account and agree to our terms & conditions. Please tick to confirm."
                           />
                         </Form.Group>
-
+                        <span>
+                          <button
+                            class="bg-[#a8a8a8] md:ml-[35rem] text-white p-3  text-xs rounded d-flex"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              handleShow();
+                            }}
+                          >
+                            <span className="w-max">Edit Info</span>
+                            <span>
+                              <HiOutlinePencilAlt className="relative text-white text-sm align-centre" />
+                            </span>
+                          </button>
+                        </span>
                         <div class="flex flex-col justify-center items-center ">
                           <button
                             id="btn"
