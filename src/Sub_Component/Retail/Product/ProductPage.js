@@ -47,7 +47,7 @@ function BarFilter({ filter, handleSelectOpt }) {
         <ul className="flex flex-col justify-start item-center px-2 border-gray-300 rounded-md border mx-2 items-baseline" style={{ maxHeight: filter.options && filter.options.length > 5 ? '200px' : 'auto', overflowY: 'auto' }}>
           {filter.options?.map((opt, i) => {
             return (
-              <li className="flex justify-start item-center" key={i}>
+              <li className="flex justify-start gap-2  item-center" key={i}>
                 <input type="checkbox" className="text-[#707070] text-[15px] px-2 py-2 text-base font-semibold flex" />
                 <p className="py-2">{opt}</p>
               </li>
