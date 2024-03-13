@@ -119,7 +119,7 @@ function Navigation({ categories, filters }) {
                                 {cartLength}
                               </span>
                             )}
-                            <FiShoppingCart className=" text-3xl text-primaryColor" />
+                            <FiShoppingCart className=" text-3xl text-[#A8A8A8]" />
                           </div>
                           {/* <img
                             id="cart"
@@ -135,8 +135,8 @@ function Navigation({ categories, filters }) {
                       <span class="px-1">
                         {/* <Link to="/register"> */}
                         <IoPersonCircleOutline
-                          className="cursor-pointer"
-                          style={{ height: "30px", width: "32px" }}
+                          className="cursor-pointer text-[#A8A8A8]"
+                          style={{ height: "30px", width: "32px", }}
                           onClick={changeIcon1}
                         />
                         {/* <GoPerson
@@ -383,8 +383,7 @@ function MainFilterComp({ filter, categoryId }) {
                   onClick={(e) => {
                     e.preventDefault();
                     nav(
-                      `/filterProductPage/${categoryId}/${
-                        filter._id
+                      `/filterProductPage/${categoryId}/${filter._id
                       }/${filter.name.replaceAll("/", "@")}/${option.replaceAll(
                         "/",
                         "@"
