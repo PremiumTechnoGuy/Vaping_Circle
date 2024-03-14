@@ -30,7 +30,7 @@ function Home({
   const token = localStorage.getItem("token");
 
   React.useEffect(() => {
-    if (token) {
+    if (token && !auth?.loggedIn) {
       const config = {
         headers: { Authorization: `Bearer ${token}` },
       };

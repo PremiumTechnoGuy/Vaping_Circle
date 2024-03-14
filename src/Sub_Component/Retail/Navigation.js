@@ -19,6 +19,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { FiShoppingCart } from "react-icons/fi";
 import { IoPersonCircleOutline } from "react-icons/io5";
 import { keys } from "idb-keyval";
+import axios from "axios";
+import { apiUrl } from "../../data/env";
 
 // import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -40,7 +42,26 @@ function Navigation({ categories, filters }) {
 
   const [cartLength, setCartLength] = useState(0);
 
-  keys().then((keys) => setCartLength(keys.length));
+  const token = localStorage.getItem("token");
+
+  React.useEffect(() => {
+    keys().then((keys) => setCartLength(keys.length));
+
+    if (token && !auth?.loggedIn) {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+      axios
+        .get(`${apiUrl}/api/v1/customer/verifyToken`, config)
+        .then((res) => {
+          console.log(res.data);
+          auth.login(token, res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   return (
     <div style={{ zIndex: "1000" }}>
@@ -136,7 +157,7 @@ function Navigation({ categories, filters }) {
                         {/* <Link to="/register"> */}
                         <IoPersonCircleOutline
                           className="cursor-pointer text-[#A8A8A8]"
-                          style={{ height: "30px", width: "32px", }}
+                          style={{ height: "30px", width: "32px" }}
                           onClick={changeIcon1}
                         />
                         {/* <GoPerson
@@ -383,7 +404,8 @@ function MainFilterComp({ filter, categoryId }) {
                   onClick={(e) => {
                     e.preventDefault();
                     nav(
-                      `/filterProductPage/${categoryId}/${filter._id
+                      `/filterProductPage/${categoryId}/${
+                        filter._id
                       }/${filter.name.replaceAll("/", "@")}/${option.replaceAll(
                         "/",
                         "@"
