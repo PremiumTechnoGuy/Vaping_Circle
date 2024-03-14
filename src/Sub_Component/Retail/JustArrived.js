@@ -35,6 +35,7 @@ const JustArrived = ({ categories, products }) => {
           style={{ boxShadow: "1px 3px 3px 0px #dee2e6" }}
         >
           <input
+            className="special-input"
             type="radio"
             id={categories[0]?._id}
             name={categories[0]?._id}
@@ -44,7 +45,7 @@ const JustArrived = ({ categories, products }) => {
           />
           <label
             htmlFor={categories[0]?._id}
-            class="text-[#555555] text-[18px] font-semibold"
+            class="text-[#555555] text-[18px] font-semibold special-label"
           >
             {categories[0]?.name || "Category 1"}
           </label>
@@ -54,6 +55,7 @@ const JustArrived = ({ categories, products }) => {
           style={{ boxShadow: " 2px 3px 3px 0px #dee2e6" }}
         >
           <input
+            className="special-input"
             type="radio"
             id={categories[1]?._id}
             name={categories[1]?._id}
@@ -63,7 +65,7 @@ const JustArrived = ({ categories, products }) => {
           />
           <label
             htmlFor={categories[1]?._id}
-            class="text-[#555555] text-[18px] font-semibold"
+            class="text-[#555555] text-[18px] font-semibold special-label"
           >
             {categories[1]?.name || "Category 2"}
           </label>
@@ -73,6 +75,7 @@ const JustArrived = ({ categories, products }) => {
           style={{ boxShadow: "2px 3px 3px 0px #dee2e6" }}
         >
           <input
+            className="special-input"
             type="radio"
             id={categories[2]?._id}
             name={categories[2]?._id}
@@ -82,7 +85,7 @@ const JustArrived = ({ categories, products }) => {
           />
           <label
             htmlFor={categories[2]?._id}
-            class="text-[#555555] text-[18px] font-semibold"
+            class="text-[#555555] text-[18px] font-semibold special-label"
           >
             {categories[2]?.name || "Category 3"}
           </label>
