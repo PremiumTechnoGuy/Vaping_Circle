@@ -20,22 +20,28 @@ import { v4 } from "uuid";
 function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
   const nav = useNavigate();
-  const [filteredProd] = products?.filter((prod) => prod._id === currentProdId);
-  const [allImages, setAllImages] = React.useState([
-    filteredProd.coverImage,
-    ...filteredProd.images,
-  ]);
 
+  const [filteredProd, setFilteredProd] = useState(null);
+  const [allImages, setAllImages] = useState([]);
   const [more4You, setMore4You] = useState([]);
 
   React.useEffect(() => {
-    setMore4You(
-      products
-        .filter((p) => filteredProd._id !== p._id)
-        .filter((p) => filteredProd.category === p.category)
-        .slice(0, 4)
+    const prod = products.find((prod) => prod._id === currentProdId);
+    setFilteredProd(prod);
+    setAllImages([prod?.coverImage, ...(prod?.images || [])]);
+    setSelectedVariants(prod?.variants);
+  }, [currentProdId, products]);
+
+  React.useEffect(() => {
+    const filteredMore4You = products.filter(
+      (p) => p._id !== currentProdId && p.category === filteredProd?.category
     );
-  }, []);
+    setMore4You(filteredMore4You.slice(0, 4));
+  }, [currentProdId, products, filteredProd]);
+
+  const handleImageClick = (index) => {
+    setCurrentImageIndex(index);
+  };
 
   const [totalPrice, setTotalPrice] = useState(filteredProd?.basePrice);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -47,9 +53,6 @@ function ProductDetails({ products, categories, filters, setCart }) {
     } else {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % allImages.length);
     }
-  };
-  const handleImageClick = (clickedIndex) => {
-    setCurrentImageIndex(clickedIndex);
   };
 
   const [openOpt, setOpenOpt] = useState(false);
@@ -557,7 +560,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
             </Row>
           </Container>
           <Drawer
-            title={`Choose your ${currentVariantType.variantType}`}
+            title={`Choose your ${currentVariantType?.variantType}`}
             class="p-0 font-semibold"
             onClose={onClose}
             open={openOpt}
