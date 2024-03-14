@@ -66,14 +66,25 @@ function MyOrder({ categories, filters }) {
 
                 {order.status === "cancelled" ? null : (
                   <h2 class="fs-6 mb-2 font-bold py-2 pl-5 text-left  d-flex gap-2">
-                    <span className="mt-3">
-                      <MdOutlinePinDrop />
-                    </span>{" "}
-                    <span className="mt-3">
-                      Date: {new Date(order.createdAt).getDate()}{" "}
-                      {shortMonthName(new Date(order.createdAt))} (
-                      {order.delivery?.deliveryType || "Standard"} Delivery -{" "}
-                      {order.delivery?.deliveryTime || "2 - 3 Days"})
+                    <span >
+                      <span className="mt-3">
+                      </span>
+                      <span className=" mt-3">
+                        Date: {new Date(order.createdAt).getDate()}{" "}
+                        {shortMonthName(new Date(order.createdAt))} (
+                        {order.delivery?.deliveryType || "Standard"} Delivery -{" "}
+                        {order.delivery?.deliveryTime || "2 - 3 Days"})
+                      </span>
+                      <h2 class="fs-6 md:ml-[30rem] ml-[10rem] font-bold py-1 pl-2 text-left flex gap-2">
+                        <span className="">
+                          <TbTruckDelivery />
+                        </span>{" "}
+                        <span>Status: <span className="text-[#59A0B8]"> '{order.status}'</span></span>
+                      </h2>
+                      <div className="mt-2">
+                        Order No:
+                        <span className="text-[#59A0B8]"> {`${new Date(order.createdAt).getTime()}`.slice(5)}</span>
+                      </div>
                     </span>
                   </h2>
                 )}
@@ -105,17 +116,7 @@ function MyOrder({ categories, filters }) {
                             />{" "}
                           </span>
                           <span>
-                            <h2 class="fs-6  font-bold py-1 pl-2 text-left d-flex gap-2">
 
-                              <span>
-                                Order No:
-                                <span className="text-[#59A0B8]"> {`${new Date(order.createdAt).getTime()}`.slice(5)}</span>
-                              </span>
-                              <span className="ml-20">
-                                <TbTruckDelivery />
-                              </span>{" "}
-                              <span>Status: <span className="text-[#59A0B8]"> '{order.status}'</span></span>
-                            </h2>
 
                             <div
                               style={{
