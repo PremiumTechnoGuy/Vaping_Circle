@@ -399,7 +399,7 @@ function Checkout({ categories, filters }) {
                 <hr class="mx-4" />
                 <Form.Group className="px-4 pt-3">
                   <Form.Label><span className="font-semibold text-[#59A0B8]" style={{ textDecoration: 'underline' }}>Delivery Options:</span></Form.Label>
-                  <Col>
+                  <Col className="mx-5">
                     <Row>
                       <Form.Check
                         type="radio"
