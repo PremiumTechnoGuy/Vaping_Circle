@@ -17,7 +17,7 @@ import { FaRegSquare } from "react-icons/fa";
 import Fixed_Component from "../Fixed_Component.js";
 import { apiUrl } from "../../../data/env.js";
 
-function BarFilter({ filter, handleSelectOpt }) {
+function BarFilter({ filter, handleSelectOpt, handleFilterChange }) {
   const [open1, setOpen1] = useState(false);
   const [icon1, setIcon1] = useState(<BsChevronUp />);
   const changeIcon1 = () => {
@@ -30,7 +30,10 @@ function BarFilter({ filter, handleSelectOpt }) {
       <div
         className="flex justify-center item-center px-2 border-gray-300 rounded-md border mx-2 items-baseline"
         onClick={changeIcon1}
-        style={{ overflowY: filter.options && filter.options.length > 5 ? 'scroll' : 'auto' }}
+        style={{
+          overflowY:
+            filter.options && filter.options.length > 5 ? "scroll" : "auto",
+        }}
       >
         <p className="text-[#59A0B8] text-[15px] px-2 pt-2 py-2 text-base font-semibold flex">
           {filter.alternateName}
@@ -44,23 +47,38 @@ function BarFilter({ filter, handleSelectOpt }) {
         </p>
       </div>{" "}
       {open1 ? (
-        <ul className="flex flex-col justify-start item-center px-2 border-gray-300 rounded-md border mx-2 items-baseline" style={{ maxHeight: filter.options && filter.options.length > 5 ? '200px' : 'auto', overflowY: 'auto' }}>
+        <ul
+          className="flex flex-col justify-start item-center px-2 border-gray-300 rounded-md border mx-2 items-baseline"
+          style={{
+            maxHeight:
+              filter.options && filter.options.length > 5 ? "200px" : "auto",
+            overflowY: "auto",
+          }}
+        >
           {filter.options?.map((opt, i) => {
             return (
               <li className="flex justify-start gap-2  item-center" key={i}>
-                <input type="checkbox" className="text-[#707070] text-[15px] px-2 py-2 text-base font-semibold flex" />
-                <p className="py-2">{opt}</p>
+                <input
+                  type="checkbox"
+                  id={opt}
+                  className="text-[#707070] text-[15px] px-2 py-2 text-base font-semibold flex"
+                  onChange={(e) =>
+                    handleFilterChange(filter._id, opt, e.target.checked)
+                  }
+                />
+                <label htmlFor={opt} className="py-2">
+                  {opt}
+                </label>
               </li>
             );
           })}
         </ul>
       ) : null}
     </div>
-
   );
 }
 
-function BarFilterMobile({ filter }) {
+function BarFilterMobile({ filter, handleFilterChange }) {
   const [open1, setOpen1] = useState(false);
   const [icon1, setIcon1] = useState(<BsChevronUp />);
   const changeIcon1 = () => {
@@ -90,11 +108,17 @@ function BarFilterMobile({ filter }) {
           {filter.options?.map((opt, i) => {
             return (
               <li class="flex justify-start item-center " key={i}>
-                <p className=" text-[#707070] text-[15px] px-2  py-2 text-base  font-semibold flex">
-                  {" "}
-                  <FaRegSquare />
-                </p>
-                <p className="py-2">{opt}</p>
+                <input
+                  type="checkbox"
+                  id={opt}
+                  className="text-[#707070] text-[15px] px-2 py-2 text-base font-semibold flex"
+                  onChange={(e) =>
+                    handleFilterChange(filter._id, opt, e.target.checked)
+                  }
+                />
+                <label htmlFor={opt} className="py-2">
+                  {opt}
+                </label>
               </li>
             );
           })}
@@ -114,9 +138,9 @@ function ProductPage({
   const { categoryId, currentCategoryName } = useParams();
   console.log("hellllll", categoryId);
 
-  const filteredProducts = products?.filter(
-    (prod) => prod.category === categoryId
-  );
+  // const filteredProducts = products?.filter(
+  //   (prod) => prod.category === categoryId
+  // );
 
   const filteredBarFilters = [...filters].filter(
     (fil) => fil.categoryId === categoryId && fil.showFilterbar
@@ -189,6 +213,44 @@ function ProductPage({
     console.log(optionsArr);
   }
 
+  const [selectedFilters, setSelectedFilters] = useState({});
+
+  // Filter products based on the selected filters
+  const filteredProducts = products?.filter((product) => {
+    return Object.entries(selectedFilters).every(([filterId, options]) => {
+      // If no options are selected for a filter, include the product
+      if (options.length === 0) return true;
+      // Otherwise, check if the product has at least one of the selected options for the filter
+      return options.some((option) =>
+        product.chosenFilters.some(
+          (filter) =>
+            filter.filterId === filterId && filter.chosenOption === option
+        )
+      );
+    });
+  });
+
+  // Update selected filters when a checkbox is changed
+  const handleFilterChange = (filterId, option, checked) => {
+    setSelectedFilters((prevFilters) => {
+      // Clone the previous selected filters object
+      const updatedFilters = { ...prevFilters };
+      // If the filter is not yet in the selected filters, initialize it as an empty array
+      if (!updatedFilters[filterId]) {
+        updatedFilters[filterId] = [];
+      }
+      // Update the selected options for the filter based on the checkbox change
+      if (checked) {
+        updatedFilters[filterId].push(option);
+      } else {
+        updatedFilters[filterId] = updatedFilters[filterId].filter(
+          (selectedOption) => selectedOption !== option
+        );
+      }
+      return updatedFilters;
+    });
+  };
+
   return (
     <div class="mt-36 md:mt-52">
       <Fixed_Component categories={categories} filters={filters} />
@@ -212,6 +274,7 @@ function ProductPage({
                     <BarFilter
                       filter={fil}
                       handleSelectOpt={handleFilterProducts}
+                      handleFilterChange={handleFilterChange}
                       key={i}
                     />
                   );
@@ -225,6 +288,7 @@ function ProductPage({
                     <BarFilterMobile
                       filter={fil}
                       handleSelectOpt={handleFilterProducts}
+                      handleFilterChange={handleFilterChange}
                       key={i}
                     />
                   );
@@ -292,9 +356,10 @@ function ProductPage({
                         data-name="Union 6"
                         d="M396.316,65h-.143v-.081L367,48.5l29.173-16.419V32h85V65Z"
                         transform="translate(-367 -32)"
-                        fill={`#${Math.floor(Math.random() * (907000 - 100000 + 1)) +
+                        fill={`#${
+                          Math.floor(Math.random() * (907000 - 100000 + 1)) +
                           100000
-                          }`}
+                        }`}
                       />
                     </svg>
                     <p class="absolute hidden md:block  z-50 top-12 right-3 font-semibold text-white">
