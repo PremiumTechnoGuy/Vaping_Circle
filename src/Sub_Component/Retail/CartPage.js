@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "./Fixed_Component";
 
-import { del, get, set, values } from "idb-keyval";
+import { clear, del, get, set, setMany, values } from "idb-keyval";
 
 function CartProduct({ product, getSavedCartProducts }) {
   const [count, setCount] = React.useState(product.quantity);
@@ -127,7 +127,7 @@ function CartProduct({ product, getSavedCartProducts }) {
                   {" "}
                   <div>
                     <p className=" py-3 md:hidden block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
-                      £{(product.price * count).toFixed(2)}
+                      £{product.totalPrice}
                     </p>
                   </div>{" "}
                   <div className="flex justify-between items-center">
@@ -210,7 +210,7 @@ function CartProduct({ product, getSavedCartProducts }) {
           </span>
           <span>
             <div className="py-3 hidden md:block text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
-              £{(product.price * count).toFixed(2)}
+              £{product.totalPrice}
             </div>
           </span>
         </Col>
@@ -228,7 +228,48 @@ function CartPage({ categories, filters }) {
       .then((res) => {
         // setCartArr(res.map((cId) => products.find((p) => p._id === cId)));
         setCartArr(res);
-        console.log(res);
+        console.log("normal cart: ", res);
+        // Assuming you have your cart array stored in a variable named 'cart'
+
+        // Iterate over the cart array and calculate the total price for each product
+        const updatedCart = res.map((product) => {
+          let totalPrice;
+
+          // Check if the product has an offer and if the quantity is greater than the offer quantity
+          if (
+            product.offer.isOffer &&
+            product.quantity >= product.offer.offerQuantity
+          ) {
+            // Calculate the total price with the offer applied
+            const offerQuantity = product.offer.offerQuantity;
+            const normalQuantity = product.quantity % offerQuantity;
+            const offerPriceTotal =
+              Math.floor(product.quantity / offerQuantity) *
+              product.offer.offerPrice;
+            const normalPriceTotal = normalQuantity * product.price;
+            totalPrice = offerPriceTotal + normalPriceTotal;
+          } else {
+            // Calculate the total price without applying the offer
+            totalPrice = product.quantity * product.price;
+          }
+
+          // Return a new object with the updated total price and all other properties unchanged
+          return {
+            ...product,
+            totalPrice: Number(totalPrice.toFixed(2)), // Ensure two decimal places
+          };
+        });
+        console.log("updated crt: ", updatedCart);
+
+        // Now 'updatedCart' contains all products with their total prices calculated
+        setMany(updatedCart.map((c) => [c.uId, c]))
+          .then(() => {
+            setCartArr(updatedCart);
+          })
+          .catch((err) => {
+            alert("Could not add to cart!!!");
+            console.log(err);
+          });
       })
       .catch((err) => console.error(err));
   }
@@ -265,7 +306,7 @@ function CartPage({ categories, filters }) {
                   <p>
                     £
                     {cartArr
-                      .map((c) => c.price * c.quantity)
+                      .map((c) => c.totalPrice)
                       .reduce((p, c) => p + c, 0)
                       .toFixed(2)}
                   </p>{" "}
@@ -284,7 +325,7 @@ function CartPage({ categories, filters }) {
                   <h3 class="text-xl font-bold">
                     £
                     {cartArr
-                      .map((c) => c.price * c.quantity)
+                      .map((c) => c.totalPrice)
                       .reduce((p, c) => p + c, 0)
                       .toFixed(2)}
                   </h3>
