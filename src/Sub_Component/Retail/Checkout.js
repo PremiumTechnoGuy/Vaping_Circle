@@ -189,9 +189,9 @@ function Checkout({ categories, filters }) {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((52.921418 * Math.PI) / 180) *
-      Math.cos((lat2 * Math.PI) / 180) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c; // Distance in kilometers
     return distance;
@@ -226,7 +226,6 @@ function Checkout({ categories, filters }) {
                           style={{ alignItems: "center" }}
                         >
                           <span>Information</span>
-
                         </div>
                       </div>
                       <div class="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300"></div>
@@ -398,7 +397,14 @@ function Checkout({ categories, filters }) {
 
                 <hr class="mx-4" />
                 <Form.Group className="px-4 pt-3">
-                  <Form.Label><span className="font-semibold text-[#59A0B8]" style={{ textDecoration: 'underline' }}>Delivery Options:</span></Form.Label>
+                  <Form.Label>
+                    <span
+                      className="font-semibold text-[#59A0B8]"
+                      style={{ textDecoration: "underline" }}
+                    >
+                      Delivery Options:
+                    </span>
+                  </Form.Label>
                   <Col className="mx-5">
                     <Row>
                       <Form.Check
@@ -479,7 +485,7 @@ function Checkout({ categories, filters }) {
                   <p>
                     £
                     {cartArr
-                      .map((c) => c.price * c.quantity)
+                      .map((c) => c.totalPrice)
                       .reduce((p, c) => p + c, 0)
                       .toFixed(2)}
                   </p>
@@ -499,7 +505,7 @@ function Checkout({ categories, filters }) {
                     £
                     {(
                       cartArr
-                        .map((c) => c.price * c.quantity)
+                        .map((c) => c.totalPrice)
                         .reduce((p, c) => p + c, 0) +
                       Number(deliveryObj.deliveryPrice)
                     ).toFixed(2)}
