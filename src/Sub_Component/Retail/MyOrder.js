@@ -66,9 +66,8 @@ function MyOrder({ categories, filters }) {
 
                 {order.status === "cancelled" ? null : (
                   <h2 class="fs-6 mb-2 font-bold py-2 pl-5 text-left  d-flex gap-2">
-                    <span >
-                      <span className="mt-3">
-                      </span>
+                    <span>
+                      <span className="mt-3"></span>
                       <span className=" mt-3">
                         Date: {new Date(order.createdAt).getDate()}{" "}
                         {shortMonthName(new Date(order.createdAt))} (
@@ -79,11 +78,20 @@ function MyOrder({ categories, filters }) {
                         <span className="">
                           <TbTruckDelivery />
                         </span>{" "}
-                        <span>Status: <span className="text-[#59A0B8]"> '{order.status}'</span></span>
+                        <span>
+                          Status:{" "}
+                          <span className="text-[#59A0B8]">
+                            {" "}
+                            '{order.status}'
+                          </span>
+                        </span>
                       </h2>
                       <div className="mt-2">
                         Order No:
-                        <span className="text-[#59A0B8]"> {`${new Date(order.createdAt).getTime()}`.slice(5)}</span>
+                        <span className="text-[#59A0B8]">
+                          {" "}
+                          {`${new Date(order.createdAt).getTime()}`.slice(5)}
+                        </span>
                       </div>
                     </span>
                   </h2>
@@ -116,8 +124,6 @@ function MyOrder({ categories, filters }) {
                             />{" "}
                           </span>
                           <span>
-
-
                             <div
                               style={{
                                 display: "flex",
@@ -132,23 +138,33 @@ function MyOrder({ categories, filters }) {
 
                                 {commodity.variants?.map((vr) => (
                                   <p class="pb-2 font-bold ">
-                                    {vr.variantType}:<span className="text-[#59A0B8]"> {vr.chosenOption.optionValue}</span>
+                                    {vr.variantType}:
+                                    <span className="text-[#59A0B8]">
+                                      {" "}
+                                      {vr.chosenOption.optionValue}
+                                    </span>
                                   </p>
                                 ))}
                                 <div class="flex justify-between items-center block md:hidden">
                                   <span>
                                     <p class=" py-3 md:hidden block  text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm pr-5">
                                       £
-                                      {(
-                                        commodity.price * commodity.quantity
-                                      ).toFixed(2)}
+                                      {commodity.totalPrice ||
+                                        (
+                                          commodity.price * commodity.quantity
+                                        ).toFixed(2)}
                                     </p>
                                   </span>
                                   <div
                                     class="flex  justify-between items-center"
                                     style={{ display: "flex" }}
                                   >
-                                    <span class="">Qty : <span className="text-[#59A0B8]">{commodity.quantity}</span></span>
+                                    <span class="">
+                                      Qty :{" "}
+                                      <span className="text-[#59A0B8]">
+                                        {commodity.quantity}
+                                      </span>
+                                    </span>
                                     <span class="">
                                       {" "}
                                       {/* <RiDeleteBin5Line class="text-xl mx-3" /> */}
@@ -161,7 +177,11 @@ function MyOrder({ categories, filters }) {
                                 style={{ display: "flex", marginTop: -54 }}
                               >
                                 <span class="hidden mb-4 md:block">
-                                  Quantity :<span className="text-[#59A0B8]"> {commodity.quantity}</span>
+                                  Quantity :
+                                  <span className="text-[#59A0B8]">
+                                    {" "}
+                                    {commodity.quantity}
+                                  </span>
                                 </span>
                                 <span class="hidden md:block">
                                   {" "}
@@ -172,13 +192,18 @@ function MyOrder({ categories, filters }) {
                           </span>
                           <span>
                             <div class="mt-4 py-3 hidden md:block  text-[#59A0B8] md:pl-[6rem] md:pr-[3rem] text-[#000000] font-bold text-sm">
-                              £{(commodity.price * commodity.quantity).toFixed(2)}
+                              £
+                              {commodity.totalPrice ||
+                                (commodity.price * commodity.quantity).toFixed(
+                                  2
+                                )}
                             </div>
                           </span>
                         </Col>
                       );
                     })}
-                  </li></ol>
+                  </li>
+                </ol>
               </Row>
               <hr class="mx-4 mb-4" />
             </>
