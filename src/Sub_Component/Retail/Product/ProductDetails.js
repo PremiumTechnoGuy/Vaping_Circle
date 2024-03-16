@@ -14,27 +14,34 @@ import Fixed_Component from "../Fixed_Component";
 import { Drawer } from "antd";
 import { Select, Space } from "antd";
 import { apiUrl } from "../../../data/env";
-import { set, keys } from "idb-keyval";
+import { set, keys, values, clear } from "idb-keyval";
+import { v4 } from "uuid";
 
 function ProductDetails({ products, categories, filters, setCart }) {
   const { currentProdId } = useParams();
   const nav = useNavigate();
-  const [filteredProd] = products?.filter((prod) => prod._id === currentProdId);
-  const [allImages, setAllImages] = React.useState([
-    filteredProd.coverImage,
-    ...filteredProd.images,
-  ]);
 
+  const [filteredProd, setFilteredProd] = useState(null);
+  const [allImages, setAllImages] = useState([]);
   const [more4You, setMore4You] = useState([]);
 
   React.useEffect(() => {
-    setMore4You(
-      products
-        .filter((p) => filteredProd._id !== p._id)
-        .filter((p) => filteredProd.category === p.category)
-        .slice(0, 4)
+    const prod = products.find((prod) => prod._id === currentProdId);
+    setFilteredProd(prod);
+    setAllImages([prod?.coverImage, ...(prod?.images || [])]);
+    setSelectedVariants(prod?.variants);
+  }, [currentProdId, products]);
+
+  React.useEffect(() => {
+    const filteredMore4You = products.filter(
+      (p) => p._id !== currentProdId && p.category === filteredProd?.category
     );
-  }, []);
+    setMore4You(filteredMore4You.slice(0, 4));
+  }, [currentProdId, products, filteredProd]);
+
+  const handleImageClick = (index) => {
+    setCurrentImageIndex(index);
+  };
 
   const [totalPrice, setTotalPrice] = useState(filteredProd?.basePrice);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -46,9 +53,6 @@ function ProductDetails({ products, categories, filters, setCart }) {
     } else {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % allImages.length);
     }
-  };
-  const handleImageClick = (clickedIndex) => {
-    setCurrentImageIndex(clickedIndex);
   };
 
   const [openOpt, setOpenOpt] = useState(false);
@@ -142,6 +146,70 @@ function ProductDetails({ products, categories, filters, setCart }) {
     setIcon3(!icon3);
     setOpen3(!open3);
   };
+
+  async function handleAddToCart() {
+    const productToAdd = {
+      pId: filteredProd._id,
+      price: filteredProd.basePrice,
+      variants: selectedVariants,
+      nm: filteredProd.name,
+      image: filteredProd.coverImage?.url || "",
+      quantity: count,
+      offer: filteredProd.offer,
+    };
+
+    const cart = await values()
+      .then((res) => res)
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+
+    // Function to add product to cart
+    function addToCart(productToAdd) {
+      const existingProductIndex = cart.findIndex(
+        (product) => product.pId === productToAdd.pId
+      );
+      if (existingProductIndex !== -1) {
+        // Product exists in cart
+        const existingProduct = cart[existingProductIndex];
+        let bool = false;
+        bool = existingProduct.variants.some((variant, i) => {
+          return (
+            variant.variantType === productToAdd.variants[i].variantType &&
+            variant.chosenOption.optionValue !==
+              productToAdd.variants[i].chosenOption.optionValue
+          );
+        });
+        if (bool) {
+          // add new product in cart if chosen option is different
+          cart.push(productToAdd);
+        } else {
+          // update quantity of existing product
+          existingProduct.quantity += productToAdd.quantity;
+        }
+      } else {
+        // Product not found, add it to the cart
+        cart.push(productToAdd);
+      }
+    }
+    addToCart(productToAdd);
+
+    clear()
+      .then(() => {
+        cart.forEach((crt) => {
+          const uId = v4();
+          crt.uId = uId;
+          set(uId, crt);
+        });
+      })
+      .then(() => nav("/cartView"))
+      .catch((err) => {
+        alert("Could not add to cart!!!");
+        console.log(err);
+      });
+  }
+
   return (
     <div>
       <Fixed_Component categories={categories} filters={filters} />
@@ -163,7 +231,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                                 : ""
                             }`}
                             alt={`Product Img ${i + 1}`}
-                            src={url.url}
+                            src={url?.url || ""}
                             onClick={() => handleImageClick(i + 1)}
                           />
                         ))}
@@ -174,7 +242,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                         <img
                           class="shadow-md h-full w-full"
                           alt="imageprod"
-                          src={allImages[currentImageIndex].url}
+                          src={allImages[currentImageIndex]?.url || ""}
                         />
                         <div className="absolute top-40 left-0 flex justify-between w-full">
                           <div
@@ -212,7 +280,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   <img
                     class="shadow-md h-full "
                     alt={`Product Img main`}
-                    src={allImages[currentImageIndex].url}
+                    src={allImages[currentImageIndex]?.url || ""}
                     // onClick={() => handleImageClick(0)}
                   />
                   <div className="absolute top-40 left-0 flex justify-between w-full">
@@ -252,7 +320,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                             : ""
                         }`}
                         alt={`Product Img ${y + 1}`}
-                        src={url.url}
+                        src={url?.url || ""}
                         onClick={() => handleImageClick(y + 1)}
                       />
                     ))}
@@ -278,7 +346,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                   {filteredProd?.description}
                 </p>
                 <p class="text-xl py-3 font-semibold px-2 text-[#59A0B8] mb-2">
-                  £{filteredProd?.basePrice * count}
+                  £{(filteredProd?.basePrice * count).toFixed(2)}
                 </p>
                 <Container className="border-y py-3 mx-auto text-center p-0 m-0">
                   <Row className="flex  flex-wrap">
@@ -365,24 +433,13 @@ function ProductDetails({ products, categories, filters, setCart }) {
                 <div class="flex flex-col justify-center items-center mt-3">
                   {/* <Link to="/cartView"> */}
                   <button
-                    onClick={(e) => {
+                    onClick={async (e) => {
                       e.preventDefault();
                       const bool = selectedVariants?.every(
                         (sVar) => sVar.chosenOption !== undefined
                       );
                       if (bool) {
-                        // setCart((c) => [...c, filteredProd._id]);
-
-                        set(filteredProd._id, {
-                          _id: filteredProd._id,
-                          price: filteredProd.basePrice,
-                          variants: selectedVariants,
-                          nm: filteredProd.name,
-                          image: filteredProd.coverImage.url,
-                          quantity: count,
-                          offer: filteredProd.offer,
-                        });
-                        nav("/cartView");
+                        await handleAddToCart();
                       } else {
                         alert("Select all variants before adding to cart!");
                       }
@@ -476,22 +533,24 @@ function ProductDetails({ products, categories, filters, setCart }) {
                           //   nav(`/productDetails/${p._id}`);
                           // }}
                         >
-                          <img
-                            src={p.coverImage.url}
-                            alt={p.name}
-                            class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
-                          />
-                          <div class="flex justify-between">
-                            {" "}
-                            <div>
-                              <p class="text-black font-semibold text-[15px] px-3">
-                                {p.name}
-                              </p>
-                              <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
-                                £{p.basePrice}
-                              </p>
+                          <Link to={`/productDetails/${p._id}`}>
+                            <img
+                              src={p.coverImage?.url || ""}
+                              alt={p.name}
+                              class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
+                            />
+                            <div class="flex justify-between">
+                              {" "}
+                              <div>
+                                <p class="text-black font-semibold text-[15px] px-3">
+                                  {p.name}
+                                </p>
+                                <p class=" font-semibold text-[#59A0B8] text-[15px] px-3">
+                                  £{p.basePrice}
+                                </p>
+                              </div>
                             </div>
-                          </div>
+                          </Link>
                         </div>
                       </Col>
                     );
@@ -501,7 +560,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
             </Row>
           </Container>
           <Drawer
-            title={`Choose your ${currentVariantType.variantType}`}
+            title={`Choose your ${currentVariantType?.variantType}`}
             class="p-0 font-semibold"
             onClose={onClose}
             open={openOpt}

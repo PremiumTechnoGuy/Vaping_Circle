@@ -43,7 +43,9 @@ function CategoryComponent({ allFilters, category }) {
                   onClick={(e) => {
                     e.preventDefault();
                     nav(
-                      `/filterProductPage/${category._id}/${aFilter._id}/${aFilter.name}/null`
+                      `/filterProductPage/${category._id}/${
+                        aFilter._id
+                      }/${aFilter.name.replaceAll("/", "@")}/null`
                     );
                   }}
                 >
@@ -65,7 +67,12 @@ function CategoryComponent({ allFilters, category }) {
                                 onClick={(e) => {
                                   e.preventDefault();
                                   nav(
-                                    `/filterProductPage/${category._id}/${aFilter._id}/${aFilter.name}/${option}`
+                                    `/filterProductPage/${category._id}/${
+                                      aFilter._id
+                                    }/${aFilter.name.replaceAll(
+                                      "/",
+                                      "@"
+                                    )}/${option.replaceAll("/", "@")}`
                                   );
                                 }}
                               >

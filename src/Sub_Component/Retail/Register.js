@@ -9,23 +9,30 @@ import { BiShow, BiHide } from "react-icons/bi";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import { useAuth } from "../../utils/auth";
+import { cityArray } from "../../utils/data";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import { apiUrl } from "../../data/env";
 
-function Register({ categories }) {
+function Register() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleShowPassword = () => {
     setShowPassword((preve) => !preve);
   };
 
-  const handleShowConfirmPassword = () => {
-    setShowConfirmPassword((preve) => !preve);
-  };
-
   const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [city, setCity] = useState("");
+  const [postcode, setPostcode] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
+
+  const [focusedValue, setFocusedValue] = useState("");
+  const [distanceFromOrigin, setDistanceFromOrigin] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
   const auth = useAuth();
@@ -33,15 +40,91 @@ function Register({ categories }) {
   const redirectPath = location.state?.path || "/";
 
   const handleSignup = () => {
-    auth.login({
-      fullName,
+    const id = toast.loading("Signing Up...");
+
+    const payload = {
+      firstName,
+      lastName,
       email,
-      address: "knsjha876ts",
-      phone: "8271yd",
-      postcode: "djsd",
-    });
-    navigate(redirectPath, { replace: true });
+      password,
+      passwordConfirm: password,
+    };
+    if (postcode) payload.postcode = postcode;
+    if (city) payload.city = city;
+    if (address) payload.address = address;
+    if (phone) payload.phone = phone;
+    if (distanceFromOrigin) payload.distanceFromOrigin = distanceFromOrigin;
+
+    console.log(payload);
+
+    axios
+      .post(`${apiUrl}/api/v1/customer/signup`, payload)
+      .then((res) => {
+        // console.log(res.data);
+        toast.success("Registered Successfully", {
+          id,
+        });
+
+        setTimeout(() => {
+          auth.login(res.data.token, res.data.data);
+          navigate(redirectPath, { replace: true });
+        }, 500);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.response?.data?.message || "Could Not Sign Up", {
+          id,
+        });
+      });
   };
+
+  const handleGetLocation = (pstcd) => {
+    const id = toast.loading("Verifying Postcode...");
+    axios
+      .get(`https://api.postcodes.io/postcodes/${pstcd}`)
+      .then((res) => {
+        const destLat = res.data.result.latitude;
+        const destLon = res.data.result.longitude;
+        toast.success("Verified!", { id });
+
+        axios
+          .get(
+            `https://api-v2.distancematrix.ai/maps/api/distancematrix/json?origins=52.921418,-1.4829216&destinations=${destLat},${destLon}&key=PQm5fiw255huOOBN3KDbSlnPitHkOQrHZS7JbfitnuNKR6wN4fm18rK6elfDJ7AP`
+          )
+          .then((res) => {
+            setDistanceFromOrigin(res.data.rows[0].elements[0].distance.text);
+          })
+          .catch((err) => {
+            console.log("error calculating distance between coords: ", err);
+            setDistanceFromOrigin(
+              `${calculateDistance(destLat, destLon).toFixed(3)} km`
+            );
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(
+          err.response?.data?.error || "Postcode could not be verified!",
+          { id }
+        );
+      });
+  };
+
+  function calculateDistance(lat2, lon2) {
+    const R = 6371; // Radius of the Earth in kilometers
+    const dLat = ((lat2 - 52.921418) * Math.PI) / 180;
+    const dLon = ((lon2 - -1.4829216) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((52.921418 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in kilometers
+    return distance;
+  }
+
   return (
     <div class=" ">
       {/* About Start */}
@@ -92,9 +175,66 @@ function Register({ categories }) {
                   <Form.Group as={Col} controlId="">
                     <Form.Control
                       type="text"
-                      placeholder="Full Name"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value)}
+                      placeholder="First Name"
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="">
+                    <Form.Control
+                      type="text"
+                      placeholder="Last Name"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </Form.Group>
+                </Row>
+
+                <Form.Group className="mb-3" controlId="">
+                  <Form.Control
+                    type="tel"
+                    placeholder="Phone (optional)"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="">
+                  <Form.Control
+                    type="text"
+                    placeholder="Address (optional)"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </Form.Group>
+
+                <Row className="mb-3">
+                  <Form.Group as={Col} controlId="">
+                    <Form.Select
+                      defaultValue="Select City (optional)"
+                      onChange={(e) => setCity(e.target.value)}
+                    >
+                      <option selected hidden>
+                        Select City
+                      </option>
+                      {cityArray?.map((city) => (
+                        <option key={city}>{city}</option>
+                      ))}
+                    </Form.Select>
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="">
+                    <Form.Control
+                      type="text"
+                      placeholder="Post Code (optional)"
+                      value={postcode}
+                      onChange={(e) => setPostcode(e.target.value)}
+                      onFocus={(e) => setFocusedValue(e.target.value)}
+                      onBlur={(e) => {
+                        if (e.target.value !== focusedValue)
+                          handleGetLocation(e.target.value);
+                      }}
                     />
                   </Form.Group>
                 </Row>
@@ -104,88 +244,49 @@ function Register({ categories }) {
                     type="email"
                     placeholder="Email"
                     value={email}
-                    onChange={(e) => setEmail(e.targetvalue)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </Form.Group>
 
-                <Form.Group className="mb-3" controlId="">
-                  <Form.Select defaultValue="Select City">
-                    <option selected hidden>
-                      Select City
-                    </option>
-                    <option>...</option>
-                    <option>...</option>
-                  </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="">
-                  <Form.Control type="text" placeholder="Post Code" />
-                </Form.Group>
-
-                <div className="flex mb-3 border rounded-md px-2 py-2 w-full  bg-nonfocus-within:outline-gray-700">
-                  <input
+                <Form.Group className="mb-3 d-flex" controlId="">
+                  <Form.Control
                     type={showPassword ? "text" : "password"}
-                    id="password"
-                    name="password"
                     placeholder="Password"
-                    className="  w-full  border-none outline-none "
                     value={password}
-                    required
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                   <span
                     className="flex text-xl cursor-pointer"
                     onClick={handleShowPassword}
+                    style={{
+                      width: "5%",
+                      marginTop: "9px",
+                      marginLeft: "9px",
+                    }}
                   >
                     {showPassword ? <BiShow /> : <BiHide />}
                   </span>
-                </div>
-
-                <div className="flex mb-3  border rounded-md px-2 py-2 w-full  bg-nonfocus-within:outline-gray-700">
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    value={confirmPassword}
-                    placeholder="Confirm Password"
-                    className="  w-full  border-none outline-none "
-                    required
-                  />
-                  <span
-                    className="flex text-xl cursor-pointer"
-                    onClick={handleShowConfirmPassword}
-                  >
-                    {showConfirmPassword ? <BiShow /> : <BiHide />}
-                  </span>
-                </div>
-
-                <div class="flex mb-3">
-                  <input
-                    placeholder="DD"
-                    className="flex mt-2 me-3  border rounded-md px-2 py-2 w-[70px]  bg-nonfocus-within:outline-gray-700"
-                  />
-                  <input
-                    placeholder="MM"
-                    className="flex mt-2 me-3  border rounded-md px-2 py-2 w-[70px]  bg-nonfocus-within:outline-gray-700"
-                  />
-                  <input
-                    placeholder="YYYY"
-                    className="flex mt-2 me-3  border rounded-md px-2 py-2 w-[70px]  bg-nonfocus-within:outline-gray-700"
-                  />
-                </div>
+                </Form.Group>
 
                 <div class="flex flex-col justify-center items-center mt-5">
-                  <button class="bg-[#59A0B8] text-white px-5  py-2 rounded-[24px]">
+                  <button
+                    class="bg-[#59A0B8] text-white px-5  py-2 rounded-[24px]"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      if (firstName && lastName && password && email)
+                        handleSignup();
+                      else toast.error("Please enter the necessary info!");
+                    }}
+                  >
                     Create Account
                   </button>
                   <p class="text-[#000000]  p-2">
-                    Already have an account {/* <Link to="/login"> */}
-                    <span
-                      class="text-[#8dc9cf] px-1 font-bold underline underline-offset-2"
-                      onClick={handleSignup}
-                    >
-                      Register
-                    </span>
-                    {/* </Link> */}
+                    Already have an account
+                    <Link to="/login">
+                      <span class="text-[#8dc9cf] px-1 font-bold underline underline-offset-2">
+                        Login
+                      </span>
+                    </Link>
                   </p>
                 </div>
               </Form>
@@ -196,6 +297,7 @@ function Register({ categories }) {
       {/* About End */}
 
       {/* <Footer categories={categories} /> */}
+      <Toaster />
     </div>
   );
 }

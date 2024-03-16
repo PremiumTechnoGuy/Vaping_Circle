@@ -35,6 +35,7 @@ const JustArrived = ({ categories, products }) => {
           style={{ boxShadow: "1px 3px 3px 0px #dee2e6" }}
         >
           <input
+            className="special-input"
             type="radio"
             id={categories[0]?._id}
             name={categories[0]?._id}
@@ -44,7 +45,7 @@ const JustArrived = ({ categories, products }) => {
           />
           <label
             htmlFor={categories[0]?._id}
-            class="text-[#555555] text-[18px] font-semibold"
+            class="text-[#555555] text-[18px] font-semibold special-label"
           >
             {categories[0]?.name || "Category 1"}
           </label>
@@ -54,6 +55,7 @@ const JustArrived = ({ categories, products }) => {
           style={{ boxShadow: " 2px 3px 3px 0px #dee2e6" }}
         >
           <input
+            className="special-input"
             type="radio"
             id={categories[1]?._id}
             name={categories[1]?._id}
@@ -63,7 +65,7 @@ const JustArrived = ({ categories, products }) => {
           />
           <label
             htmlFor={categories[1]?._id}
-            class="text-[#555555] text-[18px] font-semibold"
+            class="text-[#555555] text-[18px] font-semibold special-label"
           >
             {categories[1]?.name || "Category 2"}
           </label>
@@ -73,6 +75,7 @@ const JustArrived = ({ categories, products }) => {
           style={{ boxShadow: "2px 3px 3px 0px #dee2e6" }}
         >
           <input
+            className="special-input"
             type="radio"
             id={categories[2]?._id}
             name={categories[2]?._id}
@@ -82,7 +85,7 @@ const JustArrived = ({ categories, products }) => {
           />
           <label
             htmlFor={categories[2]?._id}
-            class="text-[#555555] text-[18px] font-semibold"
+            class="text-[#555555] text-[18px] font-semibold special-label"
           >
             {categories[2]?.name || "Category 3"}
           </label>
@@ -96,7 +99,7 @@ const JustArrived = ({ categories, products }) => {
           style={{ display: "flex", justify: "center", align: "center" }}
         >
           <Row xs={2} md={4}>
-            {filteredProducts?.map((prod) => {
+            {filteredProducts?.slice(0, 4).map((prod) => {
               return (
                 <Col key={prod._id}>
                   <div id="content" class="m-2 relative">
@@ -118,10 +121,12 @@ const JustArrived = ({ categories, products }) => {
                       ) : null}
 
                       <img
-                        src={prod.coverImage.url.replace(
-                          "/product",
-                          "/tr:ar-1-1,w-301.5,h-336/product"
-                        )}
+                        src={
+                          prod.coverImage?.url?.replace(
+                            "/product",
+                            "/tr:ar-1-1,w-301.5,h-336/product"
+                          ) || ""
+                        }
                         alt=""
                         class=" w-[45rem] xs:h-[13rem] md:h-[21rem] transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
                       />

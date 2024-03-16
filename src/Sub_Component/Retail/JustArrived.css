@@ -1,5 +1,5 @@
 /* Style the label to resemble a button */
-label {
+.special-label {
   display: inline-block;
   /* padding: 5px; */
   cursor: pointer;
@@ -7,12 +7,12 @@ label {
   border-radius: 5px;
 }
 
-input {
+.special-input {
   display: none;
 }
 
 /* Style the checked radio button background and text */
-input:checked + label {
+.special-input:checked + .special-label {
   background-color: white;
   color: black;
   padding: 14px 20px;

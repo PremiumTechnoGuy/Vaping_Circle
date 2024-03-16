@@ -32,6 +32,9 @@ import { apiUrl } from "./data/env";
 import FlavourProductPage from "./Sub_Component/Retail/Flavour/FlavourProductPage";
 import DealProductPage from "./Sub_Component/Retail/Deal/DealProductPage";
 
+import Success from "./Sub_Component/Retail/Success";
+import Failure from "./Sub_Component/Retail/Failure";
+
 import { AuthProvider } from "./utils/auth";
 import { RequireAuth } from "./utils/RequireAuth";
 
@@ -81,6 +84,8 @@ const App = () => {
                   />
                 }
               />
+              <Route path="/success" element={<Success />} />
+              <Route path="/failure" element={<Failure />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
               <Route
@@ -152,7 +157,7 @@ const App = () => {
                 }
               />
               <Route
-                path="/filterProductPage/:categoryId/:filId/:filName/:chosenOption"
+                path="/filterProductPage/:categoryId/:filId/:filNameEnc/:chosenOptionEnc"
                 element={
                   <FilterProductPage
                     products={products}
@@ -197,7 +202,11 @@ const App = () => {
               />
               <Route
                 path="/checkout"
-                element={<Checkout categories={categories} filters={filters} />}
+                element={
+                  <RequireAuth>
+                    <Checkout categories={categories} filters={filters} />
+                  </RequireAuth>
+                }
               />
               <Route
                 path="/aboutus"

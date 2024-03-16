@@ -13,7 +13,14 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./SwitchBtn.css";
 import Modal from "react-bootstrap/Modal";
 // import { GoSignIn } from "react-icons/go";
-import { GoSignOut } from "react-icons/go";
+import { GoPerson, GoSignOut } from "react-icons/go";
+import { useAuth } from "../../utils/auth";
+import toast, { Toaster } from "react-hot-toast";
+import { FiShoppingCart } from "react-icons/fi";
+import { IoPersonCircleOutline } from "react-icons/io5";
+import { keys } from "idb-keyval";
+import axios from "axios";
+import { apiUrl } from "../../data/env";
 
 // import { AiOutlineShoppingCart } from "react-icons/ai";
 
@@ -30,6 +37,31 @@ function Navigation({ categories, filters }) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const auth = useAuth();
+
+  const [cartLength, setCartLength] = useState(0);
+
+  const token = localStorage.getItem("token");
+
+  React.useEffect(() => {
+    keys().then((keys) => setCartLength(keys.length));
+
+    if (token && !auth?.loggedIn) {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` },
+      };
+      axios
+        .get(`${apiUrl}/api/v1/customer/verifyToken`, config)
+        .then((res) => {
+          console.log(res.data);
+          auth.login(token, res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
 
   return (
     <div style={{ zIndex: "1000" }}>
@@ -95,36 +127,79 @@ function Navigation({ categories, filters }) {
                     />
                   </span>
 
-                  <Link to="/cartView">
-                    <span class="px-1">
-                      <img
-                        id="cart"
-                        height="29px"
-                        width="32px"
-                        alt=""
-                        // style={{ marginTop: 3 }}
-                        src="https://ik.imagekit.io/p2slevyg1/shopping-cart%20(3).png?updatedAt=1704101372255"
-                      />
-                    </span>
-                  </Link>
+                  {auth.loggedIn ? (
+                    <>
+                      <Link to="/cartView">
+                        <span class="px-1">
+                          <div className="relative">
+                            {cartLength === 0 ? null : (
+                              <span
+                                className="absolute -right-2 -top-2 text-center text-white font-bold text-sm bg-[#59A0B8] rounded-[50%] py-[1px] px-[5px] "
+                                style={{ backgroundColor: "#559A0B8" }}
+                              >
+                                {cartLength}
+                              </span>
+                            )}
+                            <FiShoppingCart className=" text-3xl text-[#A8A8A8]" />
+                          </div>
+                          {/* <img
+                            id="cart"
+                            height="29px"
+                            width="32px"
+                            alt=""
+                            // style={{ marginTop: 3 }}
+                            src="https://ik.imagekit.io/p2slevyg1/shopping-cart%20(3).png?updatedAt=1704101372255"
+                          /> */}
+                        </span>
+                      </Link>
 
-                  <span class="px-1">
-                    {/* <Link to="/register"> */}
-                    <img
-                      height="30px"
-                      width="32px"
-                      alt=""
-                      class="cursor-pointer"
-                      onClick={changeIcon1}
-                      src="https://ik.imagekit.io/p2slevyg1/profile%20(1).png?updatedAt=1704099476479"
-                    />
-                    {/* </Link> */}
-                  </span>
-                  <span class="px-1">
-                    <Link to="/login" class="hover:text-[#59a0b8] text-black">
-                      <p>LogIn</p>
-                    </Link>
-                  </span>
+                      <span class="px-1">
+                        {/* <Link to="/register"> */}
+                        <IoPersonCircleOutline
+                          className="cursor-pointer text-[#A8A8A8]"
+                          style={{ height: "30px", width: "32px" }}
+                          onClick={changeIcon1}
+                        />
+                        {/* <GoPerson
+                          className=" text-3xl text-primaryColor cursor-pointer"
+                          onClick={changeIcon1}
+                        /> */}
+                        {/* <img
+                          height="30px"
+                          width="32px"
+                          alt=""
+                          class="cursor-pointer"
+                          onClick={changeIcon1}
+                          src="https://ik.imagekit.io/p2slevyg1/profile%20(1).png?updatedAt=1704099476479"
+                        /> */}
+                        {/* </Link> */}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span class="px-1">
+                        <span
+                          onClick={() => nav("/login")}
+                          class="hover:text-[#59a0b8] text-black cursor-pointer"
+                        >
+                          <p>Login</p>
+                        </span>
+                      </span>
+                      <span class="px-1">
+                        <span class="hover:text-[#59a0b8] text-black">
+                          <p>/</p>
+                        </span>
+                      </span>
+                      <span class="px-1">
+                        <span
+                          onClick={() => nav("/register")}
+                          class="hover:text-[#59a0b8] text-black cursor-pointer"
+                        >
+                          <p>Signup</p>
+                        </span>
+                      </span>{" "}
+                    </>
+                  )}
                 </div>
               </div>
               <Navbar.Toggle
@@ -142,8 +217,26 @@ function Navigation({ categories, filters }) {
                     id={`offcanvasNavbarLabel-expand-${expand}`}
                     class="flex items-center "
                   >
-                    <GoSignOut class="text-2xl me-2" />
-                    <span class="text-[20px] font-semibold">Sign in</span>
+                    {auth.loggedIn ? (
+                      <>
+                        <GoSignOut
+                          class="text-2xl me-2"
+                          onClick={() => {
+                            auth.logout();
+                            window.location.reload();
+                          }}
+                        />
+                        <span
+                          class="text-[20px] font-semibold"
+                          onClick={() => {
+                            auth.logout();
+                            window.location.reload();
+                          }}
+                        >
+                          Sign Out
+                        </span>
+                      </>
+                    ) : null}
                   </Offcanvas.Title>
                 </Offcanvas.Header>
                 <Offcanvas.Body class="p-0">
@@ -162,7 +255,7 @@ function Navigation({ categories, filters }) {
             {open1 ? (
               <ul
                 id="talkbubble"
-                className="flex flex-col justify-start item-center right-[8rem] md:right-[75px] top-[8rem] z-[100] fixed px-2 border-[#59a0b8] shadow-md rounded-md border mx-2 items-baseline "
+                className="flex flex-col justify-start item-center right-[4.5rem] md:right-[20px] top-[8rem] z-[100] fixed px-2 border-[#59a0b8] shadow-md rounded-md border mx-2 items-baseline "
                 style={{ zIndex: "100" }}
               >
                 <li class="flex justify-start item-center ">
@@ -182,9 +275,19 @@ function Navigation({ categories, filters }) {
                 </li>
                 <li class="flex justify-start item-center ">
                   <p className="py-2">
-                    <Link to="/setting" class="hover:text-white">
-                      Setting
-                    </Link>
+                    <span
+                      class="hover:text-white cursor-pointer"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        auth.logout();
+                        toast.loading("Logging Out...");
+                        setTimeout(() => {
+                          window.location.reload();
+                        }, 500);
+                      }}
+                    >
+                      Logout
+                    </span>
                   </p>
                 </li>
               </ul>
@@ -212,6 +315,7 @@ function Navigation({ categories, filters }) {
         </Modal.Header>
       </Modal>
       <Outlet />
+      <Toaster />
     </div>
   );
 }
@@ -300,7 +404,12 @@ function MainFilterComp({ filter, categoryId }) {
                   onClick={(e) => {
                     e.preventDefault();
                     nav(
-                      `/filterProductPage/${categoryId}/${filter._id}/${filter.name}/${option}`
+                      `/filterProductPage/${categoryId}/${
+                        filter._id
+                      }/${filter.name.replaceAll("/", "@")}/${option.replaceAll(
+                        "/",
+                        "@"
+                      )}`
                     );
                   }}
                 >
