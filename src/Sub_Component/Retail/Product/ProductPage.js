@@ -216,19 +216,21 @@ function ProductPage({
   const [selectedFilters, setSelectedFilters] = useState({});
 
   // Filter products based on the selected filters
-  const filteredProducts = products?.filter((product) => {
-    return Object.entries(selectedFilters).every(([filterId, options]) => {
-      // If no options are selected for a filter, include the product
-      if (options.length === 0) return true;
-      // Otherwise, check if the product has at least one of the selected options for the filter
-      return options.some((option) =>
-        product.chosenFilters.some(
-          (filter) =>
-            filter.filterId === filterId && filter.chosenOption === option
-        )
-      );
+  const filteredProducts = products
+    ?.filter((p) => p.category === categoryId)
+    .filter((product) => {
+      return Object.entries(selectedFilters).every(([filterId, options]) => {
+        // If no options are selected for a filter, include the product
+        if (options.length === 0) return true;
+        // Otherwise, check if the product has at least one of the selected options for the filter
+        return options.some((option) =>
+          product.chosenFilters.some(
+            (filter) =>
+              filter.filterId === filterId && filter.chosenOption === option
+          )
+        );
+      });
     });
-  });
 
   // Update selected filters when a checkbox is changed
   const handleFilterChange = (filterId, option, checked) => {
