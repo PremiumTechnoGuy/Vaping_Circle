@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
@@ -22,6 +22,10 @@ function PaginationComp({ filteredProducts }) {
 
   // Total number of pages
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage]);
 
   return (
     <>
