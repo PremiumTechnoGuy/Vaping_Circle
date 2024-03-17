@@ -19,6 +19,10 @@ function PaginationComp({ filteredProducts }) {
 
   // Function to handle pagination click
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Total number of pages
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
   return (
     <>
       <Container fluid class="flex justify-center items-baseline">
@@ -117,42 +121,43 @@ function PaginationComp({ filteredProducts }) {
       <div className="flex justify-center items-center mb-5">
         <div className="pagination">
           <div>
-            {/* Create pagination links */}
-            {Array.from(
-              { length: Math.ceil(filteredProducts.length / productsPerPage) },
-              (_, i) => (
-                <a
-                  key={i}
-                  href
-                  style={{ cursor: "pointer" }}
-                  className={currentPage === i + 1 ? "active" : ""}
-                  onClick={() => paginate(i + 1)}
-                >
-                  {i + 1}
-                </a>
-              )
-            )}
-            {/* Add previous and next buttons */}
+            {/* Previous button */}
             <a
               href
+              className={currentPage === 1 ? "disabled" : ""}
               style={{ cursor: "pointer" }}
-              className={currentPage === 1 ? "active" : ""}
-              onClick={() => setCurrentPage(currentPage - 1)}
-            >
-              «
-            </a>
-            <a
-              href
-              style={{ cursor: "pointer" }}
-              className={
-                currentPage ===
-                Math.ceil(filteredProducts.length / productsPerPage)
-                  ? "active_end"
-                  : ""
+              onClick={() =>
+                currentPage === 1 ? null : setCurrentPage(currentPage - 1)
               }
-              onClick={() => setCurrentPage(currentPage + 1)}
             >
-              »
+              « Previous
+            </a>
+
+            {/* Pagination links */}
+            {Array.from({ length: totalPages }, (_, i) => (
+              <a
+                key={i}
+                href
+                className={currentPage === i + 1 ? "active" : ""}
+                style={{ cursor: "pointer" }}
+                onClick={() => paginate(i + 1)}
+              >
+                {i + 1}
+              </a>
+            ))}
+
+            {/* Next button */}
+            <a
+              href
+              className={currentPage === totalPages ? "disabled" : ""}
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                currentPage === totalPages
+                  ? null
+                  : setCurrentPage(currentPage + 1)
+              }
+            >
+              Next »
             </a>
           </div>
         </div>
