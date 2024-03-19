@@ -46,7 +46,7 @@ const About = () => {
             <img
               src="https://ik.imagekit.io/2nuimwatr/pexels-kikx-bulacan-16997537.png?updatedAt=1706280740015"
               alt=""
-              class=" h-[19rem] md:h-[35rem] lg:h-[26rem] py-2 float-end right-0  transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
+              class="w-100 h-[19rem] md:h-[35rem] lg:h-[26rem] py-2 float-end right-0  transition ease-in-out delay-75  hover:-translate-y-1 hover:scale-105 duration-150"
             />
           </Col>
         </Row>
