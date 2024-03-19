@@ -23,8 +23,8 @@ function LandingSection() {
           style={{ letterSpacing: "1px" }}
         >
           Receive your orders within
-          <span class="text-[#1B94A0]"> THREE HOURS</span> in Derby and
-          Leicester. NEXT-DAY delivery available across the UK!
+          <span class="text-[#1B94A0]"> THREE HOURS</span> in Derby & NEXT-DAY
+          delivery available across the UK!
         </p>
         <Link to="/category_page">
           <button id="btn" class="mt-3 w-48">
@@ -61,13 +61,12 @@ function LandingSection() {
             style={{ marginTop: 0 }}
             src="https://ik.imagekit.io/p2slevyg1/three%20HOURS.png?updatedAt=1704311874074"
           />
-          <p class="text-[#888888] font-bold mt-2">In Derby And Liecester.</p>
+          <p class="text-[#888888] font-bold mt-2">In Derby.</p>
           <p
             class="text-[#888888] leading-relaxed font-bold"
             style={{ marginTop: 0 }}
           >
-            Receive Your Orders Within Three <br /> Hours In Derby And
-            Liecester.
+            Receive Your Orders Within Three <br /> Hours In Derby.
           </p>
           <Link to="/category_page">
             <button id="btn" class="mt-3 w-48">
