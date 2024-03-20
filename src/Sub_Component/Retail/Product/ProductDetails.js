@@ -476,7 +476,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     {filteredProd?.overview}
                   </p>
                 ) : null}
-                <div
+                {/* <div
                   className="flex justify-between px-2  bg-[#E9E9E9] my-2 items-baseline "
                   onClick={changeIcon2}
                 >
@@ -510,7 +510,7 @@ function ProductDetails({ products, categories, filters, setCart }) {
                     with "lorem ipsum ...", suggesting that the galley type of
                     that page was mixed up to make the dummy text seen today.
                   </p>
-                ) : null}
+                ) : null} */}
               </div>
             </Row>
 
