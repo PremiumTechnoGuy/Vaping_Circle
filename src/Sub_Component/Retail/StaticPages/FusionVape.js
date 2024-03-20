@@ -38,7 +38,7 @@ const Fusion_Vape = ({ categories, filters }) => {
             Visit our Store Locator to find the{" "}
             <span style={{ color: "blue", fontWeight: "bold" }}>
               <a
-                href="https://maps.app.goo.gl/iQgkPa2VDhHziTjg6"
+                href="https://maps.app.goo.gl/hZK9FHzb11LpbKLAA"
                 target="empty"
               >
                 Fusion Vapes
@@ -61,10 +61,10 @@ const Fusion_Vape = ({ categories, filters }) => {
           <p class="fs-4 text-black font-semibold line">Opening Times:</p>
 
           <ul style={{ listStyle: "disc", fontSize: "1.5rem" }}>
-            <li class="py- ml-5">Monday: 10:00 am - 8:00 pm</li>
-            <li class="py-1 ml-5">Tuesday: 10:00 am - 8:00 pm</li>
-            <li class="py-1 ml-5">Wednesday: 10:00 am - 8:00 pm</li>
-            <li class="py-1 ml-5">Thursday: 10:00 am - 8:00 pm</li>
+            <li class="py- ml-5">Monday: 10:00 am - 7:00 pm</li>
+            <li class="py-1 ml-5">Tuesday: 10:00 am - 7:00 pm</li>
+            <li class="py-1 ml-5">Wednesday: 10:00 am - 7:00 pm</li>
+            <li class="py-1 ml-5">Thursday: 10:00 am - 7:00 pm</li>
             <li class="py-1 ml-5">Friday: 11:00 am - 9:00 pm</li>
             <li class="py-1 ml-5">Saturday: 11:00 am - 9:00 pm</li>
             <li class="py-1 ml-5">Sundays: 11:00 am - 5:00 pm</li>
