@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Main_Component/Home";
 import FlavourPage from "./Sub_Component/Retail/Flavour/FlavourPage";
 import CategoryPage from "./Sub_Component/Retail/Category/CategoryPage";
-import Footer from "./Sub_Component/Retail/Footer";
-import Fixed_Component from "./Sub_Component/Retail/Fixed_Component";
+// import Footer from "./Sub_Component/Retail/Footer";
+// import Fixed_Component from "./Sub_Component/Retail/Fixed_Component";
 import ProfilePage from "./Sub_Component/Retail/ProfilePage";
 import Register from "./Sub_Component/Retail/Register";
 import Login from "./Sub_Component/Retail/Login";
@@ -21,7 +21,6 @@ import MyOrder from "./Sub_Component/Retail/MyOrder";
 import AboutUs from "./Sub_Component/Retail/StaticPages/AboutUs";
 import Term_Conditions from "./Sub_Component/Retail/StaticPages/Term_Conditions";
 import Return_Policy from "./Sub_Component/Retail/StaticPages/Return_Policy";
-import Age_varification from "./Sub_Component/Retail/StaticPages/Age_varification";
 import Privacy_Policy from "./Sub_Component/Retail/StaticPages/Privacy_Policy";
 import Compliance from "./Sub_Component/Retail/StaticPages/Compliance";
 import Fusion_Vape from "./Sub_Component/Retail/StaticPages/FusionVape";
@@ -216,12 +215,6 @@ const App = () => {
                 path="/term_conditions"
                 element={
                   <Term_Conditions categories={categories} filters={filters} />
-                }
-              />
-              <Route
-                path="/age_varification"
-                element={
-                  <Age_varification categories={categories} filters={filters} />
                 }
               />
               <Route

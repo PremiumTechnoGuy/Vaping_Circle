@@ -18,6 +18,7 @@ import { cityArray } from "../../utils/data";
 
 function Checkout({ categories, filters }) {
   const [cartArr, setCartArr] = React.useState([]);
+  const [checkState, setCheckState] = React.useState(true);
   const nav = useNavigate();
 
   function getSavedCartProducts() {
@@ -331,7 +332,9 @@ function Checkout({ categories, filters }) {
                         >
                           <Form.Check
                             type="checkbox"
-                            label="By making a purchase with Vaping Circle, you confirm to be Age Verified via 1Account and agree to our terms & conditions. Please tick to confirm."
+                            checked={checkState}
+                            onClick={(e) => setCheckState((c) => !c)}
+                            label="By making a purchase with Vaping Circle, you confirm and agree to our terms & conditions. Please tick to confirm."
                           />
                         </Form.Group>
                         <span>

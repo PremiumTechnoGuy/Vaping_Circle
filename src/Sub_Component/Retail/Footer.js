@@ -11,7 +11,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { MdLocationOn } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const Footer = ({categories}) => {
+const Footer = ({ categories }) => {
   return (
     <div className="bg-[#00000029] text-black">
       <Container>
@@ -60,13 +60,6 @@ const Footer = ({categories}) => {
               </span>{" "}
               <br />
               <span className="lg:ml-[10px]">
-                {" "}
-                <Link to="/age_varification" class="hover:text-black">
-                  Age Verification
-                </Link>
-              </span>{" "}
-              <br />
-              <span className="lg:ml-[10px]">
                 <Link to="/compliance" class="hover:text-black">
                   Compliance (TPD)
                 </Link>
@@ -90,7 +83,6 @@ const Footer = ({categories}) => {
                 </Link>
               </span>
               <br />
-
             </p>
           </Col>
           <Col xs={6} md={3} className=" flex row">
@@ -102,45 +94,63 @@ const Footer = ({categories}) => {
               <Link
                 to={`/productPage/${categories[0]?._id}/${categories[0]?.name}`}
               >
-                <button className="lg:ml-[15px]"> {categories[0]?.name || "Add"}</button> 
-                </Link><br />
+                <button className="lg:ml-[15px]">
+                  {" "}
+                  {categories[0]?.name || "Add"}
+                </button>
+              </Link>
+              <br />
 
-                <Link
+              <Link
                 to={`/productPage/${categories[1]?._id}/${categories[1]?.name}`}
               >
-                <button className="lg:ml-[15px]"> {categories[1]?.name || "Add"}</button> 
-                </Link>
+                <button className="lg:ml-[15px]">
+                  {" "}
+                  {categories[1]?.name || "Add"}
+                </button>
+              </Link>
               <br />
 
               <Link
                 to={`/productPage/${categories[2]?._id}/${categories[2]?.name}`}
               >
-                <button className="lg:ml-[15px]"> {categories[2]?.name || "Add"}</button> 
-                </Link>
-                <br />
+                <button className="lg:ml-[15px]">
+                  {" "}
+                  {categories[2]?.name || "Add"}
+                </button>
+              </Link>
+              <br />
 
               <Link
                 to={`/productPage/${categories[3]?._id}/${categories[3]?.name}`}
               >
-                <button className="lg:ml-[15px]"> {categories[3]?.name || "Add"}</button> 
-                </Link>
+                <button className="lg:ml-[15px]">
+                  {" "}
+                  {categories[3]?.name || "Add"}
+                </button>
+              </Link>
               <br />
 
               <Link
                 to={`/productPage/${categories[4]?._id}/${categories[4]?.name}`}
               >
-                <button className="lg:ml-[15px]"> {categories[4]?.name || "Add"}</button> 
-                </Link>
+                <button className="lg:ml-[15px]">
+                  {" "}
+                  {categories[4]?.name || "Add"}
+                </button>
+              </Link>
 
               <br />
 
               <Link
                 to={`/productPage/${categories[5]?._id}/${categories[5]?.name}`}
               >
-                <button className="lg:ml-[15px]"> {categories[5]?.name || "Add"}</button> 
-                </Link>
+                <button className="lg:ml-[15px]">
+                  {" "}
+                  {categories[5]?.name || "Add"}
+                </button>
+              </Link>
 
-             
               <br />
             </p>
           </Col>
@@ -163,16 +173,20 @@ const Footer = ({categories}) => {
                 <h5>
                   <FaPhoneAlt class="text-white bg-[#0B428B] rounded-full p-1 text-2xl" />
                 </h5>
-                <span onClick={() => window.location.href = 'https://wa.me/+447939278187'} >
+                <span
+                  onClick={() =>
+                    (window.location.href = "https://wa.me/+447939278187")
+                  }
+                >
                   +447939278187
-                </span>              </p>
+                </span>{" "}
+              </p>
               <p className="lg:ml-[50px] mt-2  flex  col">
                 <h5>
                   <MdEmail class="text-white bg-[#0B428B] rounded-full p-1 text-2xl" />
                 </h5>
                 <span className="text-sm ml-2 leading-5">
-
-                  <a href="mailto:info@vapingcircle.com" >
+                  <a href="mailto:info@vapingcircle.com">
                     info@vapingcircle.com
                   </a>
                 </span>
@@ -202,7 +216,8 @@ const Footer = ({categories}) => {
         </Row>
       </Container>
       <h1 class="bg-[#59A0B8] text-white text-[16px] py-3  text-center">
-        © 2024 Vaping Circle. All rights reserved <br></br>Designed by <a href="https://www.webcraftio.com/">WebCraftio</a>
+        © 2024 Vaping Circle. All rights reserved <br></br>Designed by{" "}
+        <a href="https://www.webcraftio.com/">WebCraftio</a>
       </h1>
     </div>
   );
