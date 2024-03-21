@@ -94,17 +94,21 @@ function Navigation({ categories, filters }) {
                     style={{ height: 35 }}
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    onKeyDown={(e) =>
-                      e.key === "Enter"
-                        ? nav(`/searchProductPage/${query}`)
-                        : null
-                    }
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleClose();
+                        nav(`/searchProductPage/${query.replaceAll("/", "@")}`);
+                      }
+                    }}
                   />
                   <InputGroup.Text
                     id="basic-addon1"
                     className="text-white"
                     style={{ height: 36, backgroundColor: "#59A0B8" }}
-                    onClick={() => nav(`/searchProductPage/${query}`)}
+                    onClick={() => {
+                      handleClose();
+                      nav(`/searchProductPage/${query.replaceAll("/", "@")}`);
+                    }}
                   >
                     <IoIosSearch className="text-2xl" />
                   </InputGroup.Text>
@@ -314,15 +318,21 @@ function Navigation({ categories, filters }) {
               style={{ height: 35 }}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              onKeyDown={(e) =>
-                e.key === "Enter" ? nav(`/searchProductPage/${query}`) : null
-              }
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleClose();
+                  nav(`/searchProductPage/${query.replaceAll("/", "@")}`);
+                }
+              }}
             />
             <InputGroup.Text
               id="basic-addon1"
               className="text-white"
               style={{ height: 36, backgroundColor: "#59A0B8" }}
-              onClick={() => nav(`/searchProductPage/${query}`)}
+              onClick={() => {
+                handleClose();
+                nav(`/searchProductPage/${query.replaceAll("/", "@")}`);
+              }}
             >
               <IoIosSearch className="text-2xl" />
             </InputGroup.Text>
