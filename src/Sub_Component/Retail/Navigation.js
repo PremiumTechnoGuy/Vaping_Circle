@@ -26,6 +26,7 @@ import { apiUrl } from "../../data/env";
 
 function Navigation({ categories, filters }) {
   const nav = useNavigate();
+  const [query, setQuery] = useState("");
 
   const [open1, setOpen1] = useState(false);
 
@@ -91,11 +92,19 @@ function Navigation({ categories, filters }) {
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     style={{ height: 35 }}
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) =>
+                      e.key === "Enter"
+                        ? nav(`/searchProductPage/${query}`)
+                        : null
+                    }
                   />
                   <InputGroup.Text
                     id="basic-addon1"
                     className="text-white"
                     style={{ height: 36, backgroundColor: "#59A0B8" }}
+                    onClick={() => nav(`/searchProductPage/${query}`)}
                   >
                     <IoIosSearch className="text-2xl" />
                   </InputGroup.Text>
@@ -303,11 +312,17 @@ function Navigation({ categories, filters }) {
               aria-label="Username"
               aria-describedby="basic-addon1"
               style={{ height: 35 }}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) =>
+                e.key === "Enter" ? nav(`/searchProductPage/${query}`) : null
+              }
             />
             <InputGroup.Text
               id="basic-addon1"
               className="text-white"
               style={{ height: 36, backgroundColor: "#59A0B8" }}
+              onClick={() => nav(`/searchProductPage/${query}`)}
             >
               <IoIosSearch className="text-2xl" />
             </InputGroup.Text>

@@ -36,6 +36,7 @@ import Failure from "./Sub_Component/Retail/Failure";
 
 import { AuthProvider } from "./utils/auth";
 import { RequireAuth } from "./utils/RequireAuth";
+import SearchProductPage from "./Sub_Component/Retail/Search/SearchProductPage";
 
 const App = () => {
   const [products, setProducts] = React.useState([]);
@@ -159,6 +160,16 @@ const App = () => {
                 path="/filterProductPage/:categoryId/:filId/:filNameEnc/:chosenOptionEnc"
                 element={
                   <FilterProductPage
+                    products={products}
+                    categories={categories}
+                    filters={filters}
+                  />
+                }
+              />
+              <Route
+                path="/searchProductPage/:query"
+                element={
+                  <SearchProductPage
                     products={products}
                     categories={categories}
                     filters={filters}
