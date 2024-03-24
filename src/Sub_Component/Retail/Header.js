@@ -11,7 +11,7 @@ function Header({ phoneNumber }) {
   return (
     <div
       className="container-fluid p-2 text-white bg-[#59A0B8]"
-    // style={{ marginTop:-270 }}
+      // style={{ marginTop:-270 }}
     >
       <div className="row ">
         <div className="  col  lg:grid-cols-5  sm:grid-cols-12">
@@ -40,9 +40,16 @@ function Header({ phoneNumber }) {
 
             <FaWhatsapp
               class="text-white text-2xl cursor-pointer"
-              onClick={() => window.location.href = 'https://wa.me/+447939278187'}
+              onClick={() =>
+                (window.location.href = "https://wa.me/+447939278187")
+              }
             />
-            <span onClick={() => window.location.href = 'https://wa.me/+447939278187'} style={{ marginLeft: -8 }}>
+            <span
+              onClick={() =>
+                (window.location.href = "https://wa.me/+447939278187")
+              }
+              style={{ marginLeft: -8 }}
+            >
               +447939278187
             </span>
           </p>
@@ -57,7 +64,7 @@ function Header({ phoneNumber }) {
               loop=""
             >
               <p class="geek1">
-                Receive your orders within three hours in Derby and Liecester
+                Receive your orders within three hours in Derby
               </p>
               <br />
               <p class="geek2">Next-Day delivery available across the UK!</p>
@@ -68,7 +75,7 @@ function Header({ phoneNumber }) {
               {" "}
               <p class="my-2">
                 {" "}
-                Receive your orders within three hours in Derby and Liecester
+                Receive your orders within three hours in Derby
               </p>{" "}
               <p class="my-2"></p>
               <p class="my-2"> Next-Day delivery available across the UK!</p>
