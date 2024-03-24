@@ -12,7 +12,7 @@ function SearchProductPage({ products, categories, filters }) {
 
   useEffect(() => {
     // Search Click Func
-    const keys = ["name", "description"];
+    const keys = ["name"];
 
     const searchedProds = products?.filter((p) =>
       keys.some((k) => p[k].toLowerCase().includes(srchQuery))
