@@ -2,6 +2,8 @@ import React from "react";
 import Footer from "../Footer";
 import { Link, Outlet } from "react-router-dom";
 import Fixed_Component from "../Fixed_Component";
+import { BsFacebook, BsInstagram } from "react-icons/bs";
+import { BiMapPin } from "react-icons/bi";
 
 const Our_Partner = ({ categories, filters }) => {
   return (
@@ -13,11 +15,36 @@ const Our_Partner = ({ categories, filters }) => {
         </h1>
         <div class="mx-5 md:mx-5 mt-5  md:px-5 flex justify-center items-center"></div>
         <div class="mx-5 md:mx-5 mt-5  md:px-5 ">
-          <Link target="_blank" class="hover:text-black" to="/fusion_vape">
-            <p class="fs-4 text-[#59A0B8] font-semibold line">Fusion Vapes</p>
-            <p class="fs-5 text-black font-semibold ">
+          <p class="fs-4 text-[#59A0B8] font-semibold line d-flex gap-3">
+            <Link target="_blank" to="/fusion_vape">
+              Fusion Vapes{" "}
+            </Link>
+            <a
+              href="https://www.instagram.com/fusion.vapes/"
+              target="empty"
+              style={{ alignSelf: "center" }}
+            >
+              <BsInstagram />
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61556695323207"
+              target="empty"
+              style={{ alignSelf: "center" }}
+            >
+              <BsFacebook />
+            </a>
+          </p>
+          <Link
+            target="_blank"
+            className="d-flex gap-3"
+            to="https://maps.app.goo.gl/hZK9FHzb11LpbKLAA"
+          >
+            <p class="fs-5 text-black font-semibold">
               Address: 12 Northampton Street, LE1 1PA, Leicester, UK
             </p>
+            <span style={{ alignSelf: "center" }}>
+              <BiMapPin />
+            </span>
           </Link>
           <p class="text-[#575757] tracking-wide leading-6 fs-5">
             Fusion Vapes is in the heart of Leicester, in the city centre.
@@ -27,7 +54,7 @@ const Our_Partner = ({ categories, filters }) => {
             e-liquids, kits, and{" "}
             <span style={{ color: "blue" }}>
               <Link target="_blank" class="hover:text-black" to="/fusion_vape">
-                much more
+                ...see more
               </Link>
             </span>
             .
@@ -35,11 +62,36 @@ const Our_Partner = ({ categories, filters }) => {
         </div>
 
         <div class="mx-5 md:mx-5 mt-5  md:px-5 ">
-          <Link target="_blank" class="hover:text-black" to="/cloud_partner">
-            <p class="fs-4 text-[#59A0B8] font-semibold line">Cloud 194</p>
-            <p class="fs-5 text-black font-semibold ">
+          <p class="fs-4 text-[#59A0B8] font-semibold line d-flex gap-3">
+            <Link target="_blank" to="/cloud_partner">
+              Cloud 194{" "}
+            </Link>
+            <a
+              href="https://www.instagram.com/cloud194.derby"
+              target="empty"
+              style={{ alignSelf: "center" }}
+            >
+              <BsInstagram />
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61556456590125"
+              target="empty"
+              style={{ alignSelf: "center" }}
+            >
+              <BsFacebook />
+            </a>
+          </p>
+          <Link
+            target="_blank"
+            className="d-flex gap-3"
+            to="https://maps.app.goo.gl/Nkc2QwhAr6R7bGWb9"
+          >
+            <p class="fs-5 text-black font-semibold">
               Address: 194 Mansfield Rd., Little Chester, Derby DE1 3RB.
             </p>
+            <span style={{ alignSelf: "center" }}>
+              <BiMapPin />
+            </span>
           </Link>
           <p class="text-[#575757] tracking-wide leading-6 fs-5">
             Step into our Derby store and immerse yourself in a relaxed
@@ -52,38 +104,28 @@ const Our_Partner = ({ categories, filters }) => {
                 class="hover:text-black"
                 to="/cloud_partner"
               >
-                much more
+                ...see more
               </Link>
             </span>
             .
           </p>
         </div>
         <div class="mx-5 md:mx-5 mt-5  md:px-5 ">
-          <p class="fs-4  font-semibold line text-[#59A0B8]">
-            Sparkuff Vapes <span class="text-[#59A0B8]">(Comming Soon)</span>
-          </p>
-          <p class="fs-5 text-black font-semibold ">
-            Address: 194 Mansfield Rd., DE1 3RB, Derby, UK
-          </p>
-          <p class="text-[#575757] tracking-wide leading-6 fs-5">
-            Sparkuff Vapes is located on the busy Mansfield Road. Sparkuff Vapes
-            offers the full range of vaping products including disposables,
-            e-liquids, kits, and much more.
-          </p>
-        </div>
-        <div class="mx-5 md:mx-5 mt-5  md:px-5 ">
           <p class="fs-4 text-[#59A0B8] font-semibold line">
             Ultimate Vapes Derby{" "}
           </p>
-          <p class="fs-5 text-black font-semibold ">
-            <Link
-              target="_blank"
-              class="hover:text-black"
-              to="https://www.google.com/maps/place/Ultimate+Vapes+Derby/@52.9227612,-1.4940785,563m/data=!3m1!1e3!4m6!3m5!1s0x4879f10b2aacef23:0x8edebf937141443e!8m2!3d52.9227612!4d-1.4940785!16s%2Fg%2F11rvh0gjqv?entry=ttu"
-            >
+          <Link
+            target="_blank"
+            className="d-flex gap-3"
+            to="https://maps.app.goo.gl/D8WrpN8GYNNurdqu8"
+          >
+            <p class="fs-5 text-black font-semibold">
               Address: 118 Uttoxeter Old Rd, DE1 1GE, Derby, UK
-            </Link>
-          </p>
+            </p>
+            <span style={{ alignSelf: "center" }}>
+              <BiMapPin />
+            </span>
+          </Link>
           <p class="text-[#575757] tracking-wide leading-6 fs-5">
             Ultimate Vapes Derby offers the full range of vaping products
             including disposables, e-liquids, kits, and much more.
@@ -91,15 +133,18 @@ const Our_Partner = ({ categories, filters }) => {
         </div>
         <div class="mx-5 md:mx-5 mt-5  md:px-5 ">
           <p class="fs-4 text-[#59A0B8] font-semibold line">iBlaze Vapour </p>
-          <p class="fs-5 text-black font-semibold mb-5">
-            <Link
-              target="_blank"
-              class="hover:text-black"
-              to="https://www.google.com/maps/place/iBlaze+Vapour/@52.9001199,-1.492426,794m/data=!3m2!1e3!4b1!4m6!3m5!1s0x4879f0d08b88ced1:0xc845a0961e926e6b!8m2!3d52.9001167!4d-1.4898457!16s%2Fg%2F11b86x_tg2?entry=tts"
-            >
+          <Link
+            target="_blank"
+            className="d-flex gap-3"
+            to="https://maps.app.goo.gl/aD8KTfP6YwdWeL558"
+          >
+            <p class="fs-5 text-black font-semibold">
               Address: 77 Stenson Rd, DE23 1JF, Sunny Hill, Derby, UK
-            </Link>
-          </p>
+            </p>
+            <span style={{ alignSelf: "center" }}>
+              <BiMapPin />
+            </span>
+          </Link>
         </div>
         <br></br>
 

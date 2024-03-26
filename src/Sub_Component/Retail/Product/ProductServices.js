@@ -19,7 +19,7 @@ function ProductServices() {
             />
             <span class=" px-4 py-4 ">
               <p className="font-bold ">Free Delivery</p>
-              <p class="text-[11px]">On Order over $20</p>
+              <p class="text-[11px]">On Order over £20</p>
             </span>
           </Col>
           <Col className="p-5 flex justify-start items-center">
@@ -41,9 +41,7 @@ function ProductServices() {
             />
             <span class="py-4 px-4">
               <p className="font-bold px-1">Get it Tomorrow*</p>
-              <p className="text-[11px] px-1">
-                Order in -1 hours -1 minutes and -17 seconds
-              </p>
+              <p className="text-[11px] px-1">Order in under 2 hours.</p>
             </span>
           </Col>
         </Row>

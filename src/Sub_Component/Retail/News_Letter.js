@@ -40,7 +40,12 @@ function News_Letter() {
       {/* <Container fluid > */}
       <Card className=" text-white mt-5">
         <Card.Img
-          class="h-96  "
+          class="h-96 sm:block md:hidden"
+          src="https://ik.imagekit.io/p2slevyg1/tr:h-384,w-410/vape-kits-all-you-need-to-know.jpg?updatedAt=1704271754026"
+          alt="Card image"
+        />
+        <Card.Img
+          class="h-96 hidden md:block"
           src="https://ik.imagekit.io/p2slevyg1/vape-kits-all-you-need-to-know.jpg?updatedAt=1704271754026"
           alt="Card image"
         />
@@ -73,7 +78,7 @@ function News_Letter() {
                 className="text-white"
                 style={{ height: 35, fontSize: 12, backgroundColor: "#59A0B8" }}
               >
-               <button>Subscribe</button> 
+                <button>Subscribe</button>
               </InputGroup.Text>
             </InputGroup>
           </Card.Text>

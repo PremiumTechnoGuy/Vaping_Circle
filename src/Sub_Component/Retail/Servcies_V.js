@@ -17,7 +17,7 @@ function Servcies_V() {
               alt=""
             />
             <p className="font-bold  text-center">Free Delivery</p>
-            <p className=" text-center">On Order over $20</p>
+            <p className=" text-center">On Order over £20</p>
           </Col>
           <Col className="p-5" style={{ color: "#0B428B" }}>
             <img

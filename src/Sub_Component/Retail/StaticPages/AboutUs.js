@@ -228,7 +228,7 @@ function AboutUs({ filters, categories }) {
                     have it delivered to your doorstep. We want to make the
                     transition to vaping as easy and accessible as possible, no
                     matter where you are. We promise to deliver in 2 Hours in
-                    Derby, and Leicester, and Next-Day UK wide.
+                    Derby, and Next-Day UK wide.
                   </p>
                 </div>
               </Col>
@@ -245,8 +245,8 @@ function AboutUs({ filters, categories }) {
               wide selection of products, place your order online, and have it
               delivered to your doorstep. We want to make the transition to
               vaping as easy and accessible as possible, no matter where you
-              are. We promise to deliver in 2 Hours in Derby, and Leicester, and
-              Next-Day UK wide.
+              are. We promise to deliver in 2 Hours in Derby, and Next-Day UK
+              wide.
             </p>
           </div>
           <div class="mx-5 md:mx-5 mt-5  md:px-5 md:hidden block ">

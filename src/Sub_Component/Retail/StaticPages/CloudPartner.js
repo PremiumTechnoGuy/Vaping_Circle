@@ -36,7 +36,7 @@ const Cloud_Partner = ({ categories, filters }) => {
             Visit our Store Locator to find the{" "}
             <span style={{ color: "blue", fontWeight: "bold" }}>
               <a
-                href="https://maps.app.goo.gl/6KM53H3q3c9oaELcA"
+                href="https://maps.app.goo.gl/Nkc2QwhAr6R7bGWb9"
                 target="empty"
               >
                 Cloud 194
