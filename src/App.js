@@ -41,6 +41,7 @@ import Failure from "./Sub_Component/Retail/Failure";
 import { AuthProvider } from "./utils/auth";
 import { RequireAuth } from "./utils/RequireAuth";
 import SearchProductPage from "./Sub_Component/Retail/Search/SearchProductPage";
+import WhatsAppButton from "./Sub_Component/Retail/Whatsapp";
 
 const App = () => {
   const [products, setProducts] = React.useState([]);

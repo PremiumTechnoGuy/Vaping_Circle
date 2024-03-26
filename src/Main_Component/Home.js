@@ -17,6 +17,7 @@ import Fixed_Component from "../Sub_Component/Retail/Fixed_Component.js";
 import axios from "axios";
 import { apiUrl } from "../data/env.js";
 import { useAuth } from "../utils/auth.js";
+import WhatsAppButton from "../Sub_Component/Retail/Whatsapp.js";
 
 function Home({
   setCurrentCategory,
@@ -64,6 +65,7 @@ function Home({
         <About />
         <Guides />
         <Footer categories={categories} />
+        <WhatsAppButton />
       </div>
       <Outlet />
     </div>
