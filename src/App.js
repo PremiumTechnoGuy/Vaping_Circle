@@ -26,6 +26,10 @@ import Compliance from "./Sub_Component/Retail/StaticPages/Compliance";
 import Fusion_Vape from "./Sub_Component/Retail/StaticPages/FusionVape";
 import Cloud_Partner from "./Sub_Component/Retail/StaticPages/CloudPartner";
 import Our_Partner from "./Sub_Component/Retail/StaticPages/OurPartner";
+import Blog1 from "./Sub_Component/Retail/Blogs/Blog1";
+import Blog2 from "./Sub_Component/Retail/Blogs/Blog2";
+import Blog3 from "./Sub_Component/Retail/Blogs/Blog3";
+import Blog4 from "./Sub_Component/Retail/Blogs/Blog4";
 import axios from "axios";
 import { apiUrl } from "./data/env";
 import FlavourProductPage from "./Sub_Component/Retail/Flavour/FlavourProductPage";
@@ -152,7 +156,7 @@ const App = () => {
                     // currentCategory={currentCategory}
                     categories={categories}
                     filters={filters}
-                    // setCurrentProductId={setCurrentProductId}
+                  // setCurrentProductId={setCurrentProductId}
                   />
                 }
               />
@@ -262,6 +266,30 @@ const App = () => {
                 path="/our_partner"
                 element={
                   <Our_Partner categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/Blog1"
+                element={
+                  <Blog1 title="Challenges with Your New Vape" description="Discover quick solutions to common issues with your new vape device. Whether you're a novice or experienced vaper, we've got you covered for a satisfying experience.                  " categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/Blog2"
+                element={
+                  <Blog2 title="Choosing the Right E-Liquid" description="A Comprehensive Guide to Choosing the Right E-Liquid" categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/Blog3"
+                element={
+                  <Blog3 title="Mastering Leaks" description="Leaky faucets, pipes, or roofs can be a constant source of frustration for homeowners. Not only do leaks waste water and money, but they can also cause damage to your property if left unchecked. " categories={categories} filters={filters} />
+                }
+              />
+              <Route
+                path="/Blog4"
+                element={
+                  <Blog4 title="Protecting Yourself and Your Device" description=" Vape Safety Tips: Protecting Yourself and Your Device " categories={categories} filters={filters} />
                 }
               />
             </Routes>
