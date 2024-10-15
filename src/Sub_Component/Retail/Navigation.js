@@ -189,29 +189,13 @@ function Navigation({ categories, filters }) {
                       </span>
                     </>
                   ) : (
-                    <>
-                      <span class="px-1">
-                        <span
-                          onClick={() => nav("/login")}
-                          class="hover:text-[#59a0b8] text-black cursor-pointer"
-                        >
-                          <p>Login</p>
-                        </span>
-                      </span>
-                      <span class="px-1">
-                        <span class="hover:text-[#59a0b8] text-black">
-                          <p>/</p>
-                        </span>
-                      </span>
-                      <span class="px-1">
-                        <span
-                          onClick={() => nav("/register")}
-                          class="hover:text-[#59a0b8] text-black cursor-pointer"
-                        >
-                          <p>Signup</p>
-                        </span>
-                      </span>{" "}
-                    </>
+                    <span class="px-1">
+                      <IoPersonCircleOutline
+                        className="cursor-pointer text-[#A8A8A8]"
+                        style={{ height: "30px", width: "32px" }}
+                        onClick={() => nav("/login")}
+                      />
+                    </span>
                   )}
                 </div>
               </div>
